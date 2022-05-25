@@ -39,6 +39,16 @@
     <script>
         Breakpoints();
     </script>
+
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-table/bootstrap-table.minfd53.css?v4.0.1') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/table.css') }}" />
+
+    <style>
+        .tbbg {
+            background-color: #af742e;
+        }
+
+    </style>
 </head>
 
 <body class="animsition site-navbar-small dashboard">

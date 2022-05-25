@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="">
+                            <a href="{{ route('hr_dahsboard.index') }}">
                                 <div class="card card-block p-25" style="background-color: #f08b33;">
                                     <div class="counter counter-lg">
                                         <div class="white">

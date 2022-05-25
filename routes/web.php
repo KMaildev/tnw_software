@@ -20,4 +20,8 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth')->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('hr_dahsboard', 'Hr\HrDashboardController');
+    Route::resource('employee', 'Hr\EmployeeController');
+});

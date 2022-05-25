@@ -29,6 +29,11 @@
 <script src="{{ asset('assets/assets/js/Section/PageAside.minfd53.js?v4.0.1') }}"></script>
 <script src="{{ asset('assets/assets/js/Plugin/menu.minfd53.js?v4.0.1') }}"></script>
 
+<script src="{{ asset('assets/vendor/bootstrap-table/bootstrap-table.minfd53.js?v4.0.1') }}"></script>
+<script
+src="{{ asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-mobile.minfd53.js?v4.0.1') }}">
+</script>
+
 <!-- Config -->
 <script src="{{ asset('assets/js/config/colors.minfd53.js?v4.0.1') }}"></script>
 <script src="{{ asset('assets/assets/js/config/tour.minfd53.js?v4.0.1') }}"></script>
@@ -46,23 +51,31 @@
 <script src="{{ asset('assets/js/Plugin/jvectormap.minfd53.js?v4.0.1') }}"></script>
 <script src="{{ asset('assets/js/Plugin/peity.minfd53.js?v4.0.1') }}"></script>
 <script src="{{ asset('assets/assets/examples/js/dashboard/v1.minfd53.js?v4.0.1') }}"></script>
-<!-- Google Analytics -->
-<script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '../../../../www.google-analytics.com/analytics.js',
-        'ga');
 
-    ga('create', 'UA-65522665-1', 'auto');
-    ga('send', 'pageview');
+<script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+
+@yield('script')
+
+<script type="text/javascript">
+    $('.del_confirm').click(function(event) {
+        var form = $(this).closest("form");
+        event.preventDefault();
+        Swal.fire({
+            text: "Are you sure you want to delete this record?",
+            showCancelButton: true,
+            customClass: {
+                confirmButton: 'btn btn-primary me-3',
+                cancelButton: 'btn btn-label-secondary'
+            },
+            buttonsStyling: false,
+            buttons: true,
+            dangerMode: true,
+        }).then((res) => {
+            if (res.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
 </script>
 </body>
 
