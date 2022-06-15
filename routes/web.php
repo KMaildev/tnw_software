@@ -22,6 +22,11 @@ Auth::routes(['register' => false]);
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::view('/file_manager', 'file_manager.index')->name('file_manager.index');
     Route::resource('hr_dahsboard', 'Hr\HrDashboardController');
+
     Route::resource('employee', 'Hr\EmployeeController');
+    Route::resource('department', 'Hr\DepartmentController');
+    Route::resource('role', 'Hr\RoleController');
+    Route::resource('permission', 'Hr\PermissionController');
 });

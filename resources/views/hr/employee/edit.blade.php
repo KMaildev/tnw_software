@@ -7,7 +7,7 @@
                 <li class="breadcrumb-item">
                     <a href="{{ route('employee.index') }}">Employee</a>
                 </li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item active">Edit</li>
             </ol>
         </div>
 
@@ -19,16 +19,17 @@
                             <div class="example-wrap">
                                 <h4 class="example-title">Account Details</h4>
                                 <div class="example">
-                                    <form action="{{ route('employee.store') }}" method="POST" autocomplete="off"
-                                        id="create-form" role="form" enctype="multipart/form-data">
+                                    <form action="{{ route('employee.update', $employee->id) }}" method="POST"
+                                        autocomplete="off" id="edit-form" role="form" enctype="multipart/form-data">
                                         @csrf
+                                        @method('PUT')
                                         <div class="row example-wrap">
                                             <div class="col-md-6 col-lg-6 col-sm-12 mb-4">
                                                 <label for="html5-text-input" class="form-control-label">
                                                     Employee ID
                                                 </label>
                                                 <input class="form-control @error('employee_id') is-invalid @enderror"
-                                                    type="text" name="employee_id" value="{{ old('employee_id') }}" />
+                                                    type="text" name="employee_id" value="{{ $employee->employee_id }}" />
                                                 @error('employee_id')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -37,7 +38,7 @@
                                             <div class="col-md-6 col-lg-6 col-sm-12 mb-4">
                                                 <label for="html5-text-input" class="form-control-label">Name</label>
                                                 <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                                    name="name" value="{{ old('name') }}" />
+                                                    name="name" value="{{ $employee->name }}" />
                                                 @error('name')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -47,7 +48,7 @@
                                             <div class="col-md-6 col-lg-6 col-sm-12 mb-4">
                                                 <label for="html5-text-input" class="form-control-label">Email</label>
                                                 <input class="form-control @error('email') is-invalid @enderror"
-                                                    type="email" name="email" value="{{ old('email') }}" />
+                                                    type="email" name="email" value="{{ $employee->email }}" />
                                                 @error('email')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -56,7 +57,7 @@
                                             <div class="col-md-6 col-lg-6 col-sm-12 mb-4">
                                                 <label for="html5-text-input" class="form-control-label">Phone</label>
                                                 <input class="form-control @error('phone') is-invalid @enderror" type="text"
-                                                    name="phone" value="{{ old('phone') }}" />
+                                                    name="phone" value="{{ $employee->phone }}" />
                                                 @error('phone')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -66,7 +67,7 @@
                                                 <label for="html5-text-input" class="form-control-label">NRC
                                                     Number</label>
                                                 <input class="form-control @error('nrc_number') is-invalid @enderror"
-                                                    type="text" name="nrc_number" value="{{ old('nrc_number') }}" />
+                                                    type="text" name="nrc_number" value="{{ $employee->nrc_number }}" />
                                                 @error('nrc_number')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -86,7 +87,7 @@
                                             <div class="col-md-6 col-lg-6 col-sm-12 mb-4">
                                                 <label for="html5-text-input" class="form-control-label">Address</label>
                                                 <input class="form-control @error('address') is-invalid @enderror"
-                                                    type="text" name="address" value="{{ old('address') }}" />
+                                                    type="text" name="address" value="{{ $employee->address }}" />
                                                 @error('address')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -120,7 +121,7 @@
                                                 </label>
                                                 <input
                                                     class="form-control date_picker @error('join_date') is-invalid @enderror"
-                                                    type="text" name="join_date" value="{{ old('join_date') }}" />
+                                                    type="text" name="join_date" value="{{ $employee->join_date }}" />
                                                 @error('join_date')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -133,7 +134,7 @@
                                                 </label>
                                                 <input class="form-control @error('contact_person') is-invalid @enderror"
                                                     type="text" name="contact_person"
-                                                    value="{{ old('contact_person') }}" />
+                                                    value="{{ $employee->contact_person }}" />
                                                 @error('contact_person')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -145,7 +146,7 @@
                                                 </label>
                                                 <input class="form-control @error('emergency_contact') is-invalid @enderror"
                                                     type="text" name="emergency_contact"
-                                                    value="{{ old('emergency_contact') }}" />
+                                                    value="{{ $employee->emergency_contact }}" />
                                                 @error('emergency_contact')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -158,7 +159,9 @@
                                                 </label>
                                                 <select name="department_id" class="form-control">
                                                     @foreach ($departments as $department)
-                                                        <option value="{{ $department->id }}">{{ $department->title }}
+                                                        <option value="{{ $department->id }}"
+                                                            @if ($employee->department_id == $department->id) selected @endif>
+                                                            {{ $department->title }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -167,14 +170,18 @@
                                                 @enderror
                                             </div>
 
+
                                             <div class="col-md-6 col-lg-6 col-sm-12 mb-4">
                                                 <label for="html5-text-input" class="form-control-label">
                                                     Role
                                                 </label>
-                                                <select class="form-control" data-plugin="select2" multiple
+                                                <select id="select2Multiple" class="select2 form-select" multiple
                                                     name="roles[]">
                                                     @foreach ($roles as $role)
-                                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                                        <option value="{{ $role->name }}"
+                                                            @if (in_array($role->id, $old_roles)) selected @endif>
+                                                            {{ $role->name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -196,5 +203,5 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreUsers', '#create-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateUsers', '#edit-form') !!}
 @endsection

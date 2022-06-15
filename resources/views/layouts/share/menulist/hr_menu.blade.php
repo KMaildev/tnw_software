@@ -36,17 +36,17 @@
                                     <div>
                                         <ul class="site-menu-sub site-menu-normal-list">
                                             <li class="site-menu-item">
-                                                <a href="#">
+                                                <a href="{{ route('department.index') }}">
                                                     <span class="site-menu-title">Department</span>
                                                 </a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="#">
+                                                <a href="{{ route('role.index') }}">
                                                     <span class="site-menu-title">Role</span>
                                                 </a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="#">
+                                                <a href="{{ route('permission.index') }}">
                                                     <span class="site-menu-title">Permission</span>
                                                 </a>
                                             </li>

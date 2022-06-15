@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Hr;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUsers;
+use App\Http\Requests\UpdateUsers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Department;
+use Spatie\Permission\Models\Role;
 
 class EmployeeController extends Controller
 {
@@ -28,7 +31,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('hr.employee.create');
+        $departments = Department::orderBy('title')->get();
+        $roles = Role::all();
+        return view('hr.employee.create', compact('departments', 'roles'));
     }
 
     /**
@@ -55,6 +60,7 @@ class EmployeeController extends Controller
 
         $employee->department_id = $request->department_id;
         $employee->save();
+        $employee->syncRoles($request->roles);
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
@@ -77,7 +83,11 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = User::findOrFail($id);
+        $old_roles = $employee->roles->pluck('id')->toArray();
+        $departments = Department::orderBy('title')->get();
+        $roles = Role::all();
+        return view('hr.employee.edit', compact('employee', 'old_roles', 'departments', 'roles'));
     }
 
     /**
@@ -87,9 +97,26 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUsers $request, $id)
     {
-        //
+        $employee = User::findOrFail($id);
+        $employee->employee_id = $request->employee_id;
+        $employee->name = $request->name;
+        $employee->phone = $request->phone;
+        $employee->email = $request->email;
+        $employee->nrc_number = $request->nrc_number;
+        $employee->gender = $request->gender;
+        $employee->address = $request->address;
+        $employee->password = Hash::make($request->password);
+        $employee->employment_type = $request->employment_type;
+        $employee->join_date = $request->join_date;
+        $employee->contact_person = $request->contact_person;
+        $employee->emergency_contact = $request->emergency_contact;
+
+        $employee->department_id = $request->department_id;
+        $employee->update();
+        $employee->syncRoles($request->roles);
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
     /**

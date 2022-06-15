@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 25, 2022 at 07:50 PM
+-- Generation Time: Jun 15, 2022 at 08:35 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `tnw_software`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `departments`
+--
+
+CREATE TABLE `departments` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `departments`
+--
+
+INSERT INTO `departments` (`id`, `title`, `created_at`, `updated_at`) VALUES
+(1, 'Marketing', '2022-06-15 10:25:37', '2022-06-15 10:27:56'),
+(2, 'Accounting', '2022-06-15 10:25:42', '2022-06-15 10:25:42');
 
 -- --------------------------------------------------------
 
@@ -56,7 +77,44 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2022_05_25_172942_add_users_fields_to_users_table', 2);
+(4, '2022_05_25_172942_add_users_fields_to_users_table', 2),
+(5, '2022_06_15_153609_create_departments_table', 3),
+(6, '2022_06_15_170823_create_permission_tables', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_permissions`
+--
+
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_roles`
+--
+
+CREATE TABLE `model_has_roles` (
+  `role_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `model_has_roles`
+--
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+(4, 'App\\User', 1),
+(4, 'App\\User', 10),
+(5, 'App\\User', 1),
+(5, 'App\\User', 10),
+(6, 'App\\User', 1);
 
 -- --------------------------------------------------------
 
@@ -69,6 +127,74 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'hr_module', 'web', '2022-06-15 10:47:06', '2022-06-15 11:34:19'),
+(2, 'file_manager_module', 'web', '2022-06-15 10:47:33', '2022-06-15 10:47:33'),
+(3, 'setting', 'web', '2022-06-15 11:33:17', '2022-06-15 11:33:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(4, 'Admin', 'web', '2022-06-15 11:06:13', '2022-06-15 11:06:13'),
+(5, 'HR', 'web', '2022-06-15 11:06:17', '2022-06-15 11:06:17'),
+(6, 'Manager', 'web', '2022-06-15 11:22:09', '2022-06-15 11:22:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_has_permissions`
+--
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `role_has_permissions`
+--
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(1, 4),
+(1, 5),
+(1, 6),
+(2, 4),
+(2, 6);
 
 -- --------------------------------------------------------
 
@@ -102,15 +228,22 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `employee_id`, `phone`, `nrc_number`, `gender`, `address`, `department_id`, `contact_person`, `emergency_contact`, `join_date`, `employment_type`) VALUES
-(1, 'admin', 'admin@gmail.com', NULL, '$2y$10$cfG8.VWKOwNZtGfYL8Kg6upGNkuUQCoe1wCjwUahXSZWLEUpS69xq', NULL, '2022-05-25 07:46:08', '2022-05-25 07:46:08', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'Mg Mg', 'mgmg@gmail.com', NULL, '$2y$10$p0o8Ijdf9US/T2cBMDFT8.iGUDjBiWC5faREVaXZPfBZt6k7xr6DO', NULL, '2022-05-25 11:01:17', '2022-05-25 11:01:17', 'EMP-00001', '0912312313', '5/abc(n)009112', 'male', 'YGN', 0, 'No', 'No', '1/1/2022', 'Probation'),
-(3, 'asd', 'sadf@gmail.com', NULL, '$2y$10$RA4KwFvOT2blsVRRK1MqCeZJQACBJ4fX4slCOcKOXXskLJw.Z2SK6', NULL, '2022-05-25 11:04:11', '2022-05-25 11:04:11', 'sdf', 'asdfasdfasd', 'asdf', 'male', 'asdfa', 0, 'asdf', 'asdf', 'asdf', 'Probation'),
-(4, 'asdf', 'sadaf@gmail.com', NULL, '$2y$10$FYxZq1W2mVJVTY/TKU2FmOw0EYxIKRbty8b7ZKqIKzvjeGod2d7O6', NULL, '2022-05-25 11:04:59', '2022-05-25 11:04:59', 'asdf', '09111219118', 'asdf', 'male', 'asdfa', 0, 'sadf', 'asdf', NULL, 'Probation'),
-(5, 'asdf', 'asdf@gmail.com', NULL, '$2y$10$ybb7rTte0jILaeQ3nidD5OTXjSXmOHBthJ7OfQV.B0fimAApf49GC', NULL, '2022-05-25 11:06:29', '2022-05-25 11:06:29', 'asdfasd', '09222191887', 'asdf', 'male', 'asdfdsa', 0, NULL, NULL, NULL, 'Probation');
+(1, 'admin', 'admin@gmail.com', NULL, '$2y$10$giF9U0uEpaYK450N5U7I.OILPSTvsD5/n02iXxxmbGkTpp9/Q.IJ6', NULL, '2022-05-25 07:46:08', '2022-06-15 12:05:33', 'EMP-0001', '09333161998', '5/abc(n)009112', 'male', 'Yangon', 1, NULL, NULL, '1/1/2022', 'Probation'),
+(6, 'User', 'user@gmail.com', NULL, '$2y$10$ryhAY1bEhujXsu3RlZNPPedPuuesSGd/s8rXYwAMzpwKLgiAingXm', NULL, '2022-06-15 08:52:12', '2022-06-15 08:59:44', 'EMP-00002', '09123123123', '5/abc(123)009443', 'male', 'Yangon', 0, NULL, '09123123', '1/1/2022', 'Probation'),
+(7, 'User', 'mgmg@gmail.com', NULL, '$2y$10$IA2hM5nLx85PMKKNJi/L0.IPlWfSZeliUB.iZJtT9FM.g2vh1pNs.', NULL, '2022-06-15 11:58:01', '2022-06-15 11:58:01', 'EMP-00003', '09123123124', '5/', 'male', 'YGN', 2, NULL, NULL, NULL, 'Probation'),
+(8, 'User', 'mgmgg@gmail.com', NULL, '$2y$10$bi4JsdrFxpGlmvuI1oOHqe2oCHjDXcOjBWXIAh2zOXjWCGFHpOYFC', NULL, '2022-06-15 11:59:01', '2022-06-15 11:59:01', 'EMP-00004', '09123123125', '5/', 'male', 'YGN', 2, NULL, NULL, NULL, 'Probation'),
+(9, 'User', 'mgmggsoe@gmail.com', NULL, '$2y$10$Qxw/77i7t3KEGhw2FzcbQu/JPT5/dm5jrGAXLvFgV2FZzyHfx2OgS', NULL, '2022-06-15 12:00:52', '2022-06-15 12:00:52', 'EMP-00005', '09123123126', '5/', 'male', 'YGN', 2, NULL, NULL, NULL, 'Probation'),
+(10, 'User', 'mgmggmyo@gmail.com', NULL, '$2y$10$/SqufMM9pzywE7CGGIth3uOrJlsyeuY25sUT1y/8v1kRC83X8dtKm', NULL, '2022-06-15 12:01:55', '2022-06-15 12:01:55', 'EMP-00006', '09123123127', '5/', 'male', 'YGN', 2, NULL, NULL, NULL, 'Probation');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `departments`
+--
+ALTER TABLE `departments`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -125,10 +258,45 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`);
+
+--
+-- Indexes for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
 -- Indexes for table `users`
@@ -143,6 +311,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `departments`
+--
+ALTER TABLE `departments`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -152,13 +326,48 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

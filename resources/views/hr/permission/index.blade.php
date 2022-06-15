@@ -2,15 +2,15 @@
 @section('content')
     <div class="page">
         <div class="page-header">
-            <h1 class="page-title">Employees</h1>
+            <h1 class="page-title">Permission</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('hr_dahsboard.index') }}">Dashboard</a>
                 </li>
-                <li class="breadcrumb-item active">Employees</li>
+                <li class="breadcrumb-item active">Permission</li>
             </ol>
             <div class="page-header-actions">
-                <a class="btn btn-sm btn-primary btn-round" href="{{ route('employee.create') }}">
+                <a class="btn btn-sm btn-primary btn-round" href="{{ route('permission.create') }}">
                     <i class="icon md-plus" aria-hidden="true"></i>
                     <span class="hidden-sm-down">
                         Create
@@ -27,61 +27,24 @@
                             <div class="example-wrap">
                                 <h4 class="example-title">Employees</h4>
                                 <div class="example table-responsive">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered table-sm">
                                         <thead class="tbbg">
                                             <tr>
                                                 <th style="color: white; text-align: center; width: 1%;">#</th>
-                                                <th style="color: white; text-align: center;">Employee ID</th>
                                                 <th style="color: white; text-align: center;">Name</th>
-                                                <th style="color: white; text-align: center;">Email</th>
-                                                <th style="color: white; text-align: center;">Phone</th>
-                                                <th style="color: white; text-align: center;">NRC Number</th>
-                                                <th style="color: white; text-align: center;">Join Date</th>
-                                                <th style="color: white; text-align: center;">Emergency</th>
-                                                <th style="color: white; text-align: center;">Department</th>
-                                                <th style="color: white; text-align: center;">Role (or) Designation</th>
                                                 <th style="color: white; text-align: center;">Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @foreach ($employees as $key => $value)
+                                        <tbody class="table-border-bottom-0">
+                                            @foreach ($permission as $key => $value)
                                                 <tr>
                                                     <td style="text-align: center;">
                                                         {{ $key + 1 }}
                                                     </td>
                                                     <td style="text-align: center;">
-                                                        {{ $value->employee_id }}
-                                                    </td>
-                                                    <td style="text-align: center;">
                                                         {{ $value->name }}
                                                     </td>
-                                                    <td style="text-align: center;">
-                                                        {{ $value->email }}
-                                                    </td>
-                                                    <td style="text-align: center;">
-                                                        {{ $value->phone }}
-                                                    </td>
-                                                    <td style="text-align: center;">
-                                                        {{ $value->nrc_number }}
-                                                    </td>
 
-                                                    <td style="text-align: center;">
-                                                        {{ $value->join_date }}
-                                                    </td>
-
-                                                    <td style="text-align: center;">
-                                                        {{ $value->contact_person }}
-                                                        @
-                                                        {{ $value->emergency_contact }}
-                                                    </td>
-
-                                                    <td style="text-align: center;">
-                                                        Null
-                                                    </td>
-
-                                                    <td style="text-align: center;">
-                                                        Null
-                                                    </td>
                                                     <td style="text-align: center;">
                                                         <div class="btn-group">
                                                             <button type="button"
@@ -94,17 +57,23 @@
                                                                 aria-labelledby="exampleSizingDropdown3" role="menu">
 
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('employee.edit', $value->id) }}"
+                                                                    href="{{ route('permission.edit', $value->id) }}"
                                                                     role="menuitem">
                                                                     <i class="icon md-edit" aria-hidden="true"></i>
                                                                     Edit
                                                                 </a>
 
-                                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                                    role="menuitem">
-                                                                    <i class="icon md-eye" aria-hidden="true"></i>
-                                                                    View Profile
-                                                                </a>
+                                                                <form
+                                                                    action="{{ route('permission.destroy', $value->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="button" class="dropdown-item del_confirm"
+                                                                        id="confirm-text" data-toggle="tooltip">
+                                                                        <i class="icon md-delete" aria-hidden="true"></i>
+                                                                        Delete
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </td>

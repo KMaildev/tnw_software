@@ -7,7 +7,7 @@
                     <div class="row py-5" style="margin-top: 30px;">
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="">
+                            <a href="" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #903BAA;">
                                     <div class="counter counter-lg">
                                         <div class="white">
@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="">
+                            <a href="" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #51a147;">
                                     <div class="counter counter-lg">
                                         <div class="white">
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="{{ route('hr_dahsboard.index') }}">
+                            <a href="{{ route('hr_dahsboard.index') }}" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #f08b33;">
                                     <div class="counter counter-lg">
                                         <div class="white">
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="">
+                            <a href="" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #2788e5;">
                                     <div class="counter counter-lg">
                                         <div class="white">
@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="">
+                            <a href="" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #53b0a7;">
                                     <div class="counter counter-lg">
                                         <div class="white">
@@ -83,7 +83,7 @@
 
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="">
+                            <a href="" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #b34524;">
                                     <div class="counter counter-lg">
                                         <div class="white">
@@ -98,7 +98,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="">
+                            <a href="" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #d1709a;">
                                     <div class="counter counter-lg">
                                         <div class="white">
@@ -113,7 +113,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="">
+                            <a href="{{ route('file_manager.index') }}" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #186b62;">
                                     <div class="counter counter-lg">
                                         <div class="white">
@@ -128,7 +128,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="">
+                            <a href="" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #a23063;">
                                     <div class="counter counter-lg">
                                         <div class="white">

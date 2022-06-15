@@ -53,6 +53,11 @@ src="{{ asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-m
 <script src="{{ asset('assets/assets/examples/js/dashboard/v1.minfd53.js?v4.0.1') }}"></script>
 
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+<script src="{{ asset('js/sweetalert.min.js') }}"></script>
+<script src="{{ asset('assets/js/Plugin/select2.minfd53.js') }}"></script>
+<script src="{{ asset('assets/js/Plugin/multi-select.minfd53.js') }}"></script>
+<script src="{{ asset('assets/assets/examples/js/forms/advanced.minfd53.js') }}"></script>
+
 
 @yield('script')
 
@@ -60,7 +65,7 @@ src="{{ asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-m
     $('.del_confirm').click(function(event) {
         var form = $(this).closest("form");
         event.preventDefault();
-        Swal.fire({
+        swal({
             text: "Are you sure you want to delete this record?",
             showCancelButton: true,
             customClass: {
@@ -70,8 +75,8 @@ src="{{ asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-m
             buttonsStyling: false,
             buttons: true,
             dangerMode: true,
-        }).then((res) => {
-            if (res.isConfirmed) {
+        }).then((willDelete) => {
+            if (willDelete) {
                 form.submit();
             }
         });
