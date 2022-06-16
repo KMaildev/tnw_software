@@ -26,10 +26,10 @@
 
 
                     <li class="dropdown site-menu-item has-sub">
-                        <a data-toggle="dropdown" href="{{ route('marketing_team.index') }}"
-                            data-dropdown-toggle="false">
-                            <span class="site-menu-title">
-                                Follow Up Report
+                        <a href="{{ route('marketing_team.index') }}">
+                            Follow Up Report
+                            <span class="badge badge_noti_count">
+                                {{ $follow_up_total ?? 0 }}
                             </span>
                         </a>
                     </li>

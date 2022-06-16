@@ -33,7 +33,7 @@ class StoreMarketingTeam extends FormRequest
             'name' => 'required',
             'price' => 'numeric',
             'phone_no' => 'required',
-            'code' => 'required',
+            'code' => 'required|unique:marketing_teams,code',
             'interest_rate' => 'required',
         ];
     }

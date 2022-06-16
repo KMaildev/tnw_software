@@ -59,6 +59,32 @@ src="{{ asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-m
 {{-- Daterange picker --}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="{{ asset('assets/tokenfield/bootstrap-tokenfield.js') }}"></script>
+
+
+<!-- Plugins For This Page -->
+<script src="{{ asset('global/vendor/datatables.net/jquery.dataTables599c.js?v4.0.2') }}"></script>
+<script src="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4599c.js?v4.0.2') }}"></script>
+<script src="{{ asset('global/vendor/datatables.net-fixedheader/dataTables.fixedHeader.min599c.js?v4.0.2') }}">
+</script>
+<script src="{{ asset('global/vendor/datatables.net-fixedcolumns/dataTables.fixedColumns.min599c.js?v4.0.2') }}">
+</script>
+<script src="{{ asset('global/vendor/datatables.net-rowgroup/dataTables.rowGroup.min599c.js?v4.0.2') }}"></script>
+<script src="{{ asset('global/vendor/datatables.net-scroller/dataTables.scroller.min599c.js?v4.0.2') }}"></script>
+<script src="{{ asset('global/vendor/datatables.net-responsive/dataTables.responsive.min599c.js?v4.0.2') }}">
+</script>
+<script src="{{ asset('global/vendor/datatables.net-responsive-bs4/responsive.bootstrap4.min599c.js?v4.0.2') }}">
+</script>
+<script src="{{ asset('global/vendor/datatables.net-buttons/dataTables.buttons.min599c.js?v4.0.2') }}"></script>
+<script src="{{ asset('global/vendor/datatables.net-buttons/buttons.html5.min599c.js?v4.0.2') }}"></script>
+<script src="{{ asset('global/vendor/datatables.net-buttons/buttons.flash.min599c.js?v4.0.2') }}"></script>
+<script src="{{ asset('global/vendor/datatables.net-buttons/buttons.print.min599c.js?v4.0.2') }}"></script>
+<script src="{{ asset('global/vendor/datatables.net-buttons/buttons.colVis.min599c.js?v4.0.2') }}"></script>
+<script src="{{ asset('global/vendor/datatables.net-buttons-bs4/buttons.bootstrap4.min599c.js?v4.0.2') }}"></script>
+
+<script src="{{ asset('global/js/Plugin/datatables.min599c.js?v4.0.2') }}"></script>
+<script src="{{ asset('assets/assets/examples/js/tables/datatable.minfd53.js') }}"></script>
+
 
 @yield('script')
 
@@ -100,6 +126,21 @@ src="{{ asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-m
         "locale": {
             "format": "YYYY-MM-DD",
         }
+    });
+
+
+    $(".date_time").daterangepicker({
+        singleDatePicker: true,
+        timePicker: true,
+        autoApply: true,
+        showDropdowns: true,
+        startDate: moment().startOf("hour"),
+        timePickerSeconds: true,
+        timePickerIncrement: 30,
+        locale: {
+            // format: "YYYY-MM-DD",
+            format: "YYYY-MM-DD hh:mm A",
+        },
     });
 </script>
 </body>

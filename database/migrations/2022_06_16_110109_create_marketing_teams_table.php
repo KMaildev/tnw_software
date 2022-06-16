@@ -25,6 +25,7 @@ class CreateMarketingTeamsTable extends Migration
             $table->text('owner_or_agent_type')->nullable();
             $table->text('name')->nullable();
             $table->text('phone_no')->nullable();
+            $table->text('email')->nullable();
             $table->text('code')->nullable();
             $table->text('remark')->nullable();
             $table->text('interest_rate')->nullable();

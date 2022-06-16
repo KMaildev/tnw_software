@@ -21,36 +21,95 @@
 
         <div class="page-content container-fluid">
             <div class="panel">
-                <div class="panel-body container-fluid">
-                    <div class="row row-lg">
-                        <div class="col-lg-12">
-                            <div class="example-wrap">
-                                <h4 class="example-title">Employees</h4>
-                                <div class="example table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead class="tbbg">
-                                            <tr>
-                                                <th style="color: white; text-align: center; width: 1%;">#</th>
-                                                <th style="color: white; text-align: center;">Employee ID</th>
-                                                <th style="color: white; text-align: center;">Name</th>
-                                                <th style="color: white; text-align: center;">Email</th>
-                                                <th style="color: white; text-align: center;">Phone</th>
-                                                <th style="color: white; text-align: center;">NRC Number</th>
-                                                <th style="color: white; text-align: center;">Join Date</th>
-                                                <th style="color: white; text-align: center;">Emergency</th>
-                                                <th style="color: white; text-align: center;">Department</th>
-                                                <th style="color: white; text-align: center;">Role (or) Designation</th>
-                                                <th style="color: white; text-align: center;">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <header class="panel-heading">
+                    <h3 class="panel-title">
+                        Makerting Team
+                    </h3>
+                </header>
+                <div class="panel-body">
+                    {{-- table-striped w-full --}}
+                    <table class="table table-hover dataTable" id="exampleTableSearch">
+                        <thead class="tbbg">
+                            <tr>
+                                <th style="color: white; text-align: center; width: 1%;">No</th>
+                                <th style="color: white; text-align: center;">Marketing</th>
+                                <th style="color: white; text-align: center;">Date</th>
+                                <th style="color: white; text-align: center;">Ward No</th>
+                                <th style="color: white; text-align: center;">Road</th>
+                                <th style="color: white; text-align: center;">Wide</th>
+                                <th style="color: white; text-align: center;">Permission</th>
+                                <th style="color: white; text-align: center;">Type</th>
+                                <th style="color: white; text-align: center;">Price</th>
+                                <th style="color: white; text-align: center;">Name</th>
+                                <th style="color: white; text-align: center;">Ph No.</th>
+                                <th style="color: white; text-align: center;">O/A</th>
+                                <th style="color: white; text-align: center;">Code</th>
+                            </tr>
+                        </thead>
+                        <tfoot style="display:
+                                    table-header-group;">
+                            <tr>
+                                <th>No</th>
+                                <th>Marketing</th>
+                                <th>Date</th>
+                                <th>Ward No.</th>
+                                <th>Road</th>
+                                <th>Wide</th>
+                                <th>Permission</th>
+                                <th>Type</th>
+                                <th>Price</th>
+                                <th>Name</th>
+                                <th>Ph No.</th>
+                                <th>O/A</th>
+                                <th>Code</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach ($marketing_teams as $key => $marketing_team)
+                                <tr>
+                                    <td>
+                                        {{ $key + 1 }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->users_table->name ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->marketing_date ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->ward_no ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->road ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->wide ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->permission ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->type ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->price ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->name ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->phone_no ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->owner_or_agent_type ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->code ?? '' }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
