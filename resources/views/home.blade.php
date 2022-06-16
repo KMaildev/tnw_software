@@ -22,11 +22,11 @@
                         </div>
 
                         <div class="col-lg-3 col-md-3">
-                            <a href="" style="text-decoration: none;">
+                            <a href="{{ route('marketing_dahsboard.index') }}" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #51a147;">
                                     <div class="counter counter-lg">
                                         <div class="white">
-                                            <i class="icon icon-circle icon-3x md-assignment"></i>
+                                            <i class="icon icon-circle icon-3x md-phone"></i>
                                         </div>
                                         <div class="counter-label text-white">
                                             Marketing
@@ -117,7 +117,7 @@
                                 <div class="card card-block p-25" style="background-color: #186b62;">
                                     <div class="counter counter-lg">
                                         <div class="white">
-                                            <i class="icon icon-circle icon-3x md-assignment"></i>
+                                            <i class="icon icon-circle icon-3x md-file"></i>
                                         </div>
                                         <div class="counter-label text-white">
                                             File Manager
@@ -132,7 +132,7 @@
                                 <div class="card card-block p-25" style="background-color: #a23063;">
                                     <div class="counter counter-lg">
                                         <div class="white">
-                                            <i class="icon icon-circle icon-3x md-assignment"></i>
+                                            <i class="icon icon-circle icon-3x fa fa-cog"></i>
                                         </div>
                                         <div class="counter-label  text-white">
                                             Setting

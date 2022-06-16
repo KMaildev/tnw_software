@@ -29,4 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('department', 'Hr\DepartmentController');
     Route::resource('role', 'Hr\RoleController');
     Route::resource('permission', 'Hr\PermissionController');
+
+
+    Route::resource('marketing_dahsboard', 'Marketing\MarketingDashboard');
+    Route::resource('marketing_team', 'Marketing\MarketingTeamController');
+    Route::resource('interest_rate', 'Marketing\InterestRateController');
 });

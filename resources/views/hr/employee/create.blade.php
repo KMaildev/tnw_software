@@ -36,8 +36,8 @@
 
                                             <div class="col-md-6 col-lg-6 col-sm-12 mb-4">
                                                 <label for="html5-text-input" class="form-control-label">Name</label>
-                                                <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                                    name="name" value="{{ old('name') }}" />
+                                                <input class="form-control @error('name') is-invalid @enderror"
+                                                    type="text" name="name" value="{{ old('name') }}" />
                                                 @error('name')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -55,8 +55,8 @@
 
                                             <div class="col-md-6 col-lg-6 col-sm-12 mb-4">
                                                 <label for="html5-text-input" class="form-control-label">Phone</label>
-                                                <input class="form-control @error('phone') is-invalid @enderror" type="text"
-                                                    name="phone" value="{{ old('phone') }}" />
+                                                <input class="form-control @error('phone') is-invalid @enderror"
+                                                    type="text" name="phone" value="{{ old('phone') }}" />
                                                 @error('phone')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -143,7 +143,8 @@
                                                 <label for="html5-text-input" class="form-control-label">
                                                     Contact Number [Emergency]
                                                 </label>
-                                                <input class="form-control @error('emergency_contact') is-invalid @enderror"
+                                                <input
+                                                    class="form-control @error('emergency_contact') is-invalid @enderror"
                                                     type="text" name="emergency_contact"
                                                     value="{{ old('emergency_contact') }}" />
                                                 @error('emergency_contact')
@@ -158,7 +159,8 @@
                                                 </label>
                                                 <select name="department_id" class="form-control">
                                                     @foreach ($departments as $department)
-                                                        <option value="{{ $department->id }}">{{ $department->title }}
+                                                        <option value="{{ $department->id }}">
+                                                            {{ $department->title }}
                                                         </option>
                                                     @endforeach
                                                 </select>

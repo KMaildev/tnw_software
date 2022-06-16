@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 15, 2022 at 08:35 PM
+-- Generation Time: Jun 16, 2022 at 03:09 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `tnw_software`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `activity_log`
+--
+
+CREATE TABLE `activity_log` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `log_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `causer_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `causer_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `properties` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`properties`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `activity_log`
+--
+
+INSERT INTO `activity_log` (`id`, `log_name`, `description`, `subject_type`, `subject_id`, `causer_type`, `causer_id`, `properties`, `created_at`, `updated_at`) VALUES
+(1, 'interest_rates_log', 'created', 'App\\Models\\InterestRate', 6, 'App\\User', 1, '{\"attributes\":{\"title\":\"90%\",\"created_at\":\"2022-06-16T11:00:10.000000Z\",\"updated_at\":\"2022-06-16T11:00:10.000000Z\"}}', '2022-06-16 04:30:10', '2022-06-16 04:30:10');
 
 -- --------------------------------------------------------
 
@@ -60,6 +86,63 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `interest_rates`
+--
+
+CREATE TABLE `interest_rates` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `interest_rates`
+--
+
+INSERT INTO `interest_rates` (`id`, `title`, `created_at`, `updated_at`) VALUES
+(1, '0%', '2022-06-16 04:14:48', '2022-06-16 04:20:39'),
+(2, '30%', '2022-06-16 04:15:02', '2022-06-16 04:15:02'),
+(3, '50%', '2022-06-16 04:15:06', '2022-06-16 04:15:06'),
+(4, '70%', '2022-06-16 04:15:12', '2022-06-16 04:15:12'),
+(6, '90%', '2022-06-16 04:30:10', '2022-06-16 04:30:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `marketing_teams`
+--
+
+CREATE TABLE `marketing_teams` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `marketing_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ward_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `road` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `wide` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permission` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `owner_or_agent_type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `interest_rate` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `marketing_teams`
+--
+
+INSERT INTO `marketing_teams` (`id`, `marketing_date`, `ward_no`, `road`, `wide`, `permission`, `type`, `price`, `owner_or_agent_type`, `name`, `phone_no`, `code`, `remark`, `interest_rate`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, '2022-06-16', 'asd', 'asdf', 'asdf', 'asfd', 'SaleOwner', '1000', NULL, 'safd', 'asdf', 'R-00001', 'asdfasdf', '30%', 1, '2022-06-16 06:11:54', '2022-06-16 06:11:54');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -79,7 +162,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2022_05_25_172942_add_users_fields_to_users_table', 2),
 (5, '2022_06_15_153609_create_departments_table', 3),
-(6, '2022_06_15_170823_create_permission_tables', 4);
+(6, '2022_06_15_170823_create_permission_tables', 4),
+(7, '2022_06_16_103335_create_interest_rates_table', 5),
+(8, '2022_06_16_105818_create_activity_log_table', 6),
+(10, '2022_06_16_110109_create_marketing_teams_table', 7);
 
 -- --------------------------------------------------------
 
@@ -113,8 +199,8 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (4, 'App\\User', 1),
 (4, 'App\\User', 10),
 (5, 'App\\User', 1),
-(5, 'App\\User', 10),
-(6, 'App\\User', 1);
+(5, 'App\\User', 6),
+(5, 'App\\User', 10);
 
 -- --------------------------------------------------------
 
@@ -228,8 +314,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `employee_id`, `phone`, `nrc_number`, `gender`, `address`, `department_id`, `contact_person`, `emergency_contact`, `join_date`, `employment_type`) VALUES
-(1, 'admin', 'admin@gmail.com', NULL, '$2y$10$giF9U0uEpaYK450N5U7I.OILPSTvsD5/n02iXxxmbGkTpp9/Q.IJ6', NULL, '2022-05-25 07:46:08', '2022-06-15 12:05:33', 'EMP-0001', '09333161998', '5/abc(n)009112', 'male', 'Yangon', 1, NULL, NULL, '1/1/2022', 'Probation'),
-(6, 'User', 'user@gmail.com', NULL, '$2y$10$ryhAY1bEhujXsu3RlZNPPedPuuesSGd/s8rXYwAMzpwKLgiAingXm', NULL, '2022-06-15 08:52:12', '2022-06-15 08:59:44', 'EMP-00002', '09123123123', '5/abc(123)009443', 'male', 'Yangon', 0, NULL, '09123123', '1/1/2022', 'Probation'),
+(1, 'admin', 'admin@gmail.com', NULL, '$2y$10$oeb06C6iKr6CPdh7WLacLe/Fg9yB4htL248K7s.YD1rGOuCKMU3Hu', NULL, '2022-05-25 07:46:08', '2022-06-16 05:00:20', 'EMP-0001', '09333161998', '5/abc(n)009112', 'male', 'Yangon', 1, NULL, NULL, '1/1/2022', 'Probation'),
+(6, 'User', 'user@gmail.com', NULL, '$2y$10$ChD8p1aISNq9Usr2znknH.rsdrsZAVehmnHYJG4dmo7JH4AT0tKmm', NULL, '2022-06-15 08:52:12', '2022-06-15 21:58:48', 'EMP-00002', '09123123123', '5/abc(123)009443', 'male', 'Yangon', 2, NULL, '09123123', '1/1/2022', 'Probation'),
 (7, 'User', 'mgmg@gmail.com', NULL, '$2y$10$IA2hM5nLx85PMKKNJi/L0.IPlWfSZeliUB.iZJtT9FM.g2vh1pNs.', NULL, '2022-06-15 11:58:01', '2022-06-15 11:58:01', 'EMP-00003', '09123123124', '5/', 'male', 'YGN', 2, NULL, NULL, NULL, 'Probation'),
 (8, 'User', 'mgmgg@gmail.com', NULL, '$2y$10$bi4JsdrFxpGlmvuI1oOHqe2oCHjDXcOjBWXIAh2zOXjWCGFHpOYFC', NULL, '2022-06-15 11:59:01', '2022-06-15 11:59:01', 'EMP-00004', '09123123125', '5/', 'male', 'YGN', 2, NULL, NULL, NULL, 'Probation'),
 (9, 'User', 'mgmggsoe@gmail.com', NULL, '$2y$10$Qxw/77i7t3KEGhw2FzcbQu/JPT5/dm5jrGAXLvFgV2FZzyHfx2OgS', NULL, '2022-06-15 12:00:52', '2022-06-15 12:00:52', 'EMP-00005', '09123123126', '5/', 'male', 'YGN', 2, NULL, NULL, NULL, 'Probation'),
@@ -238,6 +324,15 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `activity_log`
+--
+ALTER TABLE `activity_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subject` (`subject_type`,`subject_id`),
+  ADD KEY `causer` (`causer_type`,`causer_id`),
+  ADD KEY `activity_log_log_name_index` (`log_name`);
 
 --
 -- Indexes for table `departments`
@@ -249,6 +344,18 @@ ALTER TABLE `departments`
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `interest_rates`
+--
+ALTER TABLE `interest_rates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `marketing_teams`
+--
+ALTER TABLE `marketing_teams`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -311,6 +418,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `activity_log`
+--
+ALTER TABLE `activity_log`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
@@ -323,10 +436,22 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `interest_rates`
+--
+ALTER TABLE `interest_rates`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `marketing_teams`
+--
+ALTER TABLE `marketing_teams`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `permissions`

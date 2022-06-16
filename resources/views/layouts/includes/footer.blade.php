@@ -54,10 +54,11 @@ src="{{ asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-m
 
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 <script src="{{ asset('js/sweetalert.min.js') }}"></script>
-<script src="{{ asset('assets/js/Plugin/select2.minfd53.js') }}"></script>
-<script src="{{ asset('assets/js/Plugin/multi-select.minfd53.js') }}"></script>
-<script src="{{ asset('assets/assets/examples/js/forms/advanced.minfd53.js') }}"></script>
+<script src="{{ asset('assets/select2/js/select2.min.js') }}"></script>
 
+{{-- Daterange picker --}}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 @yield('script')
 
@@ -80,6 +81,25 @@ src="{{ asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-m
                 form.submit();
             }
         });
+    });
+
+    $('.birthday').daterangepicker({
+        "singleDatePicker": true,
+        "autoApply": true,
+        "showDropdowns": true,
+        "maxDate": moment(),
+        "locale": {
+            "format": "YYYY-MM-DD",
+        }
+    });
+
+    $('.date_picker').daterangepicker({
+        "singleDatePicker": true,
+        "autoApply": true,
+        "showDropdowns": true,
+        "locale": {
+            "format": "YYYY-MM-DD",
+        }
     });
 </script>
 </body>

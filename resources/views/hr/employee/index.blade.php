@@ -76,11 +76,13 @@
                                                     </td>
 
                                                     <td style="text-align: center;">
-                                                        Null
+                                                        {{ $value->department->title ?? '' }}
                                                     </td>
 
                                                     <td style="text-align: center;">
-                                                        Null
+                                                        @foreach ($value->roles as $role)
+                                                            <span class="badge bg-primary">{{ $role->name }}</span>
+                                                        @endforeach
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <div class="btn-group">

@@ -43,8 +43,9 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-table/bootstrap-table.minfd53.css?v4.0.1') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/table.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.minfd53.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-select/bootstrap-select.minfd53.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="

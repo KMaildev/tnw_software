@@ -6,8 +6,7 @@
                     <li class="site-menu-category">Menu</li>
 
                     <li class="dropdown site-menu-item has-sub">
-                        <a data-toggle="dropdown" href="{{ route('hr_dahsboard.index') }}"
-                            data-dropdown-toggle="false">
+                        <a data-toggle="dropdown" href="{{ route('hr_dahsboard.index') }}" data-dropdown-toggle="false">
                             <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
                             <span class="site-menu-title">
                                 Dashboard
