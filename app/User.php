@@ -9,9 +9,13 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+use DarkGhostHunter\Larapass\Contracts\WebAuthnAuthenticatable;
+use DarkGhostHunter\Larapass\WebAuthnAuthentication;
+
+
+class User extends Authenticatable implements WebAuthnAuthenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, WebAuthnAuthentication;
 
     use LogsActivity;
     protected static $logName = 'users_log';

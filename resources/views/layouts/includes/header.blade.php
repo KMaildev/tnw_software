@@ -41,7 +41,6 @@
     </script>
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-table/bootstrap-table.minfd53.css?v4.0.1') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/table.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('assets/select2/css/select2.min.css') }}">

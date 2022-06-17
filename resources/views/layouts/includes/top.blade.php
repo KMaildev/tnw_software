@@ -12,11 +12,12 @@
         </button>
 
         <a class="navbar-brand navbar-brand-center" href="{{ route('home') }}">
-            <img class="navbar-brand-logo navbar-brand-logo-normal" src="{{ asset('data/demologo.png') }}" title="TNW"
-                style="color: white; width: 100%;">
+            <img class="navbar-brand-logo navbar-brand-logo-normal" src="{{ asset('data/demologo.png') }}"
+                title="TNW" style="color: white; width: 100%;">
         </a>
 
-        <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search" data-toggle="collapse">
+        <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search"
+            data-toggle="collapse">
             <span class="sr-only">Toggle Search</span>
             <i class="icon md-search" aria-hidden="true"></i>
         </button>
@@ -36,8 +37,8 @@
                     </a>
                 </li>
                 <li class="nav-item hidden-float">
-                    <a class="nav-link icon md-search" data-toggle="collapse" href="#" data-target="#site-navbar-search"
-                        role="button">
+                    <a class="nav-link icon md-search" data-toggle="collapse" href="#"
+                        data-target="#site-navbar-search" role="button">
                         <span class="sr-only">Toggle Search</span>
                     </a>
                 </li>
@@ -55,14 +56,15 @@
                         </span>
                     </a>
                     <div class="dropdown-menu" role="menu">
-                        <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
+                        <a class="dropdown-item" href="{{ route('profile.index') }}" role="menuitem">
                             <i class="icon md-account" aria-hidden="true"></i> Profile
                         </a>
                         <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
                             <i class="icon md-settings" aria-hidden="true"></i> Settings
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
                             <i class="icon md-power" aria-hidden="true"></i>
                             {{ __('Logout') }}
@@ -102,7 +104,8 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                    <a class="list-group-item dropdown-item" href="javascript:void(0)"
+                                        role="menuitem">
                                         <div class="media">
                                             <div class="pr-10">
                                                 <i class="icon md-account bg-green-600 white icon-circle"
@@ -115,7 +118,8 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                    <a class="list-group-item dropdown-item" href="javascript:void(0)"
+                                        role="menuitem">
                                         <div class="media">
                                             <div class="pr-10">
                                                 <i class="icon md-settings bg-red-600 white icon-circle"
@@ -128,7 +132,8 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                    <a class="list-group-item dropdown-item" href="javascript:void(0)"
+                                        role="menuitem">
                                         <div class="media">
                                             <div class="pr-10">
                                                 <i class="icon md-calendar bg-blue-600 white icon-circle"
@@ -141,7 +146,8 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                    <a class="list-group-item dropdown-item" href="javascript:void(0)"
+                                        role="menuitem">
                                         <div class="media">
                                             <div class="pr-10">
                                                 <i class="icon md-comment bg-orange-600 white icon-circle"

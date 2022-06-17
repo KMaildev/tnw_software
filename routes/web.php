@@ -2,25 +2,30 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\WebAuthnRegisterController;
+use App\Http\Controllers\Auth\WebAuthnLoginController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
 Auth::routes(['register' => false]);
+Route::get('/login-option', 'Auth\LoginController@loginOption')->name("login-option");
+// FingerPrint 
+Route::post('webauthn/register/options', [WebAuthnRegisterController::class, 'options'])
+    ->name('webauthn.register.options');
+Route::post('webauthn/register', [WebAuthnRegisterController::class, 'register'])
+    ->name('webauthn.register');
+
+Route::post('webauthn/login/options', [WebAuthnLoginController::class, 'options'])
+    ->name('webauthn.login.options');
+Route::post('webauthn/login', [WebAuthnLoginController::class, 'login'])
+    ->name('webauthn.login');
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/home', 'HomeController@index')->name('home');
     Route::view('/file_manager', 'file_manager.index')->name('file_manager.index');
     Route::resource('hr_dahsboard', 'Hr\HrDashboardController');
@@ -49,4 +54,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('township', 'Property\TownshipController');
     Route::resource('property_type', 'Property\PropertyTypeController');
     Route::resource('activity', 'Activity\ActivityLogController');
+
+    Route::resource('profile', 'ProfileController');
+    Route::get('profile/biometric-data', 'ProfileController@biometricData');
+    // Route::get('profile/biometric-del/{id}', 'ProfileController@biometricDataDestroy');
+
+    Route::get('biometric_del/{id}', [
+        'as' => 'biometric_del',
+        'uses' => 'ProfileController@biometricDataDestroy'
+    ]);
 });

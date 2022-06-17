@@ -40,6 +40,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function username()
+    {
+        return 'phone';
+    }
+
     function authenticated(Request $request, $user)
     {
         $user->update([
@@ -47,5 +52,16 @@ class LoginController extends Controller
             'last_login_ip' => $request->getClientIp(),
             'agent' => $request->header('user-agent'),
         ]);
+    }
+
+
+    public function loginOption(Request $request)
+    {
+        $request->validate(
+            [
+                'phone' => 'required'
+            ]
+        );
+        return view('auth.login_option');
     }
 }
