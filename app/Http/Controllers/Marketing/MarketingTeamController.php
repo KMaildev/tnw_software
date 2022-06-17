@@ -8,6 +8,9 @@ use App\Models\Appointment;
 use App\Models\FollowUp;
 use App\Models\InterestRate;
 use App\Models\MarketingTeam;
+use App\Models\PropertyType;
+use App\Models\Region;
+use App\Models\Township;
 use Illuminate\Http\Request;
 
 class MarketingTeamController extends Controller
@@ -31,7 +34,10 @@ class MarketingTeamController extends Controller
     public function create()
     {
         $interest_rates = InterestRate::all();
-        return view('marketing.marketing_team.create', compact('interest_rates'));
+        $property_types = PropertyType::all();
+        $region = Region::all();
+        $township = Township::all();
+        return view('marketing.marketing_team.create', compact('interest_rates', 'property_types', 'region', 'township'));
     }
 
     /**
@@ -143,5 +149,29 @@ class MarketingTeamController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function already_live_filter_search(Request $request)
+    {
+        $marketing = (new MarketingTeam())->newQuery();
+
+        $WardNo = $request->WardNo;
+        $Road = $request->Road;
+        if ($WardNo) {
+            $marketing->where('ward_no', $WardNo);
+        }
+
+        if ($Road) {
+            $marketing->where('road', $Road);
+        }
+
+        $marketing_data = $marketing->get();
+        return json_encode($marketing_data);
+
+        // return json_encode(array(
+        //     "statusCode" => 200,
+        //     "marketing_data" => $data,
+        // ));
     }
 }

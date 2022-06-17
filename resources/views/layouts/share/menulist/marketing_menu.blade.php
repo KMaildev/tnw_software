@@ -51,6 +51,30 @@
                                                     </span>
                                                 </a>
                                             </li>
+
+                                            <li class="site-menu-item">
+                                                <a href="{{ route('property_type.index') }}">
+                                                    <span class="site-menu-title">
+                                                        Property Type
+                                                    </span>
+                                                </a>
+                                            </li>
+
+                                            <li class="site-menu-item">
+                                                <a href="{{ route('region.index') }}">
+                                                    <span class="site-menu-title">
+                                                        Region
+                                                    </span>
+                                                </a>
+                                            </li>
+
+                                            <li class="site-menu-item">
+                                                <a href="{{ route('township.index') }}">
+                                                    <span class="site-menu-title">
+                                                        Township
+                                                    </span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
