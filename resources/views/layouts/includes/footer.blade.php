@@ -88,6 +88,9 @@ src="{{ asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-m
 <script src="{{ asset('global/vendor/aspaginator/jquery-asPaginator.min599c.js?v4.0.2') }}"></script>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+
+
 @yield('script')
 
 <script type="text/javascript">

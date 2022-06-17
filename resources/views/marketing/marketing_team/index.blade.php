@@ -31,11 +31,13 @@
                     <table class="table table-hover dataTable" id="exampleTableSearch">
                         <thead class="tbbg">
                             <tr>
-                                <th style="color: white; text-align: center; width: 1%;">No</th>
+                                <th style="color: white; text-align: center; width: 1%;">#</th>
                                 <th style="color: white; text-align: center;">Marketing</th>
                                 <th style="color: white; text-align: center;">Date</th>
+                                <th style="color: white; text-align: center;">No</th>
                                 <th style="color: white; text-align: center;">Ward No</th>
                                 <th style="color: white; text-align: center;">Road</th>
+                                <th style="color: white; text-align: center;">Township</th>
                                 <th style="color: white; text-align: center;">Wide</th>
                                 <th style="color: white; text-align: center;">Type</th>
                                 <th style="color: white; text-align: center;">Price</th>
@@ -43,17 +45,21 @@
                                 <th style="color: white; text-align: center;">Ph No.</th>
                                 <th style="color: white; text-align: center;">O/A</th>
                                 <th style="color: white; text-align: center;">Code</th>
+                                <th style="color: white; text-align: center;">Photo</th>
+                                <th style="color: white; text-align: center;">Follow Up</th>
                                 <th style="color: white; text-align: center;">Action</th>
                             </tr>
                         </thead>
                         <tfoot style="display:
                                     table-header-group;">
                             <tr>
-                                <th>No</th>
+                                <th>#</th>
                                 <th>Marketing</th>
                                 <th>Date</th>
-                                <th>Ward No.</th>
+                                <th>No</th>
+                                <th>Ward No</th>
                                 <th>Road</th>
+                                <th>Township</th>
                                 <th>Wide</th>
                                 <th>Type</th>
                                 <th>Price</th>
@@ -61,6 +67,8 @@
                                 <th>Ph No.</th>
                                 <th>O/A</th>
                                 <th>Code</th>
+                                <th>Photo</th>
+                                <th>Follow Up</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -77,10 +85,16 @@
                                         {{ $marketing_team->marketing_date ?? '' }}
                                     </td>
                                     <td>
+                                        {{ $marketing_team->no ?? '' }}
+                                    </td>
+                                    <td>
                                         {{ $marketing_team->ward_no ?? '' }}
                                     </td>
                                     <td>
                                         {{ $marketing_team->road ?? '' }}
+                                    </td>
+                                    <td>
+                                        {{ $marketing_team->township_table->township ?? '' }}
                                     </td>
                                     <td>
                                         {{ $marketing_team->wide ?? '' }}
@@ -103,6 +117,8 @@
                                     <td>
                                         {{ $marketing_team->code ?? '' }}
                                     </td>
+                                    <td></td>
+                                    <td></td>
                                     <td style="text-align: center;">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-info dropdown-toggle btn-xs"
@@ -112,7 +128,8 @@
                                             <div class="dropdown-menu" aria-labelledby="exampleSizingDropdown3"
                                                 role="menu">
 
-                                                <a class="dropdown-item" href="#" role="menuitem">
+                                                <a class="dropdown-item" href="#" role="menuitem"
+                                                    onclick="alert('in progress')">
                                                     <i class="icon md-edit" aria-hidden="true"></i>
                                                     Edit
                                                 </a>
@@ -123,17 +140,6 @@
                                                     <i class="icon md-edit" aria-hidden="true"></i>
                                                     Reject
                                                 </a>
-
-                                                <form action="{{ route('property_type.destroy', $marketing_team->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="dropdown-item del_confirm"
-                                                        id="confirm-text" data-toggle="tooltip">
-                                                        <i class="icon md-delete" aria-hidden="true"></i>
-                                                        Delete
-                                                    </button>
-                                                </form>
                                             </div>
                                         </div>
                                     </td>

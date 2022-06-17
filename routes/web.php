@@ -36,13 +36,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('marketing_team', 'Marketing\MarketingTeamController');
     Route::get('already_live_filter_search', 'Marketing\MarketingTeamController@already_live_filter_search');
     Route::resource('reject', 'Marketing\RejectController');
-
     Route::resource('follow_up', 'Marketing\FollowUpController');
-
+    Route::get('follow_up_now/{id}', [
+        'as' => 'follow_up_now',
+        'uses' => 'Marketing\FollowUpController@follow_up_now'
+    ]);
+    Route::resource('marketing_report', 'Marketing\MarketingReportController');
 
 
     Route::resource('interest_rate', 'Marketing\InterestRateController');
     Route::resource('region', 'Property\RegionController');
     Route::resource('township', 'Property\TownshipController');
     Route::resource('property_type', 'Property\PropertyTypeController');
+    Route::resource('activity', 'Activity\ActivityLogController');
 });

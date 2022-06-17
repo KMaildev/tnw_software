@@ -4,7 +4,6 @@
         <div class="page-content container">
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-8 col-md-8">
-                    <p style="color: red">In Progress</p>
                     <div class="row py-5" style="margin-top: 30px;">
 
                         <div class="col-lg-3 col-md-3" hidden>
@@ -83,21 +82,6 @@
                             </a>
                         </div>
 
-                        <div class="col-lg-3 col-md-3" hidden>
-                            <a href="" style="text-decoration: none;">
-                                <div class="card card-block p-25" style="background-color: #d1709a;">
-                                    <div class="counter counter-lg">
-                                        <div class="white">
-                                            <i class="icon icon-circle icon-3x md-assignment"></i>
-                                        </div>
-                                        <div class="counter-label text-white">
-                                            Activities
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
                         <div class="col-lg-3 col-md-3">
                             <a href="{{ route('file_manager.index') }}" style="text-decoration: none;">
                                 <div class="card card-block p-25" style="background-color: #186b62;">
@@ -122,6 +106,22 @@
                                         </div>
                                         <div class="counter-label  text-white">
                                             Setting
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+
+                        <div class="col-lg-3 col-md-3">
+                            <a href="{{ route('activity.index') }}" style="text-decoration: none;">
+                                <div class="card card-block p-25" style="background-color: #d1709a;">
+                                    <div class="counter counter-lg">
+                                        <div class="white">
+                                            <i class="icon icon-circle icon-3x md-assignment"></i>
+                                        </div>
+                                        <div class="counter-label text-white">
+                                            Activities
                                         </div>
                                     </div>
                                 </div>

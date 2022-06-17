@@ -45,9 +45,9 @@
                                     <div>
                                         <ul class="site-menu-sub site-menu-normal-list">
                                             <li class="site-menu-item">
-                                                <a href="#">
+                                                <a href="{{ route('marketing_report.index') }}">
                                                     <span class="site-menu-title">
-                                                        User Report
+                                                        Marketing Report
                                                     </span>
                                                 </a>
                                             </li>
@@ -67,7 +67,7 @@
                     </li>
 
                     <li class="dropdown site-menu-item has-sub">
-                        <a href="{{ route('follow_up.index') }}">
+                        <a href="{{ route('reject.index') }}">
                             Reject
                         </a>
                     </li>

@@ -54,9 +54,11 @@ class MarketingTeamController extends Controller
         $marketing->ward_no = $request->ward_no;
         $marketing->road = $request->road;
         $marketing->wide = $request->wide;
+        $marketing->area_type = $request->area_type;
         $marketing->permission = $request->permission;
         $marketing->type = $request->type;
         $marketing->price = $request->price;
+        $marketing->currency = $request->currency;
         $marketing->owner_or_agent_type = $request->owner_or_agent_type;
         $marketing->name = $request->name;
         $marketing->phone_no = $request->phone_no;

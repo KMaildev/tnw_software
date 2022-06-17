@@ -98,7 +98,7 @@
                                                 <optgroup label="{{ $region->region ?? '' }}">
                                                     @foreach ($region->townships_table as $township)
                                                         <option value="{{ $township->id ?? '' }}">
-                                                            {{ $township->township ?? '' }}
+                                                            - {{ $township->township ?? '' }}
                                                         </option>
                                                     @endforeach
                                                 </optgroup>
@@ -127,14 +127,36 @@
                                     </div>
 
                                     <div class="col-md-6 mb-2">
-                                        <label class="form-control-label">
-                                            Wide
-                                        </label>
-                                        <input class="form-control @error('wide') is-invalid @enderror" type="text"
-                                            name="wide" value="{{ old('wide') }}" />
-                                        @error('wide')
-                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                        @enderror
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="form-control-label">
+                                                    Wide
+                                                </label>
+                                                <input class="form-control @error('wide') is-invalid @enderror"
+                                                    type="text" name="wide" value="{{ old('wide') }}" />
+                                                @error('wide')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="form-control-label">
+                                                    <br>
+                                                </label>
+                                                <select name="area_type"
+                                                    class="form-control @error('area_type') is-invalid @enderror">
+                                                    <option value="Sqft">
+                                                        Sqft
+                                                    </option>
+                                                    <option value="Acre">
+                                                        Acre
+                                                    </option>
+                                                </select>
+                                                @error('area_type')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
 
 
@@ -150,7 +172,7 @@
                                     </div>
 
 
-                                    <div class="col-md-6 mb-2">
+                                    <div class="col-md-6 mb-2" hidden>
                                         <label class="form-control-label">
                                             Type
                                         </label>
@@ -175,14 +197,35 @@
 
 
                                     <div class="col-md-6 mb-2">
-                                        <label class="form-control-label">
-                                            Price
-                                        </label>
-                                        <input class="form-control @error('price') is-invalid @enderror" type="text"
-                                            name="price" value="{{ old('price') }}" />
-                                        @error('price')
-                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                        @enderror
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="form-control-label">
+                                                    Price
+                                                </label>
+                                                <input class="form-control @error('price') is-invalid @enderror"
+                                                    type="text" name="price" value="{{ old('price') }}" />
+                                                @error('price')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-control-label">
+                                                    <br>
+                                                </label>
+                                                <select name="currency"
+                                                    class="form-control @error('currency') is-invalid @enderror">
+                                                    <option value="MMK(Lakhs)">
+                                                        MMK(Lakhs)
+                                                    </option>
+                                                    <option value="USD">
+                                                        USD
+                                                    </option>
+                                                </select>
+                                                @error('currency')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6 mb-2">
@@ -241,7 +284,7 @@
                                     </div>
 
 
-                                    <div class="col-md-6 mb-2">
+                                    <div class="col-md-6 mb-2" hidden>
                                         <label class="form-control-label">
                                             Interest Rate
                                         </label>
@@ -278,8 +321,6 @@
                                         <input type="checkbox" id="FollowUpStatus" name="follow_up_status"
                                             data-plugin="switchery" value="follow_up" />
                                         <label class="pt-3" for="FollowUpStatus">On</label>
-
-
                                         <div class="row" id="FollowShowHide">
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-control-label">
@@ -402,7 +443,7 @@
                                     </div>
                                     <div class="col-md-12 py-5">
                                         <button type="reset" class="mr-2 btn btn-danger float-right">Reset</button>
-                                        <button type="submit" class="mr-2 btn btn-secondary float-right">Save</button>
+                                        <button type="submit" class="mr-2 btn btn-success float-right">Save</button>
                                     </div>
                                 </div>
                             </form>

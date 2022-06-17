@@ -20,9 +20,11 @@ class CreateMarketingTeamsTable extends Migration
             $table->text('ward_no')->nullable();
             $table->text('road')->nullable();
             $table->text('wide')->nullable();
+            $table->text('area_type')->nullable();
             $table->text('permission')->nullable();
             $table->text('type')->nullable();
             $table->text('price')->nullable();
+            $table->text('currency')->nullable();
             $table->text('owner_or_agent_type')->nullable();
             $table->text('name')->nullable();
             $table->text('phone_no')->nullable();

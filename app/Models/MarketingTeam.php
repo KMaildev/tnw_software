@@ -16,4 +16,9 @@ class MarketingTeam extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function township_table()
+    {
+        return $this->belongsTo(Township::class, 'township_id', 'id');
+    }
 }

@@ -19,7 +19,8 @@ class RejectController extends Controller
      */
     public function index()
     {
-        //
+        $rejects = Reject::all();
+        return view('marketing.reject.index', compact('rejects'));
     }
 
     /**

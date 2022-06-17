@@ -36,93 +36,108 @@
                                         <li class="list-group-item">
                                             <div class="media">
                                                 <div class="media-body align-self-center">
-                                                    <h5 class="mt-0 mb-5">
+                                                    <h4 class="mt-0 mb-5">
                                                         {{ $today_followup_list->marketing_teams_table->name ?? '' }}
-                                                    </h5>
-
-                                                    <p>
-                                                        <i class="icon icon-color wb-map" aria-hidden="true"></i>
-                                                        No
-                                                        ({{ $today_followup_list->marketing_teams_table->no ?? '' }})
-                                                        ,
-                                                        {{ $today_followup_list->marketing_teams_table->ward_no ?? '' }}
-                                                        Ward No,
-                                                        {{ $today_followup_list->marketing_teams_table->road ?? '' }}
-                                                        Road
-                                                    </p>
-
-                                                    <p>
-                                                        <i class="icon icon-color wb-map" aria-hidden="true"></i>
-                                                        Wide:
-                                                        {{ $today_followup_list->marketing_teams_table->wide ?? '' }}
-                                                    </p>
-
-                                                    <p>
-                                                        <i class="icon icon-color wb-map" aria-hidden="true"></i>
-                                                        Type:
-                                                        {{ $today_followup_list->marketing_teams_table->type ?? '' }}
-                                                    </p>
-
-                                                    <p>
-                                                        <i class="icon icon-color wb-map" aria-hidden="true"></i>
-                                                        Price:
-                                                        {{ $today_followup_list->marketing_teams_table->price ?? '' }}
-                                                    </p>
-
-                                                    <p>
-                                                        <i class="icon icon-color wb-map" aria-hidden="true"></i>
-                                                        O/A:
-                                                        {{ $today_followup_list->marketing_teams_table->owner_or_agent_type ?? '' }}
-                                                    </p>
-
-
-                                                    <p style="color: red">
-                                                        <i class="icon icon-color wb-map" aria-hidden="true"></i>
-                                                        Interest Rate:
-                                                        {{ $today_followup_list->marketing_teams_table->interest_rate ?? '' }}
-                                                    </p>
-
-                                                    <p>
-                                                        <i class="icon icon-color wb-map" aria-hidden="true"></i>
-                                                        Phone:
-                                                        {{ $today_followup_list->marketing_teams_table->phone_no ?? '' }}
-                                                    </p>
-
-                                                    <p>
-                                                        <i class="icon icon-color wb-map" aria-hidden="true"></i>
-                                                        Email:
-                                                        {{ $today_followup_list->marketing_teams_table->email ?? '' }}
-                                                    </p>
-
-                                                    <div>
-                                                        <p>
+                                                    </h4>
+                                                    <div style="background-color: #f1f4f5; margin: 10px; padding: 10px;">
+                                                        <p style="color: black;">
                                                             <i class="icon icon-color wb-map" aria-hidden="true"></i>
+                                                            No
+                                                            ({{ $today_followup_list->marketing_teams_table->no ?? '' }})
+                                                            ,
+                                                            {{ $today_followup_list->marketing_teams_table->ward_no ?? '' }}
+                                                            Ward No,
+                                                            {{ $today_followup_list->marketing_teams_table->road ?? '' }}
+                                                            Road
+                                                        </p>
+
+                                                        <p style="color: black;">
+                                                            <i class="icon icon-color fa fa-home" aria-hidden="true"></i>
+                                                            Wide:
+                                                            {{ $today_followup_list->marketing_teams_table->wide ?? '' }}
+                                                        </p>
+
+                                                        <p style="color: black;">
+                                                            <i class="icon icon-color fa fa-user" aria-hidden="true"></i>
+                                                            Type:
+                                                            {{ $today_followup_list->marketing_teams_table->type ?? '' }}
+                                                        </p>
+
+                                                        <p style="color: black;">
+                                                            <i class="icon icon-color fa fa-usd" aria-hidden="true"></i>
+                                                            Price:
+                                                            {{ $today_followup_list->marketing_teams_table->price ?? '' }}
+                                                        </p>
+                                                    </div>
+
+
+
+                                                    <div style="background-color: #f1f4f5; margin: 10px; padding: 10px;">
+
+                                                        <p style="color: black;">
+                                                            <i class="icon icon-color fa fa-user" aria-hidden="true"></i>
+                                                            O/A:
+                                                            {{ $today_followup_list->marketing_teams_table->owner_or_agent_type ?? '' }}
+                                                        </p>
+
+                                                        <p style="color: black;">
+                                                            <i class="icon icon-color fa fa-phone" aria-hidden="true"></i>
+                                                            Phone:
+                                                            {{ $today_followup_list->marketing_teams_table->phone_no ?? '' }}
+                                                        </p>
+
+                                                        <p style="color: black;">
+                                                            <i class="icon icon-color fa fa-envelope"
+                                                                aria-hidden="true"></i>
+                                                            Email:
+                                                            {{ $today_followup_list->marketing_teams_table->email ?? '' }}
+                                                        </p>
+
+                                                        <p style="color: black;">
+                                                            <i class="icon icon-color fa fa-calendar"
+                                                                aria-hidden="true"></i>
                                                             Date Time:
                                                             {{ $today_followup_list->date_time ?? '' }}
                                                         </p>
 
-                                                        <p>
-                                                            <i class="icon icon-color wb-map" aria-hidden="true"></i>
+                                                        <p style="color: black;">
+                                                            <i class="icon icon-color fa fa-pen" aria-hidden="true"></i>
                                                             Follow Up Type:
                                                             {{ $today_followup_list->follow_up_type ?? '' }}
                                                         </p>
 
-                                                        <p>
-                                                            <i class="icon icon-color wb-map" aria-hidden="true"></i>
+                                                        <p style="color: black;">
+                                                            <i class="icon icon-color fa fa-clipboard"
+                                                                aria-hidden="true"></i>
                                                             Remark:
                                                             {{ $today_followup_list->follow_up_remark ?? '' }}
                                                         </p>
 
-                                                        <p>
-                                                            <i class="icon icon-color wb-map" aria-hidden="true"></i>
+                                                        <p style="color: black;">
+                                                            <i class="icon icon-color fa fa-clipboard"
+                                                                aria-hidden="true"></i>
                                                             Additional Note:
                                                             {{ $today_followup_list->additional_note ?? '' }}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div class="pl-0 pl-sm-20 mt-15 mt-sm-0 align-self-center">
-                                                    <button type="button"
-                                                        class="btn btn-outline btn-success btn-sm">Follow</button>
+
+                                                <div class="pl-0 pl-sm-50 mt-50 mt-sm-0 align-self-center">
+                                                    @if ($today_followup_list->follow_up_status == 'finished')
+                                                        <span style="color: green">
+                                                            Finished at - {{ $today_followup_list->updated_at }}
+                                                        </span>
+                                                        <br>
+                                                        <span style="color: green">
+                                                            By
+                                                            {{ strtoupper($today_followup_list->follow_up_user->name ?? '') }}
+                                                        </span>
+                                                    @endif
+                                                    <hr>
+                                                    <a href="{{ route('follow_up_now', $today_followup_list->id) }}"
+                                                        class="btn btn-outline btn-success btn-sm">
+                                                        Follow
+                                                    </a>
                                                 </div>
                                             </div>
                                         </li>

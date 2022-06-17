@@ -31,13 +31,11 @@ class StoreMarketingTeam extends FormRequest
             'township_id' => 'required',
             'property_type_id' => 'required',
             'wide' => 'required',
-            'type' => 'required',
             'owner_or_agent_type' => 'required',
             'name' => 'required',
-            'price' => 'numeric',
+            'price' => 'required|numeric',
             'phone_no' => 'required',
             'code' => 'required|unique:marketing_teams,code',
-            'interest_rate' => 'required',
         ];
     }
 }

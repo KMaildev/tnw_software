@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
-use App\Models\FollowUp;
+use App\Models\MarketingTeam;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class FollowUpController extends Controller
+class MarketingReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +17,28 @@ class FollowUpController extends Controller
      */
     public function index()
     {
-        $today = date("Y-m-d");
-        $today_followup_lists = FollowUp::where('follow_up_date', $today)->get();
-        $all_followup_lists = FollowUp::all();
-        return view('marketing.follow_up.index', compact('today_followup_lists', 'all_followup_lists'));
+        $record = MarketingTeam::select(DB::raw("COUNT(*) as count"), DB::raw("DAYNAME(created_at) as day_name"), DB::raw("DAY(created_at) as day"))
+            ->where('created_at', '>', Carbon::today()->subDay(6))
+            ->groupBy('day_name', 'day')
+            ->orderBy('day')
+            ->get();
+        $data = [];
+        foreach ($record as $row) {
+            $data['label'][] = $row->day_name;
+            $data['data'][] = (int) $row->count;
+        }
+        $data['chart_data'] = json_encode($data);
+
+
+        $monthly_report = MarketingTeam::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('id', 'ASC')
+            ->pluck('count', 'month_name');
+        $monthly_report_data_label = $monthly_report->keys();
+        $monthly_report_data = $monthly_report->values();
+
+        return view('marketing.marketing_report.index', compact('monthly_report_data_label', 'monthly_report_data'), $data);
     }
 
     /**
@@ -73,7 +93,7 @@ class FollowUpController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $id;
+        //
     }
 
     /**
@@ -85,15 +105,5 @@ class FollowUpController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function follow_up_now($id)
-    {
-        $user_id = auth()->user()->id;
-        $follow_up = FollowUp::findOrFail($id);
-        $follow_up->follow_up_status = 'finished';
-        $follow_up->follow_up_user_id = $user_id;
-        $follow_up->update();
-        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 }
