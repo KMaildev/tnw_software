@@ -85,6 +85,8 @@ src="{{ asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-m
 <script src="{{ asset('global/js/Plugin/datatables.min599c.js?v4.0.2') }}"></script>
 <script src="{{ asset('assets/assets/examples/js/tables/datatable.minfd53.js') }}"></script>
 
+<script src="{{ asset('global/vendor/aspaginator/jquery-asPaginator.min599c.js?v4.0.2') }}"></script>
+
 
 @yield('script')
 

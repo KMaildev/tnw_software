@@ -25,8 +25,11 @@ class StoreMarketingTeam extends FormRequest
     {
         return [
             'marketing_date' => 'required',
+            'no' => 'required',
             'ward_no' => 'required',
             'road' => 'required',
+            'township_id' => 'required',
+            'property_type_id' => 'required',
             'wide' => 'required',
             'type' => 'required',
             'owner_or_agent_type' => 'required',

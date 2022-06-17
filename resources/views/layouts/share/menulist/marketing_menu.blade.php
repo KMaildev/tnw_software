@@ -26,11 +26,49 @@
 
 
                     <li class="dropdown site-menu-item has-sub">
-                        <a href="{{ route('marketing_team.index') }}">
+                        <a href="{{ route('follow_up.index') }}">
                             Follow Up Report
                             <span class="badge badge_noti_count">
                                 {{ $follow_up_total ?? 0 }}
                             </span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown site-menu-item has-sub">
+                        <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
+                            <span class="site-menu-title">Report</span>
+                            <span class="site-menu-arrow"></span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <div class="site-menu-scroll-wrap is-list">
+                                <div>
+                                    <div>
+                                        <ul class="site-menu-sub site-menu-normal-list">
+                                            <li class="site-menu-item">
+                                                <a href="#">
+                                                    <span class="site-menu-title">
+                                                        User Report
+                                                    </span>
+                                                </a>
+                                            </li>
+
+                                            <li class="site-menu-item">
+                                                <a href="#">
+                                                    <span class="site-menu-title">
+                                                        Chart
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="dropdown site-menu-item has-sub">
+                        <a href="{{ route('follow_up.index') }}">
+                            Reject
                         </a>
                     </li>
 

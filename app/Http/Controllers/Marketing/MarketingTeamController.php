@@ -22,7 +22,7 @@ class MarketingTeamController extends Controller
      */
     public function index()
     {
-        $marketing_teams = MarketingTeam::all();
+        $marketing_teams = MarketingTeam::where('reject_status', NULL)->get();
         return view('marketing.marketing_team.index', compact('marketing_teams'));
     }
 
@@ -35,9 +35,8 @@ class MarketingTeamController extends Controller
     {
         $interest_rates = InterestRate::all();
         $property_types = PropertyType::all();
-        $region = Region::all();
-        $township = Township::all();
-        return view('marketing.marketing_team.create', compact('interest_rates', 'property_types', 'region', 'township'));
+        $regions = Region::all();
+        return view('marketing.marketing_team.create', compact('interest_rates', 'property_types', 'regions'));
     }
 
     /**
@@ -51,6 +50,7 @@ class MarketingTeamController extends Controller
         $user_id = auth()->user()->id;
         $marketing = new MarketingTeam();
         $marketing->marketing_date = $request->marketing_date;
+        $marketing->no = $request->no;
         $marketing->ward_no = $request->ward_no;
         $marketing->road = $request->road;
         $marketing->wide = $request->wide;
@@ -64,6 +64,8 @@ class MarketingTeamController extends Controller
         $marketing->code = $request->code;
         $marketing->remark = $request->remark;
         $marketing->interest_rate = $request->interest_rate;
+        $marketing->township_id = $request->township_id;
+        $marketing->property_type_id = $request->property_type_id;
         $marketing->user_id = $user_id ?? 0;
         $marketing->save();
         $marketing_team_id = $marketing->id;
@@ -158,12 +160,17 @@ class MarketingTeamController extends Controller
 
         $WardNo = $request->WardNo;
         $Road = $request->Road;
+        $No = $request->No;
         if ($WardNo) {
             $marketing->where('ward_no', $WardNo);
         }
 
         if ($Road) {
             $marketing->where('road', $Road);
+        }
+
+        if ($No) {
+            $marketing->where('no', $No);
         }
 
         $marketing_data = $marketing->get();

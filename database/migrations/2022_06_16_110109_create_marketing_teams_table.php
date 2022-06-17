@@ -16,6 +16,7 @@ class CreateMarketingTeamsTable extends Migration
         Schema::create('marketing_teams', function (Blueprint $table) {
             $table->increments('id');
             $table->text('marketing_date')->nullable();
+            $table->text('no')->nullable();
             $table->text('ward_no')->nullable();
             $table->text('road')->nullable();
             $table->text('wide')->nullable();
@@ -29,6 +30,8 @@ class CreateMarketingTeamsTable extends Migration
             $table->text('code')->nullable();
             $table->text('remark')->nullable();
             $table->text('interest_rate')->nullable();
+            $table->integer('township_id')->nullable();
+            $table->integer('property_type_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });

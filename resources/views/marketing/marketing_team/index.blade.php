@@ -37,13 +37,13 @@
                                 <th style="color: white; text-align: center;">Ward No</th>
                                 <th style="color: white; text-align: center;">Road</th>
                                 <th style="color: white; text-align: center;">Wide</th>
-                                <th style="color: white; text-align: center;">Permission</th>
                                 <th style="color: white; text-align: center;">Type</th>
                                 <th style="color: white; text-align: center;">Price</th>
                                 <th style="color: white; text-align: center;">Name</th>
                                 <th style="color: white; text-align: center;">Ph No.</th>
                                 <th style="color: white; text-align: center;">O/A</th>
                                 <th style="color: white; text-align: center;">Code</th>
+                                <th style="color: white; text-align: center;">Action</th>
                             </tr>
                         </thead>
                         <tfoot style="display:
@@ -55,13 +55,13 @@
                                 <th>Ward No.</th>
                                 <th>Road</th>
                                 <th>Wide</th>
-                                <th>Permission</th>
                                 <th>Type</th>
                                 <th>Price</th>
                                 <th>Name</th>
                                 <th>Ph No.</th>
                                 <th>O/A</th>
                                 <th>Code</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -86,9 +86,6 @@
                                         {{ $marketing_team->wide ?? '' }}
                                     </td>
                                     <td>
-                                        {{ $marketing_team->permission ?? '' }}
-                                    </td>
-                                    <td>
                                         {{ $marketing_team->type ?? '' }}
                                     </td>
                                     <td>
@@ -106,6 +103,41 @@
                                     <td>
                                         {{ $marketing_team->code ?? '' }}
                                     </td>
+                                    <td style="text-align: center;">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-info dropdown-toggle btn-xs"
+                                                id="exampleSizingDropdown3" data-toggle="dropdown" aria-expanded="false">
+                                                Action
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="exampleSizingDropdown3"
+                                                role="menu">
+
+                                                <a class="dropdown-item" href="#" role="menuitem">
+                                                    <i class="icon md-edit" aria-hidden="true"></i>
+                                                    Edit
+                                                </a>
+
+                                                <a class="dropdown-item"
+                                                    href="{{ route('reject.edit', $marketing_team->id) }}"
+                                                    role="menuitem">
+                                                    <i class="icon md-edit" aria-hidden="true"></i>
+                                                    Reject
+                                                </a>
+
+                                                <form action="{{ route('property_type.destroy', $marketing_team->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="dropdown-item del_confirm"
+                                                        id="confirm-text" data-toggle="tooltip">
+                                                        <i class="icon md-delete" aria-hidden="true"></i>
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
-use App\Models\FollowUp;
+use App\Models\InterestRate;
+use App\Models\MarketingTeam;
+use App\Models\PropertyType;
+use App\Models\Region;
+use App\Models\Reject;
 use Illuminate\Http\Request;
 
-class FollowUpController extends Controller
+class RejectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +19,7 @@ class FollowUpController extends Controller
      */
     public function index()
     {
-        $today = date("Y-m-d");
-        $today_followup_lists = FollowUp::where('follow_up_date', $today)->get();
-        $all_followup_lists = FollowUp::all();
-        return view('marketing.follow_up.index', compact('today_followup_lists', 'all_followup_lists'));
+        //
     }
 
     /**
@@ -61,7 +62,11 @@ class FollowUpController extends Controller
      */
     public function edit($id)
     {
-        //
+        $marketing_team = MarketingTeam::findOrFail($id);
+        $interest_rates = InterestRate::all();
+        $property_types = PropertyType::all();
+        $regions = Region::all();
+        return view('marketing.reject.edit', compact('marketing_team', 'interest_rates', 'property_types', 'regions'));
     }
 
     /**
@@ -73,7 +78,20 @@ class FollowUpController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user_id = auth()->user()->id;
+        $marketing = MarketingTeam::findOrFail($id);
+        $marketing->reject_status = 'reject';
+        $marketing->reject_date = $request->reject_date;
+        $marketing->update();
+        $marketing = $marketing->id;
+
+        $reject = new Reject();
+        $reject->reject_date = $request->reject_date;
+        $reject->reject_reason = $request->reject_reason;
+        $reject->marketing_team_id = $marketing;
+        $reject->user_id = $user_id;
+        $reject->save();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
     /**

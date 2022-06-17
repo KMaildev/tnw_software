@@ -93,10 +93,18 @@
                                         <label class="form-control-label">
                                             Township
                                         </label>
-                                        <input class="form-control @error('road') is-invalid @enderror" type="text"
-                                            name="road" value="{{ old('road') }}" id="Road"
-                                            oninput="getAlertyMarketingTeam()" />
-                                        @error('road')
+                                        <select class="form-control" data-plugin="select2" name="township_id">
+                                            @foreach ($regions as $region)
+                                                <optgroup label="{{ $region->region ?? '' }}">
+                                                    @foreach ($region->townships_table as $township)
+                                                        <option value="{{ $township->id ?? '' }}">
+                                                            {{ $township->township ?? '' }}
+                                                        </option>
+                                                    @endforeach
+                                                </optgroup>
+                                            @endforeach
+                                        </select>
+                                        @error('township_id')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                         @enderror
                                     </div>
@@ -106,10 +114,14 @@
                                         <label class="form-control-label">
                                             Property Type
                                         </label>
-                                        <input class="form-control @error('road') is-invalid @enderror" type="text"
-                                            name="road" value="{{ old('road') }}" id="Road"
-                                            oninput="getAlertyMarketingTeam()" />
-                                        @error('road')
+                                        <select class="form-control" data-plugin="select2" name="property_type_id">
+                                            @foreach ($property_types as $property_type)
+                                                <option value="{{ $property_type->id }}">
+                                                    {{ $property_type->property_type ?? '' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('property_type_id')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                         @enderror
                                     </div>
@@ -247,7 +259,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-6 mb-2">
+                                    <div class="col-md-12 mb-2">
                                         <label class="form-control-label">
                                             Remark
                                         </label>
@@ -397,91 +409,127 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="nav-tabs-horizontal nav-tabs-animate" data-plugin="tabs">
-                            <br><br><br>
-                            <ul class="nav nav-tabs nav-tabs-line" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="active nav-link" data-toggle="tab" href="#all_contacts"
-                                        aria-controls="all_contacts" role="tab">
-                                        Already Marketing Data
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane animation-fade active" id="speakerResponse" role="tabpanel">
-                                    <ul class="list-group" id="MarketingDataList">
-                                    </ul>
-                                </div>
+                        <div class="panel-body container-fluid">
+                            <div class="panel-heading">
+                                <h4>
+                                    Marketing already data
+                                </h4>
                             </div>
+                            <br>
+                            <div id="MarketingDataList"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
-@section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreMarketingTeam', '#create-form') !!}
-    <script>
-        const FollowUpStatus = document.getElementById('FollowUpStatus')
-        FollowUpStatus.addEventListener('change', (event) => {
-            if (event.currentTarget.checked) {
-                $("#FollowShowHide").show();
-            } else {
-                $("#FollowShowHide").hide();
-            }
-        })
-        $("#FollowShowHide").hide();
-
-
-        const AppointmentStatus = document.getElementById('AppointmentStatus')
-        AppointmentStatus.addEventListener('change', (event) => {
-            if (event.currentTarget.checked) {
-                $("#AppointmentShowHide").show();
-            } else {
-                $("#AppointmentShowHide").hide();
-            }
-        })
-        $("#AppointmentShowHide").hide();
-
-
-
-        function getAlertyMarketingTeam() {
-            var WardNo = document.getElementById("WardNo").value;
-            var Road = document.getElementById("Road").value;
-            var url = '{{ url('already_live_filter_search') }}';
-            $.ajax({
-                method: 'GET',
-                url: url,
-                data: {
-                    WardNo: WardNo,
-                    Road: Road,
-                },
-                success: function(data) {
-                    let marketing = '';
-                    $.each(JSON.parse(data), function(key, value) {
-                        marketing += '<li class="list-group-item" style="background-color: #e8eeef">';
-                        marketing += '<div class="media">';
-                        marketing += '<div class="media-body align-self-center">';
-                        marketing += '<h5 class="mt-0 mb-5">' + value.marketing_date + '</h5>';
-                        marketing += '<p style="color: red;">Ward No: ' +
-                            value.ward_no + '</p>';
-                        marketing += '<p><i class="icon icon-color wb-map" aria-hidden="true"></i>' +
-                            value.road + '</p>';
-                        marketing += '</div>';
-                        marketing += '<div class="pl-0 pl-sm-20 mt-15 mt-sm-0 align-self-center">';
-                        marketing += '<a href="" class="btn btn-outline btn-success btn-sm">View</a>';
-                        marketing += '</div>';
-                        marketing += '</div>';
-                        marketing += '</li>';
-                        marketing += '<br>';
-                    });
-                    $('#MarketingDataList').html(marketing);
-                },
-                error: function(data) {
-                    // location.reload();
+    @endsection
+    @section('script')
+        {!! JsValidator::formRequest('App\Http\Requests\StoreMarketingTeam', '#create-form') !!}
+        <script>
+            const FollowUpStatus = document.getElementById('FollowUpStatus')
+            FollowUpStatus.addEventListener('change', (event) => {
+                if (event.currentTarget.checked) {
+                    $("#FollowShowHide").show();
+                } else {
+                    $("#FollowShowHide").hide();
                 }
-            });
-        }
-    </script>
-@endsection
+            })
+            $("#FollowShowHide").hide();
+
+
+            const AppointmentStatus = document.getElementById('AppointmentStatus')
+            AppointmentStatus.addEventListener('change', (event) => {
+                if (event.currentTarget.checked) {
+                    $("#AppointmentShowHide").show();
+                } else {
+                    $("#AppointmentShowHide").hide();
+                }
+            })
+            $("#AppointmentShowHide").hide();
+
+
+
+            function getAlertyMarketingTeam() {
+                var WardNo = document.getElementById("WardNo").value;
+                var Road = document.getElementById("Road").value;
+                var No = document.getElementById("No").value;
+                var url = '{{ url('already_live_filter_search') }}';
+                $.ajax({
+                    method: 'GET',
+                    url: url,
+                    data: {
+                        WardNo: WardNo,
+                        Road: Road,
+                        No: No,
+                    },
+                    success: function(data) {
+                        let marketing = '';
+                        $.each(JSON.parse(data), function(key, value) {
+                            marketing += '<div class="card-block mb-4" style="background-color: #dce1e2">';
+
+                            marketing += '<p class="mb-2"> Date: ';
+                            marketing += '<span class="float-right pl-10">' + value.marketing_date +
+                                '</span>';
+                            marketing += '</p>';
+
+                            marketing += '<p class="mb-2"> No: ';
+                            marketing += '<span class="float-right pl-10">' + value.no +
+                                '</span>';
+                            marketing += '</p>';
+
+                            marketing += '<p class="mb-2"> Ward No: ';
+                            marketing += '<span class="float-right pl-10">' + value.ward_no +
+                                '</span>';
+                            marketing += '</p>';
+
+                            marketing += '<p class="mb-2"> Road: ';
+                            marketing += '<span class="float-right pl-10">' + value.road +
+                                '</span>';
+                            marketing += '</p>';
+
+                            marketing += '<p class="mb-2"> Wide: ';
+                            marketing += '<span class="float-right pl-10">' + value.wide +
+                                '</span>';
+                            marketing += '</p>';
+
+                            marketing += '<p class="mb-2"> Type: ';
+                            marketing += '<span class="float-right pl-10">' + value.type +
+                                '</span>';
+                            marketing += '</p>';
+
+                            marketing += '<p class="mb-2"> Price: ';
+                            marketing += '<span class="float-right pl-10">' + value.price +
+                                '</span>';
+                            marketing += '</p>';
+
+                            marketing += '<p class="mb-2"> O/A: ';
+                            marketing += '<span class="float-right pl-10">' + value.owner_or_agent_type +
+                                '</span>';
+                            marketing += '</p>';
+
+                            marketing += '<p class="mb-2"> Name: ';
+                            marketing += '<span class="float-right pl-10">' + value.name +
+                                '</span>';
+                            marketing += '</p>';
+
+                            marketing += '<p class="mb-2"> Phone No: ';
+                            marketing += '<span class="float-right pl-10">' + value.phone_no +
+                                '</span>';
+                            marketing += '</p>';
+
+                            marketing +=
+                                '<a href="" class="btn btn-success btn-sm float-right">View</a><br><br>';
+
+
+
+                            marketing += '</div>';
+                        });
+                        $('#MarketingDataList').html(marketing);
+                    },
+                    error: function(data) {
+                        // location.reload();
+                    }
+                });
+            }
+        </script>
+    @endsection
