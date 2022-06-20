@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMarketingTeam;
+use App\Imports\MarketingTeamImport;
 use App\Models\Appointment;
 use App\Models\FollowUp;
 use App\Models\InterestRate;
 use App\Models\MarketingTeam;
+use App\Models\Models\MarketingFile;
 use App\Models\PropertyType;
 use App\Models\Region;
 use App\Models\Township;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MarketingTeamController extends Controller
 {
@@ -107,6 +110,24 @@ class MarketingTeamController extends Controller
             $appointment->marketing_team_id = $marketing_team_id;
             $appointment->save();
         }
+
+
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $key => $file) {
+                $path = $file->store('public/marketing_files');
+                $original_name = $file->getClientOriginalName();
+
+                $insert[$key]['photo'] = $path;
+                $insert[$key]['original_name'] = $original_name;
+
+                $insert[$key]['marketing_team_id'] = $marketing_team_id;
+                $insert[$key]['user_id'] = auth()->user()->id;
+                $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
+                $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
+            }
+            MarketingFile::insert($insert);
+        }
+
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
@@ -182,5 +203,15 @@ class MarketingTeamController extends Controller
         //     "statusCode" => 200,
         //     "marketing_data" => $data,
         // ));
+    }
+
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function marketing_team_import()
+    {
+        Excel::import(new MarketingTeamImport, request()->file('file'));
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 }

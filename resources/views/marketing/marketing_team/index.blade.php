@@ -117,8 +117,35 @@
                                     <td>
                                         {{ $marketing_team->code ?? '' }}
                                     </td>
-                                    <td></td>
-                                    <td></td>
+
+                                    <td style="text-align: center">
+                                        @if ($marketing_team->marketing_files_table)
+                                            @foreach ($marketing_team->marketing_files_table as $key => $photo)
+                                                @if ($key == 0)
+                                                    <img class="avatar avatar-sm" src="{{ Storage::url($photo->photo) }}"
+                                                        data-toggle="tooltip"
+                                                        data-original-title="{{ $photo->original_name }}"
+                                                        data-container="body" title=""
+                                                        style="width: 100%; height: 50px; background-size: center; object-fit: cover; border: 1px solid #458cd2;">
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </td>
+
+                                    <td style="text-align: center">
+                                        @if ($marketing_team->follow_ups_table)
+                                            @foreach ($marketing_team->follow_ups_table as $key => $follow_up)
+                                                @if ($key == 0)
+                                                    @if ($follow_up->follow_up_status == 'finished')
+                                                        <button type="button" class="btn btn-icon btn-success btn-sm">
+                                                            <i class="icon fa fa-check" aria-hidden="true"></i>
+                                                        </button>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </td>
+
                                     <td style="text-align: center;">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-info dropdown-toggle btn-xs"
@@ -132,6 +159,12 @@
                                                     onclick="alert('in progress')">
                                                     <i class="icon md-edit" aria-hidden="true"></i>
                                                     Edit
+                                                </a>
+
+                                                <a class="dropdown-item" href="#" role="menuitem"
+                                                    onclick="alert('in progress')">
+                                                    <i class="icon md-edit" aria-hidden="true"></i>
+                                                    View Detail
                                                 </a>
 
                                                 <a class="dropdown-item"

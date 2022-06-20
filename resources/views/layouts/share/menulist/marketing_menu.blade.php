@@ -53,9 +53,9 @@
                                             </li>
 
                                             <li class="site-menu-item">
-                                                <a href="#">
+                                                <a href="{{ route('oncall_report.index') }}">
                                                     <span class="site-menu-title">
-                                                        Chart
+                                                        Oncall Report
                                                     </span>
                                                 </a>
                                             </li>

@@ -264,7 +264,7 @@
                         registerOptions: 'webauthn/register/options'
                     }).register()
                     .then(function(response) {
-                        alert("W");
+                        // alert("W");
                         // Toast.fire({
                         //     icon: 'success',
                         //     title: 'Biometric data is successfully created.'

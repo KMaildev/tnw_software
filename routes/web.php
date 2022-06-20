@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('marketing_team', 'Marketing\MarketingTeamController');
     Route::get('already_live_filter_search', 'Marketing\MarketingTeamController@already_live_filter_search');
+    Route::post('marketing_team_import', 'Marketing\MarketingTeamController@marketing_team_import')->name('marketing_team_import');
+
     Route::resource('reject', 'Marketing\RejectController');
     Route::resource('follow_up', 'Marketing\FollowUpController');
     Route::get('follow_up_now/{id}', [
@@ -47,6 +49,7 @@ Route::middleware('auth')->group(function () {
         'uses' => 'Marketing\FollowUpController@follow_up_now'
     ]);
     Route::resource('marketing_report', 'Marketing\MarketingReportController');
+    Route::resource('oncall_report', 'Marketing\OncallReportController');
 
 
     Route::resource('interest_rate', 'Marketing\InterestRateController');
@@ -63,4 +66,7 @@ Route::middleware('auth')->group(function () {
         'as' => 'biometric_del',
         'uses' => 'ProfileController@biometricDataDestroy'
     ]);
+
+
+    Route::resource('lawyer', 'LawyerController');
 });

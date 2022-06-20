@@ -122,7 +122,7 @@
                     phone: document.getElementById('phone').value
                 })
                 .then(function(response) {
-                    // window.location.replace('/');
+                    window.location.replace('/');
                     alert("Success");
                 })
                 .catch(function(error) {

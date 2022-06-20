@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Department;
+use App\Models\MarketingTeam;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -56,5 +57,10 @@ class User extends Authenticatable implements WebAuthnAuthenticatable
     public function department()
     {
         return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
+    public function marketing_teams_table()
+    {
+        return $this->hasMany(MarketingTeam::class);
     }
 }
