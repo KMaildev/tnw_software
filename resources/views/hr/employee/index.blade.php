@@ -10,7 +10,7 @@
                 <li class="breadcrumb-item active">Employees</li>
             </ol>
             <div class="page-header-actions">
-                <a class="btn btn-sm btn-primary btn-round" href="{{ route('employee.create') }}">
+                <a class="btn btn-sm btn-primary" href="{{ route('employee.create') }}">
                     <i class="icon md-plus" aria-hidden="true"></i>
                     <span class="hidden-sm-down">
                         Create
@@ -31,7 +31,8 @@
                                         <thead class="tbbg">
                                             <tr>
                                                 <th style="color: white; text-align: center; width: 1%;">#</th>
-                                                <th style="color: white; text-align: center;">Employee ID</th>
+                                                <th style="color: white; text-align: center;">Photo</th>
+                                                <th style="color: white; text-align: center;">ID</th>
                                                 <th style="color: white; text-align: center;">Name</th>
                                                 <th style="color: white; text-align: center;">Email</th>
                                                 <th style="color: white; text-align: center;">Phone</th>
@@ -39,7 +40,7 @@
                                                 <th style="color: white; text-align: center;">Join Date</th>
                                                 <th style="color: white; text-align: center;">Emergency</th>
                                                 <th style="color: white; text-align: center;">Department</th>
-                                                <th style="color: white; text-align: center;">Role (or) Designation</th>
+                                                <th style="color: white; text-align: center;">Role</th>
                                                 <th style="color: white; text-align: center;">Actions</th>
                                             </tr>
                                         </thead>
@@ -48,6 +49,13 @@
                                                 <tr>
                                                     <td style="text-align: center;">
                                                         {{ $key + 1 }}
+                                                    </td>
+                                                    <td style="text-align: justify">
+                                                        @if ($value->employee_photo)
+                                                            <img src="{{ Storage::url($value->employee_photo) }}"
+                                                                alt=""
+                                                                style="width: 50px; height: 50px; background-position: center; background-size: contain, cover;">
+                                                        @endif
                                                     </td>
                                                     <td style="text-align: center;">
                                                         {{ $value->employee_id }}

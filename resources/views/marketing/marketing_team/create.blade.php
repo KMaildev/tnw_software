@@ -575,18 +575,6 @@
 
 
 
-            $(document).ready(function() {
-                $('#files').on('change', function() {
-                    var file_length = document.getElementById('files').files.length;
-                    $('.preview_img').html('');
-                    for (var i = 0; i < file_length; i++) {
-                        $('.preview_img').append(
-                            `<img src="${URL.createObjectURL(event.target.files[i])}" style="width: 20%; height: 100px; background-size: center; object-fit: cover; border: 3px solid #458cd2; padding: 5px;"/>`
-                        );
-                    }
-                });
-            });
-
             function getAlertyMarketingTeam() {
                 var WardNo = document.getElementById("WardNo").value;
                 var Road = document.getElementById("Road").value;

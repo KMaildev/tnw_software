@@ -44,6 +44,11 @@ class EmployeeController extends Controller
      */
     public function store(StoreUsers $request)
     {
+        if ($request->hasFile('employee_photo')) {
+            $emp_photo = $request->file('employee_photo');
+            $employee_photo = $emp_photo->store('public/employee_photo');
+        }
+
         $employee = new User();
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
@@ -57,7 +62,7 @@ class EmployeeController extends Controller
         $employee->join_date = $request->join_date;
         $employee->contact_person = $request->contact_person;
         $employee->emergency_contact = $request->emergency_contact;
-
+        $employee->employee_photo = $employee_photo ?? '';
         $employee->department_id = $request->department_id;
         $employee->save();
         $employee->syncRoles($request->roles);
@@ -99,6 +104,11 @@ class EmployeeController extends Controller
      */
     public function update(UpdateUsers $request, $id)
     {
+        if ($request->hasFile('employee_photo')) {
+            $emp_photo = $request->file('employee_photo');
+            $employee_photo = $emp_photo->store('public/employee_photo');
+        }
+
         $employee = User::findOrFail($id);
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
@@ -112,6 +122,7 @@ class EmployeeController extends Controller
         $employee->join_date = $request->join_date;
         $employee->contact_person = $request->contact_person;
         $employee->emergency_contact = $request->emergency_contact;
+        $employee->employee_photo = $employee_photo ?? '';
 
         $employee->department_id = $request->department_id;
         $employee->update();
