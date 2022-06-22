@@ -9,6 +9,8 @@
                             <h3 class="panel-title">Employee</h3>
                         </div>
                         <div class="panel-body">
+
+
                             <form action="{{ route('employee.store') }}" method="POST" autocomplete="off" id="create-form"
                                 role="form" enctype="multipart/form-data">
                                 <h6 class="mb-b fw-normal">1. Account Details</h6>
@@ -226,6 +228,7 @@
         </div>
     </div>
 @endsection
+
 @section('script')
     {!! JsValidator::formRequest('App\Http\Requests\StoreUsers', '#create-form') !!}
 @endsection

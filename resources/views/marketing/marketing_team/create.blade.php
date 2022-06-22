@@ -2,660 +2,942 @@
 @section('content')
     <div class="page">
         <div class="page-header">
-            <h1 class="page-title">Makerting Team</h1>
+            <h1 class="page-title">
+                Makerting Team
+            </h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('marketing_team.index') }}">Makerting Team</a>
+                    <a href="{{ route('marketing_team.index') }}">
+                        Makerting Team
+                    </a>
                 </li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item active">
+                    Create
+                </li>
             </ol>
         </div>
 
-        <div class="page-content">
-            <div class="panel">
-                <div class="row">
-                    <div class="col-md-8">
-
-
+        <div class="page-content container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                Makerting Team
+                                Marketing Data
                             </h3>
                         </div>
+                        <div class="panel-body">
+                            <form action="{{ route('employee.store') }}" method="POST" autocomplete="off"
+                                id="create-form" role="form" enctype="multipart/form-data">
+                                @csrf
 
-
-
-                        <div class="panel-body container-fluid">
-                            <div class="example-wrap">
-                                <div class="nav-tabs-horizontal" data-plugin="tabs">
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link active" data-toggle="tab" href="#exampleTabsOne"
-                                                aria-controls="exampleTabsOne" role="tab">
-                                                Create [Manual]
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" data-toggle="tab" href="#exampleTabsTwo"
-                                                aria-controls="exampleTabsTwo" role="tab">
-                                                Create [Import Excel]
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content pt-20">
-                                        <div class="tab-pane active" id="exampleTabsOne" role="tabpanel">
-                                            <form action="{{ route('marketing_team.store') }}" method="POST"
-                                                autocomplete="off" id="create-form" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="row row-lg">
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            Date
-                                                        </label>
-                                                        <input
-                                                            class="form-control date_picker @error('marketing_date') is-invalid @enderror"
-                                                            type="text" name="marketing_date"
-                                                            value="{{ old('marketing_date') }}" />
-                                                        @error('marketing_date')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            Code
-                                                        </label>
-                                                        <input class="form-control @error('code') is-invalid @enderror"
-                                                            type="text" name="code" value="{{ old('code') }}" />
-                                                        @error('code')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            No.
-                                                        </label>
-                                                        <input class="form-control @error('no') is-invalid @enderror"
-                                                            type="text" name="no" value="{{ old('no') }}"
-                                                            id="No" oninput="getAlertyMarketingTeam()" />
-                                                        @error('no')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            Ward No
-                                                        </label>
-                                                        <input class="form-control @error('ward_no') is-invalid @enderror"
-                                                            type="text" name="ward_no" value="{{ old('ward_no') }}"
-                                                            id="WardNo" oninput="getAlertyMarketingTeam()" />
-                                                        @error('ward_no')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            Road
-                                                        </label>
-                                                        <input class="form-control @error('road') is-invalid @enderror"
-                                                            type="text" name="road" value="{{ old('road') }}"
-                                                            id="Road" oninput="getAlertyMarketingTeam()" />
-                                                        @error('road')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            Township
-                                                        </label>
-                                                        <select class="form-control" data-plugin="select2"
-                                                            name="township_id">
-                                                            @foreach ($regions as $region)
-                                                                <optgroup label="{{ $region->region ?? '' }}">
-                                                                    @foreach ($region->townships_table as $township)
-                                                                        <option value="{{ $township->id ?? '' }}">
-                                                                            - {{ $township->township ?? '' }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </optgroup>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('township_id')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            Property Type
-                                                        </label>
-                                                        <select class="form-control" data-plugin="select2"
-                                                            name="property_type_id">
-                                                            @foreach ($property_types as $property_type)
-                                                                <option value="{{ $property_type->id }}">
-                                                                    {{ $property_type->property_type ?? '' }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('property_type_id')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label class="form-control-label">
-                                                                    Wide
-                                                                </label>
-                                                                <input
-                                                                    class="form-control @error('wide') is-invalid @enderror"
-                                                                    type="text" name="wide"
-                                                                    value="{{ old('wide') }}" />
-                                                                @error('wide')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <label class="form-control-label">
-                                                                    <br>
-                                                                </label>
-                                                                <select name="area_type"
-                                                                    class="form-control @error('area_type') is-invalid @enderror">
-                                                                    <option value="Sqft">
-                                                                        Sqft
-                                                                    </option>
-                                                                    <option value="Acre">
-                                                                        Acre
-                                                                    </option>
-                                                                </select>
-                                                                @error('area_type')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            Permission
-                                                        </label>
-                                                        <input
-                                                            class="form-control @error('permission') is-invalid @enderror"
-                                                            type="text" name="permission"
-                                                            value="{{ old('permission') }}" />
-                                                        @error('permission')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2" hidden>
-                                                        <label class="form-control-label">
-                                                            Type
-                                                        </label>
-                                                        <select name="type"
-                                                            class="form-control @error('type') is-invalid @enderror">
-                                                            <option value="SaleOwner">
-                                                                Sale Owner
-                                                            </option>
-                                                            <option value="RentOwner">
-                                                                Rent Owner
-                                                            </option>
-                                                            <option value="BuyOffer">
-                                                                Buy Offer
-                                                            </option>
-                                                            <option value="RentOffer">
-                                                                Rent Offer
-                                                            </option>
-                                                        </select>
-                                                        @error('type')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label class="form-control-label">
-                                                                    Price
-                                                                </label>
-                                                                <input
-                                                                    class="form-control @error('price') is-invalid @enderror"
-                                                                    type="text" name="price"
-                                                                    value="{{ old('price') }}" />
-                                                                @error('price')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label class="form-control-label">
-                                                                    <br>
-                                                                </label>
-                                                                <select name="currency"
-                                                                    class="form-control @error('currency') is-invalid @enderror">
-                                                                    <option value="MMK(Lakhs)">
-                                                                        MMK(Lakhs)
-                                                                    </option>
-                                                                    <option value="USD">
-                                                                        USD
-                                                                    </option>
-                                                                </select>
-                                                                @error('currency')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            O/A
-                                                        </label>
-                                                        <select name="owner_or_agent_type"
-                                                            class="form-control @error('owner_or_agent_type') is-invalid @enderror">
-                                                            <option value="Owner">
-                                                                Owner
-                                                            </option>
-                                                            <option value="Agent">
-                                                                Agent
-                                                            </option>
-                                                        </select>
-                                                        @error('owner_or_agent_type')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            Name
-                                                        </label>
-                                                        <input class="form-control @error('name') is-invalid @enderror"
-                                                            type="text" name="name" value="{{ old('name') }}" />
-                                                        @error('name')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            Phone No
-                                                        </label>
-                                                        <input
-                                                            class="form-control @error('phone_no') is-invalid @enderror"
-                                                            type="text" name="phone_no"
-                                                            value="{{ old('phone_no') }}" data-plugin="tokenfield" />
-                                                        @error('phone_no')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2">
-                                                        <label class="form-control-label">
-                                                            Email
-                                                        </label>
-                                                        <input class="form-control @error('email') is-invalid @enderror"
-                                                            type="text" name="email"
-                                                            value="{{ old('email') }}" />
-                                                        @error('email')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-
-                                                    <div class="col-md-6 mb-2" hidden>
-                                                        <label class="form-control-label">
-                                                            Interest Rate
-                                                        </label>
-                                                        <select name="interest_rate"
-                                                            class="form-control @error('interest_rate') is-invalid @enderror">
-                                                            <option value="">--Please Select Interest Rate--
-                                                            </option>
-                                                            @foreach ($interest_rates as $interest_rate)
-                                                                <option value="{{ $interest_rate->title }}">
-                                                                    {{ $interest_rate->title }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('interest_rate')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="col-md-12 mb-2">
-                                                        <label class="form-control-label">
-                                                            Remark
-                                                        </label>
-                                                        <input class="form-control @error('remark') is-invalid @enderror"
-                                                            type="text" name="remark"
-                                                            value="{{ old('remark') }}" />
-                                                        @error('remark')
-                                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="col-md-12 py-5" style="color: green;">
-                                                        <div class="form-group">
-                                                            <label for="files">
-                                                                Photo <span style="color: red">(Building in
-                                                                    Progress)</span>
-                                                            </label>
-                                                            <input type="file" name="files[]" class="form-control p-1"
-                                                                id="files" multiple accept="image/.png,.jpg,.jpeg">
-                                                            <div class="preview_img my-2"></div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-6 py-5">
-                                                        <h6>
-                                                            Follow-Up Status
-                                                        </h6>
-                                                        <input type="checkbox" id="FollowUpStatus"
-                                                            name="follow_up_status" data-plugin="switchery"
-                                                            value="follow_up" />
-                                                        <label class="pt-3" for="FollowUpStatus">On</label>
-                                                        <div class="row" id="FollowShowHide">
-                                                            <div class="col-md-6 mb-3">
-                                                                <label class="form-control-label">
-                                                                    Date Time
-                                                                </label>
-                                                                <input
-                                                                    class="form-control date_time @error('date_time') is-invalid @enderror"
-                                                                    type="text" name="date_time"
-                                                                    value="{{ old('date_time') }}" />
-                                                                @error('date_time')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-
-
-                                                            <div class="col-md-6 mb-3">
-                                                                <label class="form-control-label">
-                                                                    Follow-up Type
-                                                                </label>
-                                                                <input
-                                                                    class="form-control @error('follow_up_type') is-invalid @enderror"
-                                                                    type="text" name="follow_up_type"
-                                                                    value="Call,Email" data-plugin="tokenfield" />
-                                                                @error('follow_up_type')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-
-                                                            <div class="col-md-12 mb-3">
-                                                                <label class="form-control-label">
-                                                                    Follow-up Remark
-                                                                </label>
-                                                                <input
-                                                                    class="form-control @error('follow_up_remark') is-invalid @enderror"
-                                                                    type="text" name="follow_up_remark"
-                                                                    value="{{ old('follow_up_remark') }}" />
-                                                                @error('follow_up_remark')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-
-                                                            <div class="col-md-12 mb-3">
-                                                                <label class="form-control-label">
-                                                                    Additional Note
-                                                                </label>
-                                                                <input
-                                                                    class="form-control @error('additional_note') is-invalid @enderror"
-                                                                    type="text" name="additional_note"
-                                                                    value="{{ old('additional_note') }}" />
-                                                                @error('additional_note')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6 py-5">
-                                                        <h6>
-                                                            Appointment Status
-                                                        </h6>
-                                                        <input type="checkbox" id="AppointmentStatus"
-                                                            name="appointment_status" data-plugin="switchery"
-                                                            value="appointment" />
-                                                        <label class="pt-3" for="AppointmentStatus">On</label>
-
-
-                                                        <div class="row" id="AppointmentShowHide">
-                                                            <div class="col-md-6 mb-3">
-                                                                <label class="form-control-label">
-                                                                    Appointment Date Time
-                                                                </label>
-                                                                <input
-                                                                    class="form-control date_time @error('appointment_date_time') is-invalid @enderror"
-                                                                    type="text" name="appointment_date_time"
-                                                                    value="{{ old('appointment_date_time') }}" />
-                                                                @error('appointment_date_time')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-
-                                                            <div class="col-md-6 mb-3">
-                                                                <label class="form-control-label">
-                                                                    Appointment Person
-                                                                </label>
-                                                                <input
-                                                                    class="form-control @error('appointment_person') is-invalid @enderror"
-                                                                    type="text" name="appointment_person"
-                                                                    value="{{ old('appointment_person') }}" />
-                                                                @error('appointment_person')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-
-                                                            <div class="col-md-12 mb-3">
-                                                                <label class="form-control-label">
-                                                                    Appointment Location
-                                                                </label>
-                                                                <input
-                                                                    class="form-control @error('appointment_location') is-invalid @enderror"
-                                                                    type="text" name="appointment_location"
-                                                                    value="{{ old('appointment_location') }}" />
-                                                                @error('appointment_location')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-
-                                                            <div class="col-md-12 mb-3">
-                                                                <label class="form-control-label">
-                                                                    Appointment Remark
-                                                                </label>
-                                                                <input
-                                                                    class="form-control @error('appointment_remark') is-invalid @enderror"
-                                                                    type="text" name="appointment_remark"
-                                                                    value="{{ old('appointment_remark') }}" />
-                                                                @error('appointment_remark')
-                                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-12 py-5">
-                                                        <button type="reset"
-                                                            class="mr-2 btn btn-danger float-right">Reset</button>
-                                                        <button type="submit"
-                                                            class="mr-2 btn btn-success float-right">Save</button>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                <div class="form-group form-material">
+                                    <div>
+                                        <div class="radio-custom radio-default radio-inline">
+                                            <input type="radio" id="SaleOffer" name="offer_status" value="SaleOffer" />
+                                            <label for="SaleOffer">
+                                                Sale Offer
+                                            </label>
                                         </div>
 
-                                        <div class="tab-pane" id="exampleTabsTwo" role="tabpanel">
-                                            <form action="{{ route('marketing_team_import') }}" method="POST"
-                                                enctype="multipart/form-data" id="import-form">
-                                                @csrf
+                                        <div class="radio-custom radio-default radio-inline">
+                                            <input type="radio" id="RentOffer" name="offer_status" value="RentOffer" />
+                                            <label for="RentOffer">
+                                                Rent Offer
+                                            </label>
+                                        </div>
 
-                                                <input type="file" name="file" class="form-control"
-                                                    accept=".xlsx, .csv">
-                                                <br>
-                                                <p style="color: red;">
-                                                    Only insert up to 50 records at a time.
-                                                </p>
-                                                <a href="{{ asset('data/marketing_data_import.xlsx') }}"
-                                                    class="btn btn-primary text-white" download="">
-                                                    <i class="fa fa-download"></i>
-                                                    Simple File Download
-                                                </a>
-
-                                                <button type="submit" class="btn btn-success text-white">
-                                                    <i class="fa fa-check"></i>
-                                                    Upload
-                                                </button>
-                                            </form>
+                                        <div class="radio-custom radio-default radio-inline">
+                                            <input type="radio" id="BuyOffer" name="offer_status" value="BuyOffer" />
+                                            <label for="BuyOffer">
+                                                Buy Offer
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        </div>
+                                <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">1. Details</h6>
+
+                                <hr>
+
+                                <div class="mb-4 row">
+                                    <label for="html5-text-input" class="col-md-3 col-form-label">
+                                        Date
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input class="form-control @error('marketing_date') is-invalid @enderror"
+                                            type="text" name="marketing_date" value="{{ old('marketing_date') }}" />
+                                        @error('marketing_date')
+                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
+                                    </div>
+                                </div>
 
 
-                    </div>
+                                <div class="mb-4 row">
+                                    <label for="html5-text-input" class="col-md-3 col-form-label">
+                                        No / အိမ်အမှတ်
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input class="form-control @error('no') is-invalid @enderror" type="text"
+                                            name="no" value="{{ old('no') }}" />
+                                        @error('no')
+                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                    <div class="col-md-4">
-                        <div class="panel-body container-fluid">
-                            <div class="panel-heading">
-                                <h4>
-                                    Marketing already data
-                                </h4>
-                            </div>
-                            <br>
-                            <div id="MarketingDataList"></div>
+                                <div class="mb-4 row">
+                                    <label for="html5-text-input" class="col-md-3 col-form-label">
+                                        Road / လမ်း
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input class="form-control @error('road') is-invalid @enderror" type="text"
+                                            name="road" value="{{ old('road') }}" />
+                                        @error('road')
+                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                {{-- Township Group --}}
+                                <div class="mb-3 row">
+                                    <label for="select2Multiple" class="col-md-3 form-label">
+                                        Township
+                                    </label>
+                                    <div class="col-md-3">
+                                        <select class="form-control form-control-lg" data-plugin="select2"
+                                            name="township_id">
+                                            @foreach ($regions as $region)
+                                                <optgroup label="{{ $region->region ?? '' }}">
+                                                    @foreach ($region->townships_table as $township)
+                                                        <option value="{{ $township->id ?? '' }}">
+                                                            - {{ $township->township ?? '' }}
+                                                        </option>
+                                                    @endforeach
+                                                </optgroup>
+                                            @endforeach
+                                        </select>
+                                        @error('township_id')
+                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Ward</span>
+                                                <input class="form-control @error('road') is-invalid @enderror"
+                                                    type="text" name="road" value="{{ old('road') }}" />
+                                                @error('road')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Region</span>
+                                                <input class="form-control @error('road') is-invalid @enderror"
+                                                    type="text" name="road" value="{{ old('road') }}" />
+                                                @error('road')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Property Type --}}
+                                <div class="mb-4 row">
+                                    <label for="html5-text-input" class="col-md-3 col-form-label">
+                                        Property Type
+                                    </label>
+                                    <div class="col-md-3">
+                                        <select class="form-control" data-plugin="select2" name="property_type_id">
+                                            <option value="">--Select Property Type--</option>
+                                            @foreach ($property_types as $property_type)
+                                                <option value="{{ $property_type->id }}">
+                                                    {{ $property_type->property_type ?? '' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('property_type_id')
+                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6" id="FloorStatus">
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <label class="col-md-3" for="inputGroupSelect01">
+                                                    Floor
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <select class="select-control" data-plugin="select2" name="floor"
+                                                        style="width: 100%">
+                                                        <option value="">-- Select Floor --</option>
+                                                        <option value="Ground">
+                                                            Ground Floor
+                                                        </option>
+                                                        @for ($i = 1; $i < 51; $i++)
+                                                            <option value="{{ $i }}">
+                                                                {{ $i }} Floor
+                                                            </option>
+                                                        @endfor
+                                                    </select>
+                                                    @error('floor')
+                                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" id="HouseStatus">
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <label class="col-md-3" for="inputGroupSelect01">
+                                                    House Style
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <select class="select-control" data-plugin="select2" name="floor"
+                                                        style="width: 100%">
+                                                        <option value="">-- Select House Style --</option>
+                                                        <option value="ပျဉ်ထောင်အိမ်">
+                                                            ပျဉ်ထောင်အိမ်
+                                                        </option>
+                                                        <option value="RC">
+                                                            RC
+                                                        </option>
+                                                        <option value="Steel Structure">
+                                                            Steel Structure
+                                                        </option>
+                                                        <option value="Brick Nogging House">
+                                                            Brick Nogging House
+                                                        </option>
+                                                        <option value="ပျဉ်ထောင် အုတ်တွဲ">
+                                                            ပျဉ်ထောင် အုတ်တွဲ
+                                                        </option>
+                                                        <option value="ထရံအိမ်">
+                                                            ထရံအိမ်
+                                                        </option>
+                                                    </select>
+                                                    @error('floor')
+                                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Price --}}
+                                <div class="mb-4 row">
+                                    <label for="html5-text-input" class="col-md-3 col-form-label">
+                                        Price
+                                    </label>
+                                    <div class="col-md-3">
+                                        <div class="input-daterange">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="price" />
+                                                <span class="input-group-addon">
+                                                    Lakhs
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Rent Offer --}}
+                                <div class="py-5 row" id="RentOfferDiv">
+                                    <br>
+                                    <div class="col-md-12">
+                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                            3. Rent Offer
+                                        </h6>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group form-material">
+                                                    <label class="form-control-label">
+                                                        Contract Status
+                                                    </label>
+                                                    <div>
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="MolthlyContract"
+                                                                name="rent_offer_contract_status"
+                                                                value="monthly_contract" />
+                                                            <label for="MolthlyContract">
+                                                                လချုပ်
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="YearlyContracy"
+                                                                name="rent_offer_contract_status"
+                                                                value="yearly_contract" />
+                                                            <label for="YearlyContracy">
+                                                                နှစ်ချုပ်
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="Deposit"
+                                                                name="rent_offer_contract_status" value="deposit" />
+                                                            <label for="Deposit">
+                                                                Deposit
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row py-4" id="DepositAmount">
+                                            <div class="col-md-4">
+                                                <div class="input-daterange">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            Deposit Amount
+                                                        </span>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                {{-- Area --}}
+                                <div class="py-5 row">
+                                    <div class="col-md-12">
+                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                            2. Area Specifications
+                                        </h6>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="input-daterange" id="AreaWidthHeight">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">W</span>
+                                                        <input type="text" class="form-control" name="area_width"
+                                                            id="AreaWidth" oninput="setAreaCalc()" />
+
+                                                        <span class="input-group-addon">H</span>
+                                                        <input type="text" class="form-control" name="area_height"
+                                                            id="AreaHeight" oninput="setAreaCalc()" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-daterange" id="Area">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-3" id="AreaTypeStatus">
+                                                <div class="row">
+                                                    <div class="input-group">
+                                                        <div class="col-md-12">
+                                                            <select class="form-control" name="area_type"
+                                                                style="width: 100%">
+                                                                <option value="Sqft">
+                                                                    Sqft
+                                                                </option>
+                                                                <option value="Acre">
+                                                                    Acre
+                                                                </option>
+                                                            </select>
+                                                            @error('area_type')
+                                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" id="AreaResult">
+                                                <div class="input-daterange">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="SqftResult"
+                                                            readonly />
+                                                        <span class="input-group-addon">
+                                                            Sqft
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Property Specifications --}}
+                                <br>
+                                <div class="py-5 row">
+                                    <div class="col-md-12">
+                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                            3. Property Specifications
+                                        </h6>
+                                        <hr>
+                                        <div class="row" id="Apartment">
+                                            <div class="col-md-4" id="BBCStatus">
+                                                <div class="form-group form-material">
+                                                    <label class="form-control-label">
+                                                        BBC Status
+                                                    </label>
+                                                    <div>
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="BBCTrue" name="bbc_status"
+                                                                value="true" />
+                                                            <label for="BBCTrue">
+                                                                BBC ကျပြီး
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="BBCFalse" name="bbc_status"
+                                                                value="false" />
+                                                            <label for="BBCFalse">
+                                                                BBC မကျပြီး
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4" id="OwnerStatus">
+                                                <div class="form-group form-material">
+                                                    <label class="form-control-label">
+                                                        Owner Status
+                                                    </label>
+                                                    <div>
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="OwnLand" name="owner_status"
+                                                                value="မြေရှင်" />
+                                                            <label for="OwnLand">
+                                                                မြေရှင်
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="OwnApartent" name="owner_status"
+                                                                value="တိုက်ခန်း" />
+                                                            <label for="OwnApartent">
+                                                                တိုက်ခန်း
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4" id="ListStatus">
+                                                <div class="form-group form-material">
+                                                    <label class="form-control-label">
+                                                        Lift Status (ဓာတ်လှေကား)
+                                                    </label>
+                                                    <div>
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="ListTrue" name="list_status"
+                                                                value="Yes" />
+                                                            <label for="ListTrue">
+                                                                ပါ
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="ListFalse" name="list_status"
+                                                                value="No" />
+                                                            <label for="ListFalse">
+                                                                မပါ
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4" id="ListStatus">
+                                                <div class="form-group form-material">
+                                                    <label class="form-control-label">
+                                                        Status
+                                                    </label>
+                                                    <div>
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="Hall" name="status"
+                                                                value="Yes" />
+                                                            <label for="Hall">
+                                                                Hall
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="Bedroom" name="status"
+                                                                value="No" />
+                                                            <label for="Bedroom">
+                                                                အိပ်ခန်း
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4" id="ExtraChargeStatus">
+                                                <div class="form-group form-material">
+                                                    <label class="form-control-label">
+                                                        Extra Charge
+                                                    </label>
+                                                    <div>
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="ExtraChargeTrue"
+                                                                name="extra_charge" value="Yes" />
+                                                            <label for="ExtraChargeTrue">
+                                                                ပါ
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="radio-custom radio-default radio-inline">
+                                                            <input type="radio" id="ExtraChargeFalse"
+                                                                name="extra_charge" value="No" />
+                                                            <label for="ExtraChargeFalse">
+                                                                မပါ
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {{-- Room Specifications --}}
+                                <br>
+                                <div class="py-5 row">
+                                    <div class="col-md-12">
+                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                            4. Room Specifications
+                                        </h6>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Rooms</span>
+                                                        <input class="form-control @error('rooms') is-invalid @enderror"
+                                                            type="text" name="rooms"
+                                                            value="{{ old('rooms') }}" />
+                                                        @error('rooms')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Shrine</span>
+                                                        <input class="form-control @error('shrine') is-invalid @enderror"
+                                                            type="text" name="shrine"
+                                                            value="{{ old('shrine') }}" />
+                                                        @error('shrine')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Bathrooms</span>
+                                                        <input
+                                                            class="form-control @error('bathrooms') is-invalid @enderror"
+                                                            type="text" name="bathrooms"
+                                                            value="{{ old('bathrooms') }}" />
+                                                        @error('bathrooms')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Dining</span>
+                                                        <input class="form-control @error('dining') is-invalid @enderror"
+                                                            type="text" name="dining"
+                                                            value="{{ old('dining') }}" />
+                                                        @error('dining')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Living</span>
+                                                        <input class="form-control @error('living') is-invalid @enderror"
+                                                            type="text" name="living"
+                                                            value="{{ old('living') }}" />
+                                                        @error('living')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Bedrooms</span>
+                                                        <input
+                                                            class="form-control @error('bedrooms') is-invalid @enderror"
+                                                            type="text" name="bedrooms"
+                                                            value="{{ old('bedrooms') }}" />
+                                                        @error('bedrooms')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Master Bedrooms</span>
+                                                        <input
+                                                            class="form-control @error('master_bedrooms') is-invalid @enderror"
+                                                            type="text" name="master_bedrooms"
+                                                            value="{{ old('master_bedrooms') }}" />
+                                                        @error('master_bedrooms')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Other</span>
+                                                        <input
+                                                            class="form-control @error('other_rooms') is-invalid @enderror"
+                                                            type="text" name="other_rooms"
+                                                            value="{{ old('other_rooms') }}" />
+                                                        @error('other_rooms')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Permission --}}
+                                <br>
+                                <div class="py-5 row">
+                                    <div class="col-md-12">
+                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                            3. Premission
+                                        </h6>
+                                        <hr>
+                                    </div>
+                                    <label for="html5-text-input" class="col-md-2 col-form-label">
+                                        Premission
+                                    </label>
+                                    <div class="col-md-3">
+                                        <select class="form-control" data-plugin="select2" name="permission_type">
+                                            <option value="">
+                                                -- Select Premission --
+                                            </option>
+                                            <option value="grant">
+                                                ဂရံ
+                                            </option>
+                                            <option value="Permit">
+                                                Permit
+                                            </option>
+                                            <option value="AncestralLand">
+                                                ဘိုးဘွားပိုင်မြေ
+                                            </option>
+                                        </select>
+                                        @error('property_type_id')
+                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3" id="GrantType">
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <div class="col-md-12">
+                                                    <select class="select-control" data-plugin="select2"
+                                                        name="grant_type" style="width: 100%">
+                                                        <option value="">-- Select --</option>
+                                                        <option value="အမည်ပေါက်">
+                                                            အမည်ပေါက်
+                                                        </option>
+                                                        <option value="SP">
+                                                            SP
+                                                        </option>
+                                                        <option value="GP">
+                                                            GP
+                                                        </option>
+                                                    </select>
+                                                    @error('floor')
+                                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 py-4">
+                                        <div class="form-group form-material">
+                                            <div>
+                                                <div class="radio-custom radio-default radio-inline">
+                                                    <input type="radio" id="Orginal" name="orginal_or_copy"
+                                                        value="true" />
+                                                    <label for="Orginal">
+                                                        မူရင်း
+                                                    </label>
+                                                </div>
+
+                                                <div class="radio-custom radio-default radio-inline">
+                                                    <input type="radio" id="Copy" name="orginal_or_copy"
+                                                        value="false" />
+                                                    <label for="Copy">
+                                                        မိတ္တူ
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                {{-- Owner & Agent Info --}}
+                                <br>
+                                <div class="py-5 row">
+                                    <div class="col-md-12">
+                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                            3. Owner / Agent Info
+                                        </h6>
+                                        <hr>
+                                    </div>
+                                    <div class="col-md-8 py-4">
+                                        <div class="form-group form-material">
+                                            <div>
+                                                <div class="radio-custom radio-default radio-inline">
+                                                    <input type="radio" id="Owner" name="owner_agent"
+                                                        value="true" />
+                                                    <label for="Owner">
+                                                        Owner
+                                                    </label>
+                                                </div>
+
+                                                <div class="radio-custom radio-default radio-inline">
+                                                    <input type="radio" id="Agent" name="owner_agent"
+                                                        value="false" />
+                                                    <label for="Agent">
+                                                        Agent
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="mb-4 row">
+                                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                                Name
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input class="form-control @error('name') is-invalid @enderror"
+                                                    type="text" name="name" value="{{ old('name') }}" />
+                                                @error('name')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 row">
+                                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                                Phone
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input class="form-control @error('phone') is-invalid @enderror"
+                                                    type="text" name="phone" value="{{ old('phone') }}" />
+                                                @error('phone')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 row">
+                                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                                Email
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input class="form-control @error('email') is-invalid @enderror"
+                                                    type="text" name="email" value="{{ old('email') }}" />
+                                                @error('email')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 row">
+                                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                                Address
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input class="form-control @error('address') is-invalid @enderror"
+                                                    type="text" name="address" value="{{ old('address') }}" />
+                                                @error('address')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        <div class="mb-4 row">
+                                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                                Remark
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input class="form-control @error('remark') is-invalid @enderror"
+                                                    type="text" name="remark" value="{{ old('remark') }}" />
+                                                @error('remark')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    @endsection
-    @section('script')
-        {!! JsValidator::formRequest('App\Http\Requests\StoreMarketingTeam', '#create-form') !!}
-        <script>
-            const FollowUpStatus = document.getElementById('FollowUpStatus')
-            FollowUpStatus.addEventListener('change', (event) => {
-                if (event.currentTarget.checked) {
-                    $("#FollowShowHide").show();
-                } else {
-                    $("#FollowShowHide").hide();
+    </div>
+@endsection
+@section('script')
+    {!! JsValidator::formRequest('App\Http\Requests\StoreMarketingTeam', '#create-form') !!}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // 1 = Apartment
+            // 2 = Condo
+            // 3 = House
+            $('select[name="property_type_id"]').on('change', function() {
+                var propertyType = $(this).val();
+                if (propertyType == 1) {
+                    $("#FloorStatus").show();
+                    $("#HouseStatus").hide();
+                } else if (propertyType == 2) {
+                    $("#FloorStatus").show();
+                    $("#HouseStatus").hide();
+                } else if (propertyType == 3) {
+                    $("#FloorStatus").hide();
+                    $("#HouseStatus").show();
                 }
-            })
-            $("#FollowShowHide").hide();
+
+            });
+            $("#FloorStatus").hide();
+            $("#HouseStatus").hide();
 
 
-            const AppointmentStatus = document.getElementById('AppointmentStatus')
-            AppointmentStatus.addEventListener('change', (event) => {
-                if (event.currentTarget.checked) {
-                    $("#AppointmentShowHide").show();
-                } else {
-                    $("#AppointmentShowHide").hide();
+            // Area 
+            $('select[name="area_type"]').on('change', function() {
+                var areaType = $(this).val();
+                if (areaType === 'Sqft') {
+                    $("#AreaWidthHeight").show();
+                    $("#AreaResult").show();
+                    $("#Area").hide();
+                } else if (areaType === 'Acre') {
+                    $("#AreaWidthHeight").hide();
+                    $("#AreaResult").hide();
+                    $("#Area").show();
                 }
-            })
-            $("#AppointmentShowHide").hide();
+            });
+            $("#Area").hide();
 
 
 
-            function getAlertyMarketingTeam() {
-                var WardNo = document.getElementById("WardNo").value;
-                var Road = document.getElementById("Road").value;
-                var No = document.getElementById("No").value;
-                var url = '{{ url('already_live_filter_search') }}';
-                $.ajax({
-                    method: 'GET',
-                    url: url,
-                    data: {
-                        WardNo: WardNo,
-                        Road: Road,
-                        No: No,
-                    },
-                    success: function(data) {
-                        let marketing = '';
-                        $.each(JSON.parse(data), function(key, value) {
-                            marketing += '<div class="card-block mb-4" style="background-color: #dce1e2">';
+            // Premission
+            $('select[name="permission_type"]').on('change', function() {
+                var contractStatus = $(this).val();
+                if (contractStatus === 'grant') {
 
-                            marketing += '<p class="mb-2"> Date: ';
-                            marketing += '<span class="float-right pl-10">' + value.marketing_date +
-                                '</span>';
-                            marketing += '</p>';
-
-                            marketing += '<p class="mb-2"> No: ';
-                            marketing += '<span class="float-right pl-10">' + value.no +
-                                '</span>';
-                            marketing += '</p>';
-
-                            marketing += '<p class="mb-2"> Ward No: ';
-                            marketing += '<span class="float-right pl-10">' + value.ward_no +
-                                '</span>';
-                            marketing += '</p>';
-
-                            marketing += '<p class="mb-2"> Road: ';
-                            marketing += '<span class="float-right pl-10">' + value.road +
-                                '</span>';
-                            marketing += '</p>';
-
-                            marketing += '<p class="mb-2"> Wide: ';
-                            marketing += '<span class="float-right pl-10">' + value.wide +
-                                '</span>';
-                            marketing += '</p>';
-
-                            marketing += '<p class="mb-2"> Type: ';
-                            marketing += '<span class="float-right pl-10">' + value.type +
-                                '</span>';
-                            marketing += '</p>';
-
-                            marketing += '<p class="mb-2"> Price: ';
-                            marketing += '<span class="float-right pl-10">' + value.price +
-                                '</span>';
-                            marketing += '</p>';
-
-                            marketing += '<p class="mb-2"> O/A: ';
-                            marketing += '<span class="float-right pl-10">' + value.owner_or_agent_type +
-                                '</span>';
-                            marketing += '</p>';
-
-                            marketing += '<p class="mb-2"> Name: ';
-                            marketing += '<span class="float-right pl-10">' + value.name +
-                                '</span>';
-                            marketing += '</p>';
-
-                            marketing += '<p class="mb-2"> Phone No: ';
-                            marketing += '<span class="float-right pl-10">' + value.phone_no +
-                                '</span>';
-                            marketing += '</p>';
-
-                            marketing +=
-                                '<a href="" class="btn btn-success btn-sm float-right">View</a><br><br>';
+                } else if (contractStatus === 'Permit') {
+                    $("#GrantType").hide();
+                } else if (contractStatus === 'AncestralLand') {
+                    $("#GrantType").hide();
+                }
+            });
+            $("#Area").hide();
 
 
 
-                            marketing += '</div>';
-                        });
-                        $('#MarketingDataList').html(marketing);
-                    },
-                    error: function(data) {
-                        // location.reload();
-                    }
-                });
-            }
-        </script>
-    @endsection
+
+            $('input[name="offer_status"]').change(function() {
+                var offerType = $(this).val();
+                if (offerType === 'SaleOffer') {
+                    $("#RentOfferDiv").hide();
+                } else if (offerType === 'RentOffer') {
+                    $("#RentOfferDiv").show();
+                } else if (offerType === 'BuyOffer') {
+                    $("#RentOfferDiv").hide();
+                }
+            });
+            $("#RentOfferDiv").hide();
+
+            // Rent Offer
+            $('input[name="rent_offer_contract_status"]').change(function() {
+                var permissionType = $(this).val();
+                if (permissionType === 'monthly_contract') {
+                    $("#DepositAmount").hide();
+                } else if (permissionType === 'yearly_contract') {
+                    $("#DepositAmount").hide();
+                } else if (permissionType === 'deposit') {
+                    $("#DepositAmount").show();
+                }
+            });
+            $("#DepositAmount").hide();
+
+
+        });
+
+
+
+        var SqftResult = document.getElementById("SqftResult");
+
+        function setAreaCalc() {
+            var AreaWidth = document.getElementById("AreaWidth").value;
+            var AreaHeight = document.getElementById("AreaHeight").value;
+            var SqftResultTotal = parseInt(AreaWidth) * parseInt(AreaHeight);
+            SqftResult.value = SqftResultTotal;
+        }
+    </script>
+@endsection
