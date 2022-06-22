@@ -20,8 +20,8 @@
                             <div class="mb-3 row">
                                 <label for="html5-text-input" class="col-md-3 col-form-label">Name</label>
                                 <div class="col-md-9">
-                                    <input class="form-control @error('name') is-invalid @enderror" type="text" name="name"
-                                        value="{{ old('name') }}" />
+                                    <input class="form-control @error('name') is-invalid @enderror" type="text"
+                                        name="name" value="{{ old('name') }}" />
                                     @error('name')
                                         <div class="invalid-feedback"> {{ $message }} </div>
                                     @enderror

@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('interest_rate', 'Marketing\InterestRateController');
     Route::resource('region', 'Property\RegionController');
     Route::resource('township', 'Property\TownshipController');
+    Route::resource('ward', 'Property\WardController');
     Route::resource('property_type', 'Property\PropertyTypeController');
     Route::resource('activity', 'Activity\ActivityLogController');
 

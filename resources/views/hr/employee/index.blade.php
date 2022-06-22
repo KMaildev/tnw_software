@@ -1,5 +1,47 @@
 @extends('layouts.menu.hr')
 @section('content')
+    <div class="row">
+        <div class="col-xl-12">
+            <!-- Panel Loading -->
+            <div class="panel">
+                <header class="panel-heading">
+                    <h3 class="panel-title">Loading Rows</h3>
+                    <div class="pl-30">
+                        <button class="append-rows btn btn-primary btn-outline btn-pill-left" type="button"
+                            data-url="../../assets/data/tablesFootableLoadingRows-1.json">Append rows 1-20</button>
+                        <button class="append-rows btn btn-primary btn-outline" type="button"
+                            data-url="../../assets/data/tablesFootableLoadingRows-2.json">Append rows 21-40</button>
+                        <button class="append-rows btn btn-primary btn-outline btn-pill-right" type="button"
+                            data-url="../../assets/data/tablesFootableLoadingRows-3.json">Append rows 41-60</button>
+                    </div>
+                </header>
+                <div class="panel-body">
+                    <table id="exampleLoading" class="table table-hover" data-paging="true" data-sorting="true"
+                        data-filtering="true">
+                        <thead>
+                            <tr>
+                                <th data-name="id" data-type="number" data-breakpoints="xs">ID</th>
+                                <th data-name="firstName">First Name</th>
+                                <th data-name="lastName">Last Name</th>
+                                <th data-name="something" data-visible="false" data-filterable="false">Never seen but always
+                                    around</th>
+                                <th data-name="jobTitle" data-breakpoints="xs sm">Job Title</th>
+                                <th data-name="started" data-type="date" data-breakpoints="xs sm md"
+                                    data-format-string="MMM YYYY">Started On</th>
+                                <th data-name="dob" data-type="date" data-breakpoints="xs sm md"
+                                    data-format-string="DD MMM YYYY">Date of Birth</th>
+                                <th data-name="status">Status</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <!-- End Loading -->
+        </div>
+    </div>
+
+
+
     <div class="page">
         <div class="page-header">
             <h1 class="page-title">Employees</h1>

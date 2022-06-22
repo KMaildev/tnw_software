@@ -113,6 +113,15 @@
                                                     </span>
                                                 </a>
                                             </li>
+
+                                            <li class="site-menu-item">
+                                                <a href="{{ route('ward.index') }}">
+                                                    <span class="site-menu-title">
+                                                        Ward
+                                                    </span>
+                                                </a>
+                                            </li>
+
                                         </ul>
                                     </div>
                                 </div>
