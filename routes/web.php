@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('region', 'Property\RegionController');
     Route::resource('township', 'Property\TownshipController');
     Route::resource('ward', 'Property\WardController');
+    Route::get('ward_list_ajax', 'Property\WardController@ward_list_ajax');
     Route::resource('property_type', 'Property\PropertyTypeController');
     Route::resource('activity', 'Activity\ActivityLogController');
 

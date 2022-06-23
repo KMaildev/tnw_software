@@ -95,4 +95,18 @@ class WardController extends Controller
     {
         //
     }
+
+
+
+    public function ward_list_ajax(Request $request)
+    {
+        $townshipId = $request->townshipId;
+
+        $ward_list = (new Ward())->newQuery();
+        if ($townshipId) {
+            $ward_list->where('township_id', $townshipId);
+        }
+        $ward_list_data = $ward_list->get();
+        return json_encode($ward_list_data);
+    }
 }

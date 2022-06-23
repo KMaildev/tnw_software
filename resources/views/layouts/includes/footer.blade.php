@@ -57,11 +57,17 @@
 <script src="{{ asset('assets/examples/js/dashboard/v1.minfd53.js?v4.0.1') }}"></script>
 
 
+
+
 {{-- My Script --}}
 <script src="{{ asset('vendor/larapass/js/larapass.js') }}"></script>
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 <script src="{{ asset('install/select2/js/select2.js') }}"></script>
 <script src="{{ asset('install/js/sweetalert.min.js') }}"></script>
+<script src="{{ asset('install/bootstrap_token/bootstrap-tokenfield.min.js') }}"></script>
+<script src="{{ asset('install/datetime/jquery.datetimepicker.js') }}"></script>
+
+
 
 @yield('script')
 
@@ -86,31 +92,17 @@
         });
     });
 
-
-    $('.date_picker').daterangepicker({
-        "singleDatePicker": true,
-        "autoApply": true,
-        "showDropdowns": true,
-        "locale": {
-            "format": "YYYY-MM-DD",
-        }
-    });
+    $('#datetimepicker4').datetimepicker();
 
 
-    $(".date_time").daterangepicker({
-        singleDatePicker: true,
-        timePicker: true,
-        autoApply: true,
-        showDropdowns: true,
-        startDate: moment().startOf("hour"),
-        timePickerSeconds: true,
-        timePickerIncrement: 30,
-        locale: {
-            // format: "YYYY-MM-DD",
-            format: "YYYY-MM-DD hh:mm A",
+    // Multiple Phone
+    $('#tokenfield').tokenfield({
+        autocomplete: {
+            source: [],
+            delay: 100
         },
-    });
-
+        showAutocompleteOnFocus: true
+    })
 
     $(document).ready(function() {
         $('#files').on('change', function() {

@@ -34,30 +34,31 @@
                                 <div class="form-group form-material">
                                     <div>
                                         <div class="radio-custom radio-default radio-inline">
-                                            <input type="radio" id="SaleOffer" name="offer_status" value="SaleOffer" />
-                                            <label for="SaleOffer">
+                                            <input type="radio" id="sale_offer" name="offer_status" value="sale_offer" />
+                                            <label for="sale_offer">
                                                 Sale Offer
                                             </label>
                                         </div>
 
                                         <div class="radio-custom radio-default radio-inline">
-                                            <input type="radio" id="RentOffer" name="offer_status" value="RentOffer" />
-                                            <label for="RentOffer">
+                                            <input type="radio" id="rent_offer" name="offer_status" value="rent_offer" />
+                                            <label for="rent_offer">
                                                 Rent Offer
                                             </label>
                                         </div>
 
                                         <div class="radio-custom radio-default radio-inline">
-                                            <input type="radio" id="BuyOffer" name="offer_status" value="BuyOffer" />
-                                            <label for="BuyOffer">
+                                            <input type="radio" id="buy_offer" name="offer_status" value="buy_offer" />
+                                            <label for="buy_offer">
                                                 Buy Offer
                                             </label>
                                         </div>
                                     </div>
                                 </div>
 
-                                <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">1. Details</h6>
-
+                                <h6 class="mb-b fw-normal" style="color: red; font-weight: bold; font-size: 19px;">
+                                    1. Property Information
+                                </h6>
                                 <hr>
 
                                 <div class="mb-4 row">
@@ -65,7 +66,8 @@
                                         Date
                                     </label>
                                     <div class="col-md-9">
-                                        <input class="form-control @error('marketing_date') is-invalid @enderror"
+                                        <input id="datetimepicker4"
+                                            class="form-control @error('marketing_date') is-invalid @enderror"
                                             type="text" name="marketing_date" value="{{ old('marketing_date') }}" />
                                         @error('marketing_date')
                                             <div class="invalid-feedback"> {{ $message }} </div>
@@ -108,6 +110,7 @@
                                     <div class="col-md-3">
                                         <select class="form-control form-control-lg" data-plugin="select2"
                                             name="township_id">
+                                            <option value="">--Select Township--</option>
                                             @foreach ($regions as $region)
                                                 <optgroup label="{{ $region->region ?? '' }}">
                                                     @foreach ($region->townships_table as $township)
@@ -123,26 +126,15 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon">Ward</span>
-                                                <input class="form-control @error('road') is-invalid @enderror"
-                                                    type="text" name="road" value="{{ old('road') }}" />
-                                                @error('road')
-                                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">Region</span>
-                                                <input class="form-control @error('road') is-invalid @enderror"
-                                                    type="text" name="road" value="{{ old('road') }}" />
-                                                @error('road')
+                                                <input list="WardList"
+                                                    class="form-control @error('ward') is-invalid @enderror" type="text"
+                                                    name="ward" value="{{ old('ward') }}" />
+                                                <datalist id="WardList"></datalist>
+                                                @error('ward')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
                                             </div>
@@ -170,66 +162,54 @@
                                     </div>
 
                                     <div class="col-md-6" id="FloorStatus">
-                                        <div class="row">
-                                            <div class="input-group">
-                                                <label class="col-md-3" for="inputGroupSelect01">
-                                                    Floor
-                                                </label>
-                                                <div class="col-md-9">
-                                                    <select class="select-control" data-plugin="select2" name="floor"
-                                                        style="width: 100%">
-                                                        <option value="">-- Select Floor --</option>
-                                                        <option value="Ground">
-                                                            Ground Floor
-                                                        </option>
-                                                        @for ($i = 1; $i < 51; $i++)
-                                                            <option value="{{ $i }}">
-                                                                {{ $i }} Floor
-                                                            </option>
-                                                        @endfor
-                                                    </select>
-                                                    @error('floor')
-                                                        <div class="invalid-feedback"> {{ $message }} </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Floor</span>
+                                            <input list="floorList"
+                                                class="form-control @error('floor') is-invalid @enderror" type="text"
+                                                name="floor" value="{{ old('floor') }}" />
+                                            <datalist id="floorList">
+                                                <option value="Ground Floor">Ground Floor</option>
+                                                @for ($i = 1; $i < 25; $i++)
+                                                    <option value="{{ $i }} Floor">
+                                                        {{ $i }} Floor
+                                                    </option>
+                                                @endfor
+                                            </datalist>
+                                            @error('floor')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="col-md-6" id="HouseStatus">
-                                        <div class="row">
-                                            <div class="input-group">
-                                                <label class="col-md-3" for="inputGroupSelect01">
-                                                    House Style
-                                                </label>
-                                                <div class="col-md-9">
-                                                    <select class="select-control" data-plugin="select2" name="floor"
-                                                        style="width: 100%">
-                                                        <option value="">-- Select House Style --</option>
-                                                        <option value="ပျဉ်ထောင်အိမ်">
-                                                            ပျဉ်ထောင်အိမ်
-                                                        </option>
-                                                        <option value="RC">
-                                                            RC
-                                                        </option>
-                                                        <option value="Steel Structure">
-                                                            Steel Structure
-                                                        </option>
-                                                        <option value="Brick Nogging House">
-                                                            Brick Nogging House
-                                                        </option>
-                                                        <option value="ပျဉ်ထောင် အုတ်တွဲ">
-                                                            ပျဉ်ထောင် အုတ်တွဲ
-                                                        </option>
-                                                        <option value="ထရံအိမ်">
-                                                            ထရံအိမ်
-                                                        </option>
-                                                    </select>
-                                                    @error('floor')
-                                                        <div class="invalid-feedback"> {{ $message }} </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">House Style</span>
+                                            <input list="HouseStyleList"
+                                                class="form-control @error('house_style') is-invalid @enderror"
+                                                type="text" name="house_style" value="{{ old('house_style') }}" />
+                                            <datalist id="HouseStyleList">
+                                                <option value="ပျဉ်ထောင်အိမ်">
+                                                    ပျဉ်ထောင်အိမ်
+                                                </option>
+                                                <option value="RC">
+                                                    RC
+                                                </option>
+                                                <option value="Steel Structure">
+                                                    Steel Structure
+                                                </option>
+                                                <option value="Brick Nogging House">
+                                                    Brick Nogging House
+                                                </option>
+                                                <option value="ပျဉ်ထောင် အုတ်တွဲ">
+                                                    ပျဉ်ထောင် အုတ်တွဲ
+                                                </option>
+                                                <option value="ထရံအိမ်">
+                                                    ထရံအိမ်
+                                                </option>
+                                            </datalist>
+                                            @error('house_style')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -242,11 +222,16 @@
                                     <div class="col-md-3">
                                         <div class="input-daterange">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="price" />
+                                                <input type="text"
+                                                    class="form-control @error('ward_no') is-invalid @enderror"
+                                                    name="price" />
                                                 <span class="input-group-addon">
                                                     Lakhs
                                                 </span>
                                             </div>
+                                            @error('price')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -255,7 +240,8 @@
                                 <div class="py-5 row" id="RentOfferDiv">
                                     <br>
                                     <div class="col-md-12">
-                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                        <h6 class="mb-b fw-normal"
+                                            style="color: red; font-weight: bold; font-size: 19px;">
                                             3. Rent Offer
                                         </h6>
                                         <hr>
@@ -291,6 +277,9 @@
                                                                 Deposit
                                                             </label>
                                                         </div>
+                                                        @error('rent_offer_contract_status')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -303,7 +292,12 @@
                                                         <span class="input-group-addon">
                                                             Deposit Amount
                                                         </span>
-                                                        <input type="text" class="form-control" />
+                                                        <input type="text"
+                                                            class="form-control @error('ward_no') is-invalid @enderror"
+                                                            name="deposit_amount" />
+                                                        @error('price')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -316,7 +310,8 @@
                                 {{-- Area --}}
                                 <div class="py-5 row">
                                     <div class="col-md-12">
-                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                        <h6 class="mb-b fw-normal"
+                                            style="color: red; font-weight: bold; font-size: 19px;">
                                             2. Area Specifications
                                         </h6>
                                         <hr>
@@ -327,10 +322,16 @@
                                                         <span class="input-group-addon">W</span>
                                                         <input type="text" class="form-control" name="area_width"
                                                             id="AreaWidth" oninput="setAreaCalc()" />
+                                                        @error('area_width')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
 
                                                         <span class="input-group-addon">H</span>
                                                         <input type="text" class="form-control" name="area_height"
                                                             id="AreaHeight" oninput="setAreaCalc()" />
+                                                        @error('area_height')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
 
@@ -383,7 +384,8 @@
                                 <br>
                                 <div class="py-5 row">
                                     <div class="col-md-12">
-                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                        <h6 class="mb-b fw-normal"
+                                            style="color: red; font-weight: bold; font-size: 19px;">
                                             3. Property Specifications
                                         </h6>
                                         <hr>
@@ -409,6 +411,9 @@
                                                                 BBC မကျပြီး
                                                             </label>
                                                         </div>
+                                                        @error('bbc_status')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -435,6 +440,10 @@
                                                                 တိုက်ခန်း
                                                             </label>
                                                         </div>
+
+                                                        @error('owner_status')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -526,7 +535,8 @@
                                 <br>
                                 <div class="py-5 row">
                                     <div class="col-md-12">
-                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                        <h6 class="mb-b fw-normal"
+                                            style="color: red; font-weight: bold; font-size: 19px;">
                                             4. Room Specifications
                                         </h6>
                                         <hr>
@@ -656,7 +666,8 @@
                                 <br>
                                 <div class="py-5 row">
                                     <div class="col-md-12">
-                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                        <h6 class="mb-b fw-normal"
+                                            style="color: red; font-weight: bold; font-size: 19px;">
                                             3. Premission
                                         </h6>
                                         <hr>
@@ -679,7 +690,7 @@
                                                 ဘိုးဘွားပိုင်မြေ
                                             </option>
                                         </select>
-                                        @error('property_type_id')
+                                        @error('permission_type')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                         @enderror
                                     </div>
@@ -701,7 +712,7 @@
                                                             GP
                                                         </option>
                                                     </select>
-                                                    @error('floor')
+                                                    @error('grant_type')
                                                         <div class="invalid-feedback"> {{ $message }} </div>
                                                     @enderror
                                                 </div>
@@ -715,7 +726,7 @@
                                             <div>
                                                 <div class="radio-custom radio-default radio-inline">
                                                     <input type="radio" id="Orginal" name="orginal_or_copy"
-                                                        value="true" />
+                                                        value="Orginal" />
                                                     <label for="Orginal">
                                                         မူရင်း
                                                     </label>
@@ -723,11 +734,15 @@
 
                                                 <div class="radio-custom radio-default radio-inline">
                                                     <input type="radio" id="Copy" name="orginal_or_copy"
-                                                        value="false" />
+                                                        value="Copy" />
                                                     <label for="Copy">
                                                         မိတ္တူ
                                                     </label>
                                                 </div>
+
+                                                @error('orginal_or_copy')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -739,7 +754,8 @@
                                 <br>
                                 <div class="py-5 row">
                                     <div class="col-md-12">
-                                        <h6 class="mb-b fw-normal" style="color: red; font-weight: bold;">
+                                        <h6 class="mb-b fw-normal"
+                                            style="color: red; font-weight: bold; font-size: 19px;">
                                             3. Owner / Agent Info
                                         </h6>
                                         <hr>
@@ -749,7 +765,7 @@
                                             <div>
                                                 <div class="radio-custom radio-default radio-inline">
                                                     <input type="radio" id="Owner" name="owner_agent"
-                                                        value="true" />
+                                                        value="true" checked />
                                                     <label for="Owner">
                                                         Owner
                                                     </label>
@@ -762,6 +778,10 @@
                                                         Agent
                                                     </label>
                                                 </div>
+
+                                                @error('owner_agent')
+                                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -785,7 +805,8 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control @error('phone') is-invalid @enderror"
-                                                    type="text" name="phone" value="{{ old('phone') }}" />
+                                                    type="text" name="phone" value="{{ old('phone') }}"
+                                                    data-plugin="tokenfield" />
                                                 @error('phone')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -899,15 +920,13 @@
             $("#Area").hide();
 
 
-
-
             $('input[name="offer_status"]').change(function() {
                 var offerType = $(this).val();
-                if (offerType === 'SaleOffer') {
+                if (offerType === 'sale_offer') {
                     $("#RentOfferDiv").hide();
-                } else if (offerType === 'RentOffer') {
+                } else if (offerType === 'rent_offer') {
                     $("#RentOfferDiv").show();
-                } else if (offerType === 'BuyOffer') {
+                } else if (offerType === 'buy_offer') {
                     $("#RentOfferDiv").hide();
                 }
             });
@@ -927,6 +946,31 @@
             $("#DepositAmount").hide();
 
 
+
+
+            // Twonship Selected
+            $('select[name="township_id"]').on('change', function() {
+                var townshipId = $(this).val();
+                var url = '{{ url('ward_list_ajax') }}';
+                $.ajax({
+                    method: 'GET',
+                    url: url,
+                    data: {
+                        townshipId: townshipId,
+                    },
+                    success: function(data) {
+                        let wardList = '';
+                        $.each(JSON.parse(data), function(key, value) {
+                            console.log(value.ward_no);
+                            wardList += '<option value="' + value.ward_no + '">'
+                        });
+                        $('#WardList').html(wardList);
+                    },
+                    error: function(data) {
+                        // location.reload();
+                    }
+                });
+            });
         });
 
 

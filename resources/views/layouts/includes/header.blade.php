@@ -21,9 +21,9 @@
     <link rel="stylesheet" href="{{ asset('global/vendor/flag-icon-css/flag-icon.minfd53.css?v4.0.1') }}">
     <link rel="stylesheet" href="{{ asset('global/vendor/waves/waves.minfd53.css?v4.0.1') }}">
 
+
     <!-- Page -->
     <link rel="stylesheet" href="{{ asset('assets/examples/css/forms/advanced.minfd53.css?v4.0.1') }}">
-
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ asset('global/fonts/material-design/material-design.minfd53.css?v4.0.1') }}">
     <link rel="stylesheet" href="{{ asset('global/fonts/brand-icons/brand-icons.minfd53.css?v4.0.1') }}">
@@ -35,11 +35,12 @@
 
     {{-- MyCss --}}
     <link rel="stylesheet" href="{{ asset('install/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('install/bootstrap_token/css/bootstrap-tokenfield.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('install/datetime/jquery.datetimepicker.css') }}">
 
     <script>
         Breakpoints();
     </script>
-
     <style>
         .tbbg {
             background-color: #af742e;
