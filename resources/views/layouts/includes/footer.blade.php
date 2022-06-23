@@ -16,9 +16,6 @@
 <script src="{{ asset('global/vendor/slidepanel/jquery-slidePanel.minfd53.js?v4.0.1') }}"></script>
 
 <!-- Plugins For This Page -->
-<script src="{{ asset('global/vendor/chartist/chartist.minfd53.js?v4.0.1') }}"></script>
-<script src="{{ asset('global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.minfd53.js?v4.0.1') }}">
-</script>
 <script src="{{ asset('global/vendor/jvectormap/jquery-jvectormap.minfd53.js?v4.0.1') }}"></script>
 <script src="{{ asset('global/vendor/jvectormap/maps/jquery-jvectormap-world-mill-enfd53.js?v4.0.1') }}"></script>
 <script src="{{ asset('global/vendor/matchheight/jquery.matchHeight-minfd53.js?v4.0.1') }}"></script>
@@ -66,6 +63,8 @@
 <script src="{{ asset('install/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('install/bootstrap_token/bootstrap-tokenfield.min.js') }}"></script>
 <script src="{{ asset('install/datetime/jquery.datetimepicker.js') }}"></script>
+
+<script src="{{ asset('global/vendor/tablesaw/tablesaw.jqueryfd53.js?v4.0.1') }}"></script>
 
 
 

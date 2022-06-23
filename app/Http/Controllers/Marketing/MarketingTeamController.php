@@ -10,6 +10,7 @@ use App\Models\FollowUp;
 use App\Models\InterestRate;
 use App\Models\MarketingTeam;
 use App\Models\Models\MarketingFile;
+use App\Models\Models\MarketingTeamCount;
 use App\Models\PropertyType;
 use App\Models\Region;
 use App\Models\Township;
@@ -51,82 +52,117 @@ class MarketingTeamController extends Controller
     public function store(StoreMarketingTeam $request)
     {
         $user_id = auth()->user()->id;
+
+        // Generate Code
+        $marketing_team_data_count = MarketingTeamCount::all();
+        $code_count = count($marketing_team_data_count);
+        $increment = 'TNW-' . sprintf('%06d', $code_count + 1);
+
+        $marketing_team_data_count = new MarketingTeamCount();
+        $marketing_team_data_count->offer_status = $request->offer_status ?? '';
+        $marketing_team_data_count->code = $increment ?? '';
+        $marketing_team_data_count->marketing_date = $request->marketing_date ?? '';
+        $marketing_team_data_count->save();
+
+
         $marketing = new MarketingTeam();
-        $marketing->marketing_date = $request->marketing_date;
-        $marketing->no = $request->no;
-        $marketing->ward_no = $request->ward_no;
-        $marketing->road = $request->road;
-        $marketing->wide = $request->wide;
-        $marketing->area_type = $request->area_type;
-        $marketing->permission = $request->permission;
-        $marketing->type = $request->type;
-        $marketing->price = $request->price;
-        $marketing->currency = $request->currency;
-        $marketing->owner_or_agent_type = $request->owner_or_agent_type;
-        $marketing->name = $request->name;
-        $marketing->phone_no = $request->phone_no;
-        $marketing->email = $request->email;
-        $marketing->code = $request->code;
-        $marketing->remark = $request->remark;
-        $marketing->interest_rate = $request->interest_rate;
-        $marketing->township_id = $request->township_id;
-        $marketing->property_type_id = $request->property_type_id;
+        $marketing->offer_status = $request->offer_status ?? '';
+        $marketing->code = $increment ?? '';
+        $marketing->marketing_date = $request->marketing_date ?? '';
+        $marketing->no = $request->no ?? '';
+        $marketing->road = $request->road ?? '';
+        $marketing->township_id = $request->township_id ?? '';
+        $marketing->ward = $request->ward ?? '';
+        $marketing->property_type_id = $request->property_type_id ?? '';
+        $marketing->floor = $request->floor ?? '';
+        $marketing->house_style = $request->house_style ?? '';
+        $marketing->price = $request->price ?? '';
+        $marketing->rent_offer_contract_status = $request->rent_offer_contract_status ?? '';
+        $marketing->deposit_amount = $request->deposit_amount ?? '';
+        $marketing->area_width = $request->area_width ?? '';
+        $marketing->area_height = $request->area_height ?? '';
+        $marketing->area = $request->area ?? '';
+        $marketing->area_type = $request->area_type ?? '';
+        $marketing->bcc_status = $request->bcc_status ?? '';
+        $marketing->owner_status = $request->owner_status ?? '';
+        $marketing->lift_status = $request->lift_status ?? '';
+        $marketing->property_status = $request->property_status ?? '';
+        $marketing->extra_charge = $request->extra_charge ?? '';
+        $marketing->rooms = $request->rooms ?? '';
+        $marketing->shrine = $request->shrine ?? '';
+        $marketing->bathrooms = $request->bathrooms ?? '';
+        $marketing->dining = $request->dining ?? '';
+        $marketing->living = $request->living ?? '';
+        $marketing->bedrooms = $request->bedrooms ?? '';
+        $marketing->master_bedrooms = $request->master_bedrooms ?? '';
+        $marketing->other_rooms = $request->other_rooms ?? '';
+        $marketing->permission_type = $request->permission_type ?? '';
+        $marketing->grant_type = $request->grant_type ?? '';
+        $marketing->orginal_or_copy = $request->orginal_or_copy ?? '';
+        $marketing->owner_agent = $request->owner_agent ?? '';
+        $marketing->name = $request->name ?? '';
+        $marketing->phone = $request->phone ?? '';
+        $marketing->email = $request->email ?? '';
+        $marketing->address = $request->address ?? '';
+        $marketing->remark = $request->remark ?? '';
+        $marketing->photo_status = 'no' ?? '';
+        $marketing->user_id = $request->address ?? '';
+        $marketing->reject_status = NULL;
         $marketing->user_id = $user_id ?? 0;
         $marketing->save();
-        $marketing_team_id = $marketing->id;
 
-        $follow_up_status = $request->follow_up_status;
-        if ($follow_up_status) {
-            $follow_up = new FollowUp();
+        // $follow_up_status = $request->follow_up_status;
+        // if ($follow_up_status) {
+        //     $follow_up = new FollowUp();
 
-            $follow_up->date_time = $request->date_time;
+        //     $follow_up->date_time = $request->date_time;
 
-            $date_time = $request->date_time;
-            $date = explode(" ", $date_time);
-            $follow_up->follow_up_date = $date[0];
+        //     $date_time = $request->date_time;
+        //     $date = explode(" ", $date_time);
+        //     $follow_up->follow_up_date = $date[0];
 
-            $follow_up->follow_up_type = $request->follow_up_type;
-            $follow_up->follow_up_remark = $request->follow_up_remark;
-            $follow_up->additional_note = $request->additional_note;
-            $follow_up->user_id = $user_id ?? 0;
-            $follow_up->marketing_team_id = $marketing_team_id;
-            $follow_up->save();
-        }
-
-
-        $appointment_status = $request->appointment_status;
-        if ($appointment_status) {
-            $appointment = new Appointment();
-            $appointment->appointment_date_time = $request->appointment_date_time;
-
-            $date_time = $request->appointment_date_time;
-            $date = explode(" ", $date_time);
-            $appointment->appointment_date = $date[0];
-
-            $appointment->appointment_person = $request->appointment_person;
-            $appointment->appointment_location = $request->appointment_location;
-            $appointment->appointment_remark = $request->appointment_remark;
-            $appointment->user_id = $user_id ?? 0;
-            $appointment->marketing_team_id = $marketing_team_id;
-            $appointment->save();
-        }
+        //     $follow_up->follow_up_type = $request->follow_up_type;
+        //     $follow_up->follow_up_remark = $request->follow_up_remark;
+        //     $follow_up->additional_note = $request->additional_note;
+        //     $follow_up->user_id = $user_id ?? 0;
+        //     $follow_up->marketing_team_id = $marketing_team_id;
+        //     $follow_up->save();
+        // }
 
 
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $key => $file) {
-                $path = $file->store('public/marketing_files');
-                $original_name = $file->getClientOriginalName();
+        // $appointment_status = $request->appointment_status;
+        // if ($appointment_status) {
+        //     $appointment = new Appointment();
+        //     $appointment->appointment_date_time = $request->appointment_date_time;
 
-                $insert[$key]['photo'] = $path;
-                $insert[$key]['original_name'] = $original_name;
+        //     $date_time = $request->appointment_date_time;
+        //     $date = explode(" ", $date_time);
+        //     $appointment->appointment_date = $date[0];
 
-                $insert[$key]['marketing_team_id'] = $marketing_team_id;
-                $insert[$key]['user_id'] = auth()->user()->id;
-                $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
-                $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
-            }
-            MarketingFile::insert($insert);
-        }
+        //     $appointment->appointment_person = $request->appointment_person;
+        //     $appointment->appointment_location = $request->appointment_location;
+        //     $appointment->appointment_remark = $request->appointment_remark;
+        //     $appointment->user_id = $user_id ?? 0;
+        //     $appointment->marketing_team_id = $marketing_team_id;
+        //     $appointment->save();
+        // }
+
+
+        // if ($request->hasFile('files')) {
+        //     foreach ($request->file('files') as $key => $file) {
+        //         $path = $file->store('public/marketing_files');
+        //         $original_name = $file->getClientOriginalName();
+
+        //         $insert[$key]['photo'] = $path;
+        //         $insert[$key]['original_name'] = $original_name;
+
+        //         $insert[$key]['marketing_team_id'] = $marketing_team_id;
+        //         $insert[$key]['user_id'] = auth()->user()->id;
+        //         $insert[$key]['created_at'] =  date('Y-m-d H:i:s');
+        //         $insert[$key]['updated_at'] =  date('Y-m-d H:i:s');
+        //     }
+        //     MarketingFile::insert($insert);
+        // }
 
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
@@ -198,11 +234,6 @@ class MarketingTeamController extends Controller
 
         $marketing_data = $marketing->get();
         return json_encode($marketing_data);
-
-        // return json_encode(array(
-        //     "statusCode" => 200,
-        //     "marketing_data" => $data,
-        // ));
     }
 
 

@@ -38,12 +38,15 @@
     <link rel="stylesheet" href="{{ asset('install/bootstrap_token/css/bootstrap-tokenfield.min.css') }}">
     <link rel="stylesheet" href="{{ asset('install/datetime/jquery.datetimepicker.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('global/vendor/tablesaw/tablesaw.minfd53.css?v4.0.1') }}">
+
     <script>
         Breakpoints();
     </script>
     <style>
         .tbbg {
             background-color: #af742e;
+            color: white;
         }
 
         /* Noti Count  */
@@ -64,6 +67,10 @@
 
         .select2-selection {
             height: 32px !important;
+        }
+
+        a {
+            text-decoration: none !important;
         }
     </style>
 </head>

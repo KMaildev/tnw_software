@@ -37,7 +37,6 @@ Route::middleware('auth')->group(function () {
 
 
     Route::resource('marketing_dahsboard', 'Marketing\MarketingDashboard');
-
     Route::resource('marketing_team', 'Marketing\MarketingTeamController');
     Route::get('already_live_filter_search', 'Marketing\MarketingTeamController@already_live_filter_search');
     Route::post('marketing_team_import', 'Marketing\MarketingTeamController@marketing_team_import')->name('marketing_team_import');
@@ -51,6 +50,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('marketing_report', 'Marketing\MarketingReportController');
     Route::resource('oncall_report', 'Marketing\OncallReportController');
 
+    Route::resource('marketing_file', 'Marketing\MarketingFileController');
+    Route::get('marketing_file_create/{id}', [
+        'as' => 'marketing_file_create.create',
+        'uses' => 'Marketing\MarketingFileController@create'
+    ]);
 
     Route::resource('interest_rate', 'Marketing\InterestRateController');
     Route::resource('region', 'Property\RegionController');

@@ -24,18 +24,27 @@ class StoreMarketingTeam extends FormRequest
     public function rules()
     {
         return [
+            'offer_status' => 'required',
             'marketing_date' => 'required',
             'no' => 'required',
-            'ward_no' => 'required',
             'road' => 'required',
             'township_id' => 'required',
+            'ward' => 'required',
             'property_type_id' => 'required',
-            'wide' => 'required',
-            'owner_or_agent_type' => 'required',
-            'name' => 'required',
             'price' => 'required|numeric',
-            'phone_no' => 'required',
-            'code' => 'required|unique:marketing_teams,code',
+            'deposit_amount' => 'numeric',
+
+            'bcc_status' => 'required',
+            'owner_status' => 'required',
+            'lift_status' => 'required',
+            'property_status' => 'required',
+
+            'permission_type' => 'required',
+            'orginal_or_copy' => 'required',
+
+            'owner_agent' => 'required',
+            'name' => 'required',
+            'phone' => 'required',
         ];
     }
 }

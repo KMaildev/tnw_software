@@ -15,26 +15,62 @@ class CreateMarketingTeamsTable extends Migration
     {
         Schema::create('marketing_teams', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('marketing_date')->nullable();
-            $table->text('no')->nullable();
-            $table->text('ward_no')->nullable();
-            $table->text('road')->nullable();
-            $table->text('wide')->nullable();
-            $table->text('area_type')->nullable();
-            $table->text('permission')->nullable();
-            $table->text('type')->nullable();
-            $table->text('price')->nullable();
-            $table->text('currency')->nullable();
-            $table->text('owner_or_agent_type')->nullable();
-            $table->text('name')->nullable();
-            $table->text('phone_no')->nullable();
-            $table->text('email')->nullable();
+            $table->text('offer_status')->nullable();
             $table->text('code')->nullable();
-            $table->text('remark')->nullable();
-            $table->text('interest_rate')->nullable();
-            $table->integer('township_id')->nullable();
+
+            $table->text('marketing_date')->nullable();
+
+            $table->text('no')->nullable();
+            $table->text('road')->nullable();
+
+            $table->text('township_id')->nullable();
+            $table->text('ward')->nullable();
             $table->integer('property_type_id')->nullable();
+
+            $table->text('floor')->nullable();
+            $table->text('house_style')->nullable();
+            $table->text('price')->nullable();
+
+            $table->text('rent_offer_contract_status')->nullable();
+            $table->text('deposit_amount')->nullable();
+            $table->text('area_width')->nullable();
+            $table->text('area_height')->nullable();
+            $table->text('area')->nullable();
+            $table->text('area_type')->nullable();
+
+            $table->text('bcc_status')->nullable();
+            $table->text('owner_status')->nullable();
+
+            $table->text('lift_status')->nullable();
+            $table->text('property_status')->nullable();
+
+            $table->text('extra_charge')->nullable();
+
+            $table->text('rooms')->nullable();
+            $table->text('shrine')->nullable();
+            $table->text('bathrooms')->nullable();
+            $table->text('dining')->nullable();
+            $table->text('living')->nullable();
+            $table->text('bedrooms')->nullable();
+            $table->text('master_bedrooms')->nullable();
+            $table->text('other_rooms')->nullable();
+
+            $table->text('permission_type')->nullable();
+            $table->text('grant_type')->nullable();
+            $table->text('orginal_or_copy')->nullable();
+
+            $table->text('owner_agent')->nullable();
+            $table->text('name')->nullable();
+            $table->text('phone')->nullable();
+            $table->text('email')->nullable();
+            $table->text('address')->nullable();
+            $table->text('remark')->nullable();
+
+            $table->text('photo_status')->nullable();
+
             $table->integer('user_id')->nullable();
+
+            $table->text('reject_status')->nullable();
             $table->timestamps();
         });
     }

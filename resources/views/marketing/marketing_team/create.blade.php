@@ -27,14 +27,15 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <form action="{{ route('employee.store') }}" method="POST" autocomplete="off"
+                            <form action="{{ route('marketing_team.store') }}" method="POST" autocomplete="off"
                                 id="create-form" role="form" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group form-material">
                                     <div>
                                         <div class="radio-custom radio-default radio-inline">
-                                            <input type="radio" id="sale_offer" name="offer_status" value="sale_offer" />
+                                            <input type="radio" id="sale_offer" name="offer_status" value="sale_offer"
+                                                checked />
                                             <label for="sale_offer">
                                                 Sale Offer
                                             </label>
@@ -170,9 +171,7 @@
                                             <datalist id="floorList">
                                                 <option value="Ground Floor">Ground Floor</option>
                                                 @for ($i = 1; $i < 25; $i++)
-                                                    <option value="{{ $i }} Floor">
-                                                        {{ $i }} Floor
-                                                    </option>
+                                                    <option value="{{ $i }}">
                                                 @endfor
                                             </datalist>
                                             @error('floor')
@@ -223,7 +222,7 @@
                                         <div class="input-daterange">
                                             <div class="input-group">
                                                 <input type="text"
-                                                    class="form-control @error('ward_no') is-invalid @enderror"
+                                                    class="form-control @error('price') is-invalid @enderror"
                                                     name="price" />
                                                 <span class="input-group-addon">
                                                     Lakhs
@@ -293,9 +292,9 @@
                                                             Deposit Amount
                                                         </span>
                                                         <input type="text"
-                                                            class="form-control @error('ward_no') is-invalid @enderror"
-                                                            name="deposit_amount" />
-                                                        @error('price')
+                                                            class="form-control @error('deposit_amount') is-invalid @enderror"
+                                                            name="deposit_amount" value="0" />
+                                                        @error('deposit_amount')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
                                                     </div>
@@ -337,7 +336,10 @@
 
                                                 <div class="input-daterange" id="Area">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" />
+                                                        <input type="text" class="form-control" name="area" />
+                                                        @error('area_height')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
 
@@ -390,28 +392,28 @@
                                         </h6>
                                         <hr>
                                         <div class="row" id="Apartment">
-                                            <div class="col-md-4" id="BBCStatus">
+                                            <div class="col-md-4" id="BCCStatus">
                                                 <div class="form-group form-material">
                                                     <label class="form-control-label">
-                                                        BBC Status
+                                                        BCC Status
                                                     </label>
                                                     <div>
                                                         <div class="radio-custom radio-default radio-inline">
-                                                            <input type="radio" id="BBCTrue" name="bbc_status"
+                                                            <input type="radio" id="BCCTrue" name="bcc_status"
                                                                 value="true" />
-                                                            <label for="BBCTrue">
-                                                                BBC ကျပြီး
+                                                            <label for="BCCTrue">
+                                                                BCC ကျပြီး
                                                             </label>
                                                         </div>
 
                                                         <div class="radio-custom radio-default radio-inline">
-                                                            <input type="radio" id="BBCFalse" name="bbc_status"
+                                                            <input type="radio" id="BCCFalse" name="bcc_status"
                                                                 value="false" />
-                                                            <label for="BBCFalse">
-                                                                BBC မကျပြီး
+                                                            <label for="BCCFalse">
+                                                                BCC မကျပြီး
                                                             </label>
                                                         </div>
-                                                        @error('bbc_status')
+                                                        @error('bcc_status')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
                                                     </div>
@@ -456,7 +458,7 @@
                                                     </label>
                                                     <div>
                                                         <div class="radio-custom radio-default radio-inline">
-                                                            <input type="radio" id="ListTrue" name="list_status"
+                                                            <input type="radio" id="ListTrue" name="lift_status"
                                                                 value="Yes" />
                                                             <label for="ListTrue">
                                                                 ပါ
@@ -464,7 +466,7 @@
                                                         </div>
 
                                                         <div class="radio-custom radio-default radio-inline">
-                                                            <input type="radio" id="ListFalse" name="list_status"
+                                                            <input type="radio" id="ListFalse" name="lift_status"
                                                                 value="No" />
                                                             <label for="ListFalse">
                                                                 မပါ
@@ -475,23 +477,23 @@
                                             </div>
 
 
-                                            <div class="col-md-4" id="ListStatus">
+                                            <div class="col-md-4">
                                                 <div class="form-group form-material">
                                                     <label class="form-control-label">
                                                         Status
                                                     </label>
                                                     <div>
                                                         <div class="radio-custom radio-default radio-inline">
-                                                            <input type="radio" id="Hall" name="status"
-                                                                value="Yes" />
+                                                            <input type="radio" id="Hall" name="property_status"
+                                                                value="Hall" />
                                                             <label for="Hall">
                                                                 Hall
                                                             </label>
                                                         </div>
 
                                                         <div class="radio-custom radio-default radio-inline">
-                                                            <input type="radio" id="Bedroom" name="status"
-                                                                value="No" />
+                                                            <input type="radio" id="Bedroom" name="property_status"
+                                                                value="Bedroom" />
                                                             <label for="Bedroom">
                                                                 အိပ်ခန်း
                                                             </label>
@@ -683,10 +685,10 @@
                                             <option value="grant">
                                                 ဂရံ
                                             </option>
-                                            <option value="Permit">
+                                            <option value="permit">
                                                 Permit
                                             </option>
-                                            <option value="AncestralLand">
+                                            <option value="ancestral_land">
                                                 ဘိုးဘွားပိုင်မြေ
                                             </option>
                                         </select>
@@ -765,7 +767,7 @@
                                             <div>
                                                 <div class="radio-custom radio-default radio-inline">
                                                     <input type="radio" id="Owner" name="owner_agent"
-                                                        value="true" checked />
+                                                        value="Owner" checked />
                                                     <label for="Owner">
                                                         Owner
                                                     </label>
@@ -773,7 +775,7 @@
 
                                                 <div class="radio-custom radio-default radio-inline">
                                                     <input type="radio" id="Agent" name="owner_agent"
-                                                        value="false" />
+                                                        value="Agent" />
                                                     <label for="Agent">
                                                         Agent
                                                     </label>
@@ -839,7 +841,6 @@
                                             </div>
                                         </div>
 
-
                                         <div class="mb-4 row">
                                             <label for="html5-text-input" class="col-md-3 col-form-label">
                                                 Remark
@@ -851,6 +852,10 @@
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
                                             </div>
+                                        </div>
+
+                                        <div class="col-md-12 py-5">
+                                            <button type="submit" class="mr-2 btn btn-success float-right">Save</button>
                                         </div>
 
                                     </div>
@@ -911,9 +916,9 @@
                 var contractStatus = $(this).val();
                 if (contractStatus === 'grant') {
 
-                } else if (contractStatus === 'Permit') {
+                } else if (contractStatus === 'permit') {
                     $("#GrantType").hide();
-                } else if (contractStatus === 'AncestralLand') {
+                } else if (contractStatus === 'ancestral_land') {
                     $("#GrantType").hide();
                 }
             });
@@ -944,7 +949,6 @@
                 }
             });
             $("#DepositAmount").hide();
-
 
 
 
