@@ -258,7 +258,8 @@
                                                             style="font-size: 12px;">
                                                             Upload
                                                         </a>
-                                                        <a href="" style="font-size: 12px;">
+                                                        <a href="#" onclick="alert('in progress')"
+                                                            style="font-size: 12px;">
                                                             View
                                                         </a>
                                                     </div>
@@ -287,9 +288,8 @@
                                                             View Detail
                                                         </a>
 
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('reject.edit', $marketing_team->id) }}"
-                                                            role="menuitem">
+                                                        <a class="dropdown-item" href="#" role="menuitem"
+                                                            onclick="alert('in progress')">
                                                             <i class="icon md-edit" aria-hidden="true"></i>
                                                             Reject
                                                         </a>

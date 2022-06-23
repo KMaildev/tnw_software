@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
+use App\Models\MarketingTeam;
 use App\Models\Models\MarketingFile;
 use Illuminate\Http\Request;
 
@@ -51,6 +52,12 @@ class MarketingFileController extends Controller
         $file->user_id = $user_id;
         $file->marketing_team_id = $request->marketing_team_id;
         $file->save();
+
+        $id = $request->marketing_team_id;
+        $marketing_team = MarketingTeam::findOrFail($id);
+        $marketing_team->photo_status = 'yes';
+        $marketing_team->update();
+
         return response()->json(['success' => $fileName]);
     }
 
@@ -99,10 +106,5 @@ class MarketingFileController extends Controller
         $role = MarketingFile::findOrFail($id);
         $role->delete();
         return redirect()->back()->with('success', 'Role is successfully deleted.');
-    }
-
-
-    public function remvoeFile(Request $request)
-    {
     }
 }
