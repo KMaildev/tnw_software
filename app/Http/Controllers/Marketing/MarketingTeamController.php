@@ -215,24 +215,30 @@ class MarketingTeamController extends Controller
 
     public function already_live_filter_search(Request $request)
     {
-        $marketing = (new MarketingTeam())->newQuery();
-
+        $No = $request->No;
         $WardNo = $request->WardNo;
         $Road = $request->Road;
-        $No = $request->No;
+
+        if ($No) {
+            $marketing_data = MarketingTeam::where(['no' => $No])->get();
+        }
+
         if ($WardNo) {
-            $marketing->where('ward_no', $WardNo);
+            $marketing_data = MarketingTeam::where(['ward' => $WardNo])->get();
         }
 
         if ($Road) {
-            $marketing->where('road', $Road);
+            $marketing_data = MarketingTeam::where(['road' => $Road])->get();
         }
 
-        if ($No) {
-            $marketing->where('no', $No);
+        if ($No && $WardNo && $Road) {
+            $marketing_data = MarketingTeam::where([
+                'no' => $No,
+                'ward' => $WardNo,
+                'road' => $Road,
+            ])->get();
         }
 
-        $marketing_data = $marketing->get();
         return json_encode($marketing_data);
     }
 

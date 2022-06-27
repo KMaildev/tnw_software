@@ -117,7 +117,7 @@ class EmployeeController extends Controller
         $employee->nrc_number = $request->nrc_number;
         $employee->gender = $request->gender;
         $employee->address = $request->address;
-        $employee->password = Hash::make($request->password);
+        $employee->password = $request->password ? Hash::make($request->password) : $employee->password;
         $employee->employment_type = $request->employment_type;
         $employee->join_date = $request->join_date;
         $employee->contact_person = $request->contact_person;

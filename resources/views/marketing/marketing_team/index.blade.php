@@ -26,9 +26,9 @@
                     <div class="panel">
                         <header class="panel-heading">
                             <h3 class="panel-title">
-                                Kitchen Sink
-                                <span class="panel-desc">
-                                    Swipe Mode, ModeSwitch, Minimap, Sortable, SortableSwitch
+                                Makerting Team
+                                <span class="panel-desc" style="color: red">
+                                    in progress
                                 </span>
                             </h3>
                         </header>
@@ -196,7 +196,7 @@
                                             </td>
 
                                             <td>
-                                                {{ $marketing_team->area_width ?? (0 * $marketing_team->area_height ?? 0) }}
+                                                {{ $marketing_team->area_width * $marketing_team->area_height }}
                                             </td>
 
                                             <td>

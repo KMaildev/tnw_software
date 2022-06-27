@@ -40,39 +40,11 @@
 
     <link rel="stylesheet" href="{{ asset('global/vendor/tablesaw/tablesaw.minfd53.css?v4.0.1') }}">
 
+    <link rel="stylesheet" href="{{ asset('install/css/general.css') }}">
+
     <script>
         Breakpoints();
     </script>
-    <style>
-        .tbbg {
-            background-color: #af742e;
-            color: white;
-        }
-
-        /* Noti Count  */
-        .badge_noti_count {
-            position: absolute;
-            top: 1px;
-            /* right: -7px; */
-            padding: 5px 5px;
-            border-radius: 30%;
-            background-color: red;
-            color: white;
-        }
-
-        /* Single Select 2 */
-        .select2-selection__rendered {
-            line-height: 32px !important;
-        }
-
-        .select2-selection {
-            height: 32px !important;
-        }
-
-        a {
-            text-decoration: none !important;
-        }
-    </style>
 </head>
 
 <body class="animsition site-navbar-small dashboard">

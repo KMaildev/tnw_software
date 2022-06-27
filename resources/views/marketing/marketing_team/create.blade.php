@@ -18,8 +18,8 @@
         </div>
 
         <div class="page-content container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-8">
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">
@@ -48,7 +48,7 @@
                                             </label>
                                         </div>
 
-                                        <div class="radio-custom radio-default radio-inline">
+                                        <div class="radio-custom radio-default radio-inline" hidden>
                                             <input type="radio" id="buy_offer" name="offer_status" value="buy_offer" />
                                             <label for="buy_offer">
                                                 Buy Offer
@@ -83,7 +83,8 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control @error('no') is-invalid @enderror" type="text"
-                                            name="no" value="{{ old('no') }}" />
+                                            name="no" value="{{ old('no') }}" id="No"
+                                            oninput="getAlreadyMarketingProperty()" />
                                         @error('no')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                         @enderror
@@ -96,7 +97,8 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control @error('road') is-invalid @enderror" type="text"
-                                            name="road" value="{{ old('road') }}" />
+                                            name="road" value="{{ old('road') }}" id="Road"
+                                            oninput="getAlreadyMarketingProperty()" />
                                         @error('road')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                         @enderror
@@ -133,7 +135,8 @@
                                                 <span class="input-group-addon">Ward</span>
                                                 <input list="WardList"
                                                     class="form-control @error('ward') is-invalid @enderror" type="text"
-                                                    name="ward" value="{{ old('ward') }}" />
+                                                    name="ward" value="{{ old('ward') }}" id="WardNo"
+                                                    oninput="getAlreadyMarketingProperty()" />
                                                 <datalist id="WardList"></datalist>
                                                 @error('ward')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
@@ -532,7 +535,6 @@
                                     </div>
                                 </div>
 
-
                                 {{-- Room Specifications --}}
                                 <br>
                                 <div class="py-5 row">
@@ -865,6 +867,24 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-4">
+                    <div class="example-wrap">
+                        <div class="alert dark alert-icon alert-danger alert-dismissible" role="alert">
+                            <i class="icon md-notifications" aria-hidden="true"></i>
+                            This property has been already existed!
+                        </div>
+
+                        <h3 style="color: red; text-shadow: 5px 5px 5px grey;">
+                            Result: <span id="CountAlreadyProperty">0</span>
+                        </h3>
+
+                        <div class="example table-responsive">
+                            <div id="AlreadyMarketingPropertyLists"></div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -910,7 +930,6 @@
             $("#Area").hide();
 
 
-
             // Premission
             $('select[name="permission_type"]').on('change', function() {
                 var contractStatus = $(this).val();
@@ -951,7 +970,6 @@
             $("#DepositAmount").hide();
 
 
-
             // Twonship Selected
             $('select[name="township_id"]').on('change', function() {
                 var townshipId = $(this).val();
@@ -986,6 +1004,102 @@
             var AreaHeight = document.getElementById("AreaHeight").value;
             var SqftResultTotal = parseInt(AreaWidth) * parseInt(AreaHeight);
             SqftResult.value = SqftResultTotal;
+        }
+
+
+        function getAlreadyMarketingProperty() {
+            var No = document.getElementById("No").value;
+            var WardNo = document.getElementById("WardNo").value;
+            var Road = document.getElementById("Road").value;
+
+            var url = '{{ url('already_live_filter_search') }}';
+            $.ajax({
+                method: 'GET',
+                url: url,
+                data: {
+                    WardNo: WardNo,
+                    Road: Road,
+                    No: No,
+                },
+                success: function(data) {
+                    let CountAlreadyPropertyNumber = 0;
+                    let marketing = '';
+                    $.each(JSON.parse(data), function(key, value) {
+                        CountAlreadyPropertyNumber++;
+                        var offer_status = value.offer_status;
+                        var offer_status = offer_status.split('_').join(' ');
+                        var offer_status = offer_status.toUpperCase();
+
+                        marketing += '<table class="table">';
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">Date & Time</th>';
+                        marketing += '<td class="data-value">' + value.marketing_date + '</td>'
+                        marketing += '</tr>';
+
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">Type</th>';
+                        marketing += '<td class="data-value">' + offer_status + '</td>'
+                        marketing += '</tr>';
+
+
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">Code</th>';
+                        marketing += '<td class="data-value">' + value.code + '</td>'
+                        marketing += '</tr>';
+
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">No/အိမ်အမှတ်</th>';
+                        marketing += '<td class="data-value">' + value.no + '</td>'
+                        marketing += '</tr>';
+
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">Road/လမ်း</th>';
+                        marketing += '<td class="data-value">' + value.road + '</td>'
+                        marketing += '</tr>';
+
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">Ward/ရပ်ကွက်</th>';
+                        marketing += '<td class="data-value">' + value.ward + '</td>'
+                        marketing += '</tr>';
+
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">Price</th>';
+                        marketing += '<td class="data-value">' + value.price + '</td>'
+                        marketing += '</tr>';
+
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">Wide</th>';
+                        marketing += '<td class="data-value">' + value.area_width * value
+                            .area_height +
+                            ' Sqft</td>'
+                        marketing += '</tr>';
+
+
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">Owner/Agent</th>';
+                        marketing += '<td class="data-value">' + value.owner_agent + '</td>'
+                        marketing += '</tr>';
+
+
+                        marketing += '<tr>';
+                        marketing += '<th class="data-property">Action</th>';
+                        marketing +=
+                            '<td class="data-value"><a href="#" class="btn btn-primary btn-sm">View Detail</a></td>'
+                        marketing += '</tr>';
+
+                        marketing += '</table>';
+
+                    });
+                    $('#AlreadyMarketingPropertyLists').html(marketing);
+                    document.getElementById('CountAlreadyProperty').textContent =
+                        CountAlreadyPropertyNumber;
+                },
+                error: function(data) {
+                    // location.reload();
+                    document.getElementById('CountAlreadyProperty').textContent = 0;
+                    $('#AlreadyMarketingPropertyLists').html('');
+                }
+            });
         }
     </script>
 @endsection

@@ -91,7 +91,13 @@
         });
     });
 
-    $('#datetimepicker4').datetimepicker();
+    // $('#datetimepicker4').datetimepicker();
+    let date = new Date();
+    let now = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+    $('#datetimepicker4').datetimepicker({
+        value: now,
+        format: 'Y-m-d h:i A'
+    });
 
 
     // Multiple Phone
