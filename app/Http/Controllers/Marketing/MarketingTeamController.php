@@ -18,6 +18,7 @@ use App\Models\Township;
 use App\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Search;
 
 class MarketingTeamController extends Controller
 {
@@ -28,12 +29,21 @@ class MarketingTeamController extends Controller
      */
     public function index()
     {
+        // Search 
+        $userid = request('user_id') ?? 0;
+        $price_form = request('price_form') ?? 0;
+        $price_to = request('price_to') ?? 0;
+        $offer_status = request('offer_status') ?? 0;
+        $property_type_id = request('property_type_id') ?? 0;
+        $township_id = request('township_id') ?? 0;
+        $ward = request('ward') ?? 0;
+
         $users = User::all();
         $regions = Region::all();
         $property_types = PropertyType::all();
         $marketing_teams = MarketingTeam::where('reject_status', NULL)->get();
 
-
+        // Generan Search 
         if (request('search')) {
             $search = request('search');
             $marketing_teams = MarketingTeam::where('code', 'LIKE', '%' . $search . '%')
@@ -51,21 +61,26 @@ class MarketingTeamController extends Controller
         }
 
 
+
+
+
+
+        // Search by User 
         if (request('user_id')) {
             $user_id = request('user_id');
             $marketing_teams = MarketingTeam::where('user_id', $user_id)->get()->where('request_status', NULL);
         }
-        $userid = request('user_id') ?? 0;
-
-
-        // Error 
-        if (request('from_date') && request('to_date')) {
-            $marketing_teams = MarketingTeam::whereBetween('created_at', [request('from_date'), request('to_date')])->get();
-        }
-
-
         return view('marketing.marketing_team.index', compact('marketing_teams', 'users', 'regions', 'property_types', 'userid'));
     }
+
+
+    public function ssd()
+    {
+        $marketing_teams = MarketingTeam::where('reject_status', NULL)->get();
+        return json_encode($marketing_teams);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

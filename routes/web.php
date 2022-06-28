@@ -35,9 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('role', 'Hr\RoleController');
     Route::resource('permission', 'Hr\PermissionController');
 
-
     Route::resource('marketing_dahsboard', 'Marketing\MarketingDashboard');
     Route::resource('marketing_team', 'Marketing\MarketingTeamController');
+    Route::get('marketing_team_ssd', 'Marketing\MarketingTeamController@ssd');
+
     Route::get('already_live_filter_search', 'Marketing\MarketingTeamController@already_live_filter_search');
     Route::post('marketing_team_import', 'Marketing\MarketingTeamController@marketing_team_import')->name('marketing_team_import');
     Route::get('marketing_team_export', 'Marketing\MarketingTeamController@marketing_team_export')->name('marketing_team_export');

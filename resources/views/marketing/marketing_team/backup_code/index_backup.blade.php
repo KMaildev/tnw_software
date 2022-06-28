@@ -311,3 +311,170 @@
 @endsection
 @section('script')
 @endsection
+
+
+
+
+
+@extends('layouts.menu.marketing')
+@section('content')
+    <div class="page">
+        <div class="page-header">
+            <h1 class="page-title">Makerting Team</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('marketing_dahsboard.index') }}">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Makerting Team</li>
+            </ol>
+            <div class="page-header-actions">
+
+                <a href="{{ route('marketing_team_export') }}" class="btn btn-sm btn-success">
+                    <i class="icon md-file" aria-hidden="true"></i>
+                    Export to Excel
+                </a>
+
+                <a class="btn btn-sm btn-primary" href="{{ route('marketing_team.create') }}">
+                    <i class="icon md-plus" aria-hidden="true"></i>
+                    <span class="hidden-sm-down">
+                        Create
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <div class="page-content container-fluid">
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12">
+                    <div class="panel">
+                        <div class="panel-body table-responsive text-nowrap" style="overflow-x:auto;">
+                            @include('marketing.marketing_team.form.search')
+                            <table class="table table-bordered table-layout">
+                                <thead class="tbbg">
+                                    <tr>
+                                        <td rowspan="2" style="width: 1%;">
+                                            #
+                                        </td>
+
+                                        <td rowspan="2" style="width: 5%; text-align: center;">
+                                            Marketing Name
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Type
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Date & Time
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Code
+                                        </td>
+
+                                        <td rowspan="2" style="width: 2%; text-align: center;">
+                                            No/အိမ်အမှတ်
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Road/လမ်း
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Ward/ရပ်ကွက်
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Tsp/မြို့နယ်
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Property Type
+                                        </td>
+
+                                        <td colspan="2"
+                                            style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                            Property Style
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Price (Lakhs)
+                                        </td>
+
+                                        <td colspan="2"
+                                            style="width: 5%; text-align: center; background-color: green;">
+                                            Wide
+                                        </td>
+
+                                        <td colspan="2"
+                                            style="width: 10%; text-align: center; background-color: #c01faa;">
+                                            Permission
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Owner/Agent
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Name
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Phone
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Photo
+                                        </td>
+
+                                        <td rowspan="2" style="width: 10%; text-align: center;">
+                                            Actions
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td
+                                            style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                            Floor
+                                        </td>
+                                        <td
+                                            style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                            House Style
+                                        </td>
+
+
+                                        <td style="color: white; background-color: green; text-align: center; widht: 10%">
+                                            Sqft
+                                        </td>
+                                        <td style="color: white; background-color: green; text-align: center; widht: 10%">
+                                            Acre
+                                        </td>
+
+                                        <td
+                                            style="color: white; background-color: #c01faa; text-align: center; widht: 10%">
+                                            Premission
+                                        </td>
+                                        <td
+                                            style="color: white; background-color: #c01faa; text-align: center; widht: 10%">
+                                            မူရင်း/မိတ္တူ
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody id="marketing_team_lists">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+<script type="text/javascript">
+    window.onload = function() {
+        getMarketingTeamSSD()
+    };
+</script>

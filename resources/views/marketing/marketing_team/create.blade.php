@@ -889,6 +889,7 @@
         </div>
     </div>
 @endsection
+
 @section('script')
     {!! JsValidator::formRequest('App\Http\Requests\StoreMarketingTeam', '#create-form') !!}
     <script type="text/javascript">

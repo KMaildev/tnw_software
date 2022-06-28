@@ -22,7 +22,6 @@
 <script src="{{ asset('global/vendor/peity/jquery.peity.minfd53.js?v4.0.1') }}"></script>
 
 
-
 <!-- Scripts -->
 <script src="{{ asset('global/js/State.minfd53.js?v4.0.1') }}"></script>
 <script src="{{ asset('global/js/Component.minfd53.js?v4.0.1') }}"></script>
@@ -67,10 +66,7 @@
 
 
 
-
-
 @yield('script')
-
 <script type="text/javascript">
     $('.del_confirm').click(function(event) {
         var form = $(this).closest("form");
@@ -131,6 +127,115 @@
     $('select[id="submit_form"]').on('change', function() {
         this.form.submit();
     })
+
+    function getMarketingTeamSSD() {
+        var url = '{{ url('marketing_team_ssd') }}';
+        var upload_url = '{{ url('marketing_file_create') }}';
+
+        $.ajax({
+            method: 'GET',
+            url: url,
+            success: function(data) {
+                let marketing_team_list = '';
+                $.each(JSON.parse(data), function(key, value) {
+                    var k = key + 1;
+
+                    var offer_status = value.offer_status;
+                    var offer_status = offer_status.split('_').join(' ');
+                    var offer_status = offer_status.toUpperCase();
+
+                    if (value.permission_type == 'grant') {
+                        var permission_type = "ဂရံ";
+                    } else if (value.permission_type == 'permit') {
+                        var permission_type = "Permit";
+                    } else if (value.permission_type == 'ancestral_land') {
+                        var permission_type = "ဘိုးဘွားပိုင်မြေ";
+                    }
+
+                    if (value.grant_type) {
+                        var grant_type = value.grant_type;
+                        var grant_type = "(" + grant_type + ")"
+                    } else {
+                        var grant_type = '';
+                    }
+
+                    if (value.orginal_or_copy === 'Orginal') {
+                        var orginal_or_copy = "မူရင်း";
+                    } else if (value.orginal_or_copy === 'Copy') {
+                        var orginal_or_copy = "မိတ္တူ";
+                    }
+                    var photo_status = value.photo_status.toUpperCase();
+
+                    marketing_team_list += '<tr>';
+                    marketing_team_list += '<td>' + k + '</td>';
+                    marketing_team_list += '<td>' + value.user_id + '</td>';
+                    marketing_team_list += '<td>' + offer_status + '</td>';
+                    marketing_team_list += '<td>' + value.marketing_date + '</td>';
+                    marketing_team_list += '<td>' + value.code + '</td>';
+                    marketing_team_list += '<td>' + value.no + '</td>';
+                    marketing_team_list += '<td>' + value.road + '</td>';
+                    marketing_team_list += '<td>' + value.ward + '</td>';
+                    marketing_team_list += '<td>' + value.township_id + '</td>';
+                    marketing_team_list += '<td>' + value.property_type_id + '</td>';
+                    marketing_team_list += '<td>' + value.floor + '</td>';
+                    marketing_team_list += '<td>' + value.house_style + '</td>';
+                    marketing_team_list += '<td>' + value.price + '</td>';
+                    marketing_team_list += '<td>' + value.area_width * value
+                        .area_height + '</td>';
+                    marketing_team_list += '<td>' + value.area + '</td>';
+                    marketing_team_list += '<td>' + permission_type + '  ' + grant_type + '</td>';
+                    marketing_team_list += '<td>' + orginal_or_copy + '</td>';
+                    marketing_team_list += '<td>' + value.owner_agent + '</td>';
+                    marketing_team_list += '<td>' + value.name + '</td>';
+                    marketing_team_list += '<td>' + value.phone + '</td>';
+
+                    // Photo
+                    marketing_team_list += '<td>';
+                    marketing_team_list += '<div class="d-flex flex-column w-100">';
+                    marketing_team_list += ' <div class="d-flex justify-content-between">';
+                    marketing_team_list += '<span>' + photo_status + '</span>';
+                    marketing_team_list += '</div>';
+                    marketing_team_list +=
+                        '<div class="progress" style="height:3px; margin-bottom: 0">';
+                    marketing_team_list +=
+                        '<div class="progress-bar bg-danger"style="width: 100%" role="progressbar"></div>';
+                    marketing_team_list += '</div>';
+                    marketing_team_list += '<div class="d-flex justify-content-between">';
+                    marketing_team_list +=
+                        '<a href="' + upload_url + '/' + value.id +
+                        '" style="font-size: 12px;">Upload</a>';
+                    marketing_team_list +=
+                        '<a href="' + upload_url + '/' + value.id +
+                        '" style="font-size: 12px;">View</a>';
+                    marketing_team_list += '</div>';
+                    marketing_team_list += '</div>';
+                    marketing_team_list += '</td>';
+
+                    // Actions
+                    marketing_team_list += '<td>';
+                    marketing_team_list += '<div class="btn-group">';
+                    marketing_team_list +=
+                        ' <button type="button" class="btn btn-info dropdown-toggle btn-xs" id="exampleSizingDropdown3" data-toggle="dropdown" aria-expanded="false">Action</button>';
+                    marketing_team_list +=
+                        '<div class="dropdown-menu" aria-labelledby="exampleSizingDropdown3" role="menu">';
+                    marketing_team_list +=
+                        '<a class="dropdown-item" href="#" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i>Edit</a>';
+                    marketing_team_list +=
+                        '<a class="dropdown-item" href="#" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i>View Detail</a>';
+                    marketing_team_list +=
+                        '<a class="dropdown-item" href="#" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i>Reject</a>';
+                    marketing_team_list += "</div>";
+                    marketing_team_list += '</div>';
+                    marketing_team_list += '</td>';
+
+
+                    marketing_team_list += '</tr>';
+                });
+                $('#marketing_team_lists').html(marketing_team_list);
+            },
+            error: function(data) {}
+        });
+    }
 </script>
 </body>
 
