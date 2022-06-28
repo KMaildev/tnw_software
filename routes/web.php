@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('marketing_team', 'Marketing\MarketingTeamController');
     Route::get('already_live_filter_search', 'Marketing\MarketingTeamController@already_live_filter_search');
     Route::post('marketing_team_import', 'Marketing\MarketingTeamController@marketing_team_import')->name('marketing_team_import');
+    Route::get('marketing_team_export', 'Marketing\MarketingTeamController@marketing_team_export')->name('marketing_team_export');
 
     Route::resource('reject', 'Marketing\RejectController');
     Route::resource('follow_up', 'Marketing\FollowUpController');

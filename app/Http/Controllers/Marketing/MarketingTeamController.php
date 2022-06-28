@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Marketing;
 
+use App\Exports\MarketingTeamExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMarketingTeam;
 use App\Imports\MarketingTeamImport;
@@ -250,5 +251,16 @@ class MarketingTeamController extends Controller
     {
         Excel::import(new MarketingTeamImport, request()->file('file'));
         return redirect()->back()->with('success', 'Your processing has been completed.');
+    }
+
+
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function marketing_team_export()
+    {
+        $marketing_teams = MarketingTeam::where('reject_status', NULL)->get();
+        return Excel::download(new MarketingTeamExport($marketing_teams), 'marketing_team_' . date("Y-m-d H:i:s") . '.xlsx');
     }
 }

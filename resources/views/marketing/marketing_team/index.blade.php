@@ -27,12 +27,16 @@
                         <header class="panel-heading">
                             <h3 class="panel-title">
                                 Makerting Team
-                                <span class="panel-desc" style="color: red">
-                                    in progress
-                                </span>
                             </h3>
                         </header>
                         <div class="panel-body table-responsive text-nowrap" style="overflow-x:auto;">
+                            <a href="{{ route('marketing_team_export') }}"
+                                class="btn btn-success waves-effect waves-classic">
+                                <i class="icon md-file" aria-hidden="true"></i>
+                                Export to Excel
+                            </a>
+
+                            <br><br>
                             <table class="table table-bordered table-layout">
                                 <thead class="tbbg">
                                     <tr>
