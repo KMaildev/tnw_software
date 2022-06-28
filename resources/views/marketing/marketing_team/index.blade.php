@@ -10,6 +10,12 @@
                 <li class="breadcrumb-item active">Makerting Team</li>
             </ol>
             <div class="page-header-actions">
+
+                <a href="{{ route('marketing_team_export') }}" class="btn btn-sm btn-success">
+                    <i class="icon md-file" aria-hidden="true"></i>
+                    Export to Excel
+                </a>
+
                 <a class="btn btn-sm btn-primary" href="{{ route('marketing_team.create') }}">
                     <i class="icon md-plus" aria-hidden="true"></i>
                     <span class="hidden-sm-down">
@@ -22,21 +28,11 @@
         <div class="page-content container-fluid">
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-12">
-
                     <div class="panel">
-                        <header class="panel-heading">
-                            <h3 class="panel-title">
-                                Makerting Team
-                            </h3>
-                        </header>
                         <div class="panel-body table-responsive text-nowrap" style="overflow-x:auto;">
-                            <a href="{{ route('marketing_team_export') }}"
-                                class="btn btn-success waves-effect waves-classic">
-                                <i class="icon md-file" aria-hidden="true"></i>
-                                Export to Excel
-                            </a>
 
-                            <br><br>
+                            @include('marketing.marketing_team.form.search')
+
                             <table class="table table-bordered table-layout">
                                 <thead class="tbbg">
                                     <tr>

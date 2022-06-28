@@ -33,6 +33,11 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="{{ asset('global/vendor/breakpoints/breakpoints.minfd53.js?v4.0.1') }}"></script>
 
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
+
+
     {{-- MyCss --}}
     <link rel="stylesheet" href="{{ asset('install/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('install/bootstrap_token/css/bootstrap-tokenfield.min.css') }}">
@@ -41,6 +46,8 @@
     <link rel="stylesheet" href="{{ asset('global/vendor/tablesaw/tablesaw.minfd53.css?v4.0.1') }}">
 
     <link rel="stylesheet" href="{{ asset('install/css/general.css') }}">
+
+    <script src="{{ asset('install/range_slider/css/ion.rangeSlider.min.css') }}"></script>
 
     <script>
         Breakpoints();

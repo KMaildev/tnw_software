@@ -54,8 +54,6 @@
 <script src="{{ asset('assets/examples/js/dashboard/v1.minfd53.js?v4.0.1') }}"></script>
 
 
-
-
 {{-- My Script --}}
 <script src="{{ asset('vendor/larapass/js/larapass.js') }}"></script>
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
@@ -63,8 +61,11 @@
 <script src="{{ asset('install/js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('install/bootstrap_token/bootstrap-tokenfield.min.js') }}"></script>
 <script src="{{ asset('install/datetime/jquery.datetimepicker.js') }}"></script>
-
 <script src="{{ asset('global/vendor/tablesaw/tablesaw.jqueryfd53.js?v4.0.1') }}"></script>
+
+<script src="{{ asset('install/range_slider/js/ion.rangeSlider.min.js') }}"></script>
+
+
 
 
 
@@ -99,6 +100,11 @@
         format: 'Y-m-d h:i A'
     });
 
+    $('#datetimepicker5').datetimepicker({
+        value: now,
+        format: 'Y-m-d h:i A'
+    });
+
 
     // Multiple Phone
     $('#tokenfield').tokenfield({
@@ -120,6 +126,11 @@
             }
         });
     });
+
+
+    $('select[id="submit_form"]').on('change', function() {
+        this.form.submit();
+    })
 </script>
 </body>
 

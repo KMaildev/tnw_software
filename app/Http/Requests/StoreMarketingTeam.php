@@ -34,13 +34,13 @@ class StoreMarketingTeam extends FormRequest
             'price' => 'required|numeric',
             'deposit_amount' => 'numeric',
 
-            'bcc_status' => 'required',
-            'owner_status' => 'required',
-            'lift_status' => 'required',
-            'property_status' => 'required',
+            // 'bcc_status' => 'required',
+            // 'owner_status' => 'required',
+            // 'lift_status' => 'required',
+            // 'property_status' => 'required',
 
             'permission_type' => 'required',
-            'orginal_or_copy' => 'required',
+            // 'orginal_or_copy' => 'required',
 
             'owner_agent' => 'required',
             'name' => 'required',

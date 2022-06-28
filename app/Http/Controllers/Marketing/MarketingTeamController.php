@@ -15,6 +15,7 @@ use App\Models\Models\MarketingTeamCount;
 use App\Models\PropertyType;
 use App\Models\Region;
 use App\Models\Township;
+use App\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -27,8 +28,43 @@ class MarketingTeamController extends Controller
      */
     public function index()
     {
+        $users = User::all();
+        $regions = Region::all();
+        $property_types = PropertyType::all();
         $marketing_teams = MarketingTeam::where('reject_status', NULL)->get();
-        return view('marketing.marketing_team.index', compact('marketing_teams'));
+
+
+        if (request('search')) {
+            $search = request('search');
+            $marketing_teams = MarketingTeam::where('code', 'LIKE', '%' . $search . '%')
+                ->orWhere('code', 'LIKE', '%' . $search . '%')
+                ->orWhere('marketing_date', 'LIKE', '%' . $search . '%')
+                ->orWhere('house_style', 'LIKE', '%' . $search . '%')
+                ->orWhere('price', 'LIKE', '%' . $search . '%')
+                ->orWhere('road', 'LIKE', '%' . $search . '%')
+                ->orWhere('no', 'LIKE', '%' . $search . '%')
+                ->orWhere('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('phone', 'LIKE', '%' . $search . '%')
+                ->orWhere('address', 'LIKE', '%' . $search . '%')
+                ->orWhere('remark', 'LIKE', '%' . $search . '%')
+                ->get()->where('request_status', NULL);
+        }
+
+
+        if (request('user_id')) {
+            $user_id = request('user_id');
+            $marketing_teams = MarketingTeam::where('user_id', $user_id)->get()->where('request_status', NULL);
+        }
+        $userid = request('user_id') ?? 0;
+
+
+        // Error 
+        if (request('from_date') && request('to_date')) {
+            $marketing_teams = MarketingTeam::whereBetween('created_at', [request('from_date'), request('to_date')])->get();
+        }
+
+
+        return view('marketing.marketing_team.index', compact('marketing_teams', 'users', 'regions', 'property_types', 'userid'));
     }
 
     /**
