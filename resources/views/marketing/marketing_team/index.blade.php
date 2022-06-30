@@ -2,12 +2,12 @@
 @section('content')
     <div class="page">
         <div class="page-header">
-            <h1 class="page-title">Makerting Team</h1>
+            <h1 class="page-title">Marketing Team</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('marketing_dahsboard.index') }}">Dashboard</a>
                 </li>
-                <li class="breadcrumb-item active">Makerting Team</li>
+                <li class="breadcrumb-item active">Marketing Team</li>
             </ol>
             <div class="page-header-actions">
 
@@ -277,15 +277,10 @@
                                                     <div class="dropdown-menu" aria-labelledby="exampleSizingDropdown3"
                                                         role="menu">
 
-                                                        <a class="dropdown-item" href="#" role="menuitem"
-                                                            onclick="alert('in progress')">
-                                                            <i class="icon md-edit" aria-hidden="true"></i>
-                                                            Edit
-                                                        </a>
-
-                                                        <a class="dropdown-item" href="#" role="menuitem"
-                                                            onclick="alert('in progress')">
-                                                            <i class="icon md-edit" aria-hidden="true"></i>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('marketing_team.show', $marketing_team->id) }}"
+                                                            role="menuitem">
+                                                            <i class="icon md-eye" aria-hidden="true"></i>
                                                             View Detail
                                                         </a>
 
@@ -294,6 +289,25 @@
                                                             <i class="icon md-edit" aria-hidden="true"></i>
                                                             Reject
                                                         </a>
+
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('marketing_team.edit', $marketing_team->id) }}"
+                                                            role="menuitem">
+                                                            <i class="icon md-edit" aria-hidden="true"></i>
+                                                            Edit
+                                                        </a>
+
+                                                        <form
+                                                            action="{{ route('marketing_team.destroy', $marketing_team->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="dropdown-item del_confirm">
+                                                                <i class="icon md-delete" aria-hidden="true"></i>
+                                                                Delete
+                                                            </button>
+                                                        </form>
+
                                                     </div>
                                                 </div>
                                             </td>

@@ -38,6 +38,12 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
 
 
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('assets/examples/css/pages/gallery.minfd53.css?v4.0.1') }}">
+    <link rel="stylesheet" href="{{ asset('global/vendor/magnific-popup/magnific-popup.minfd53.css?v4.0.1') }}">
+    <link rel="stylesheet" href="{{ asset('assets/examples/css/pages/gallery.minfd53.css?v4.0.1') }}">
+
+
     {{-- MyCss --}}
     <link rel="stylesheet" href="{{ asset('install/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('install/bootstrap_token/css/bootstrap-tokenfield.min.css') }}">
@@ -52,6 +58,15 @@
     <script>
         Breakpoints();
     </script>
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
 </head>
 
 <body class="animsition site-navbar-small dashboard">

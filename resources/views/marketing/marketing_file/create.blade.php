@@ -1,10 +1,5 @@
 @extends('layouts.menu.marketing')
 @section('content')
-    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('assets/examples/css/pages/gallery.minfd53.css?v4.0.1') }}">
-    <link rel="stylesheet" href="{{ asset('global/vendor/magnific-popup/magnific-popup.minfd53.css?v4.0.1') }}">
-    <link rel="stylesheet" href="{{ asset('assets/examples/css/pages/gallery.minfd53.css?v4.0.1') }}">
-
     <div class="page">
         <div class="page-header">
             <h1 class="page-title">
@@ -83,10 +78,6 @@
 @endsection
 
 @section('script')
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-    <script src="{{ asset('assets/examples/js/pages/gallery.minfd53.js?v4.0.1') }}"></script>
-    <script src="{{ asset('global/vendor/isotope/isotope.pkgd.minfd53.js?v4.0.1') }}"></script>
-    <script src="{{ asset('global/vendor/magnific-popup/jquery.magnific-popup.minfd53.js?v4.0.1') }}"></script>
     <script>
         Dropzone.options.myGreatDropzone = {
             acceptedFiles: ".jpeg,.jpg,.png,.gif",

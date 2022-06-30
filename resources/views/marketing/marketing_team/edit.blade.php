@@ -12,7 +12,7 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item active">
-                    Create
+                    Edit
                 </li>
             </ol>
         </div>
@@ -27,15 +27,16 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <form action="{{ route('marketing_team.store') }}" method="POST" autocomplete="off"
-                                id="create-form" role="form" enctype="multipart/form-data">
+                            <form action="{{ route('marketing_team.update', $marketing_edit->id) }}" method="POST"
+                                autocomplete="off" id="create-form" role="form" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
 
                                 <div class="form-group form-material">
                                     <div>
                                         <div class="radio-custom radio-default radio-inline">
                                             <input type="radio" id="sale_offer" name="offer_status" value="sale_offer"
-                                                checked />
+                                                @if ('sale_offer' == $marketing_edit->offer_status) checked @endif />
                                             <label for="sale_offer">
                                                 Sale Offer
                                             </label>
@@ -43,15 +44,8 @@
 
                                         <div class="radio-custom radio-default radio-inline">
                                             <input type="radio" id="rent_offer" name="offer_status" value="rent_offer" />
-                                            <label for="rent_offer">
+                                            <label for="rent_offer" @if ('rent_offer' == $marketing_edit->offer_status) checked @endif>
                                                 Rent Offer
-                                            </label>
-                                        </div>
-
-                                        <div class="radio-custom radio-default radio-inline" hidden>
-                                            <input type="radio" id="buy_offer" name="offer_status" value="buy_offer" />
-                                            <label for="buy_offer">
-                                                Buy Offer
                                             </label>
                                         </div>
                                     </div>
@@ -69,13 +63,13 @@
                                     <div class="col-md-9">
                                         <input id="datetimepicker4"
                                             class="form-control @error('marketing_date') is-invalid @enderror"
-                                            type="text" name="marketing_date" value="{{ old('marketing_date') }}" />
+                                            type="text" name="marketing_date"
+                                            value="{{ $marketing_edit->marketing_date }}" />
                                         @error('marketing_date')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                         @enderror
                                     </div>
                                 </div>
-
 
                                 <div class="mb-4 row">
                                     <label for="html5-text-input" class="col-md-3 col-form-label">
@@ -83,7 +77,7 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control @error('no') is-invalid @enderror" type="text"
-                                            name="no" value="{{ old('no') }}" id="No"
+                                            name="no" value="{{ $marketing_edit->no }}" id="No"
                                             oninput="getAlreadyMarketingProperty()" />
                                         @error('no')
                                             <div class="invalid-feedback"> {{ $message }} </div>
@@ -97,7 +91,7 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input class="form-control @error('road') is-invalid @enderror" type="text"
-                                            name="road" value="{{ old('road') }}" id="Road"
+                                            name="road" value="{{ $marketing_edit->road }}" id="Road"
                                             oninput="getAlreadyMarketingProperty()" />
                                         @error('road')
                                             <div class="invalid-feedback"> {{ $message }} </div>
@@ -117,7 +111,8 @@
                                             @foreach ($regions as $region)
                                                 <optgroup label="{{ $region->region ?? '' }}">
                                                     @foreach ($region->townships_table as $township)
-                                                        <option value="{{ $township->id ?? '' }}">
+                                                        <option value="{{ $township->id ?? '' }}"
+                                                            @if ($township->id == $marketing_edit->township_id) selected @endif>
                                                             - {{ $township->township ?? '' }}
                                                         </option>
                                                     @endforeach
@@ -135,7 +130,7 @@
                                                 <span class="input-group-addon">Ward</span>
                                                 <input list="WardList"
                                                     class="form-control @error('ward') is-invalid @enderror" type="text"
-                                                    name="ward" value="{{ old('ward') }}" id="WardNo"
+                                                    name="ward" value="{{ $marketing_edit->ward }}" id="WardNo"
                                                     oninput="getAlreadyMarketingProperty()" />
                                                 <datalist id="WardList"></datalist>
                                                 @error('ward')
@@ -155,7 +150,8 @@
                                         <select class="form-control" data-plugin="select2" name="property_type_id">
                                             <option value="">--Select Property Type--</option>
                                             @foreach ($property_types as $property_type)
-                                                <option value="{{ $property_type->id }}">
+                                                <option value="{{ $property_type->id }}"
+                                                    @if ($property_type->id == $marketing_edit->property_type_id) selected @endif>
                                                     {{ $property_type->property_type ?? '' }}
                                                 </option>
                                             @endforeach
@@ -170,7 +166,7 @@
                                             <span class="input-group-addon">Floor</span>
                                             <input list="floorList"
                                                 class="form-control @error('floor') is-invalid @enderror" type="text"
-                                                name="floor" value="{{ old('floor') }}" />
+                                                name="floor" value="{{ $marketing_edit->floor }}" />
                                             <datalist id="floorList">
                                                 <option value="Ground Floor">Ground Floor</option>
                                                 <option value="Penthouse">Penthouse</option>
@@ -189,7 +185,8 @@
                                             <span class="input-group-addon">House Style</span>
                                             <input list="HouseStyleList"
                                                 class="form-control @error('house_style') is-invalid @enderror"
-                                                type="text" name="house_style" value="{{ old('house_style') }}" />
+                                                type="text" name="house_style"
+                                                value="{{ $marketing_edit->house_style }}" />
                                             <datalist id="HouseStyleList">
                                                 <option value="ပျဉ်ထောင်အိမ်">
                                                     ပျဉ်ထောင်အိမ်
@@ -227,7 +224,7 @@
                                             <div class="input-group">
                                                 <input type="text"
                                                     class="form-control @error('price') is-invalid @enderror"
-                                                    name="price" />
+                                                    name="price" value="{{ $marketing_edit->price }}" />
                                                 <span class="input-group-addon">
                                                     Lakhs
                                                 </span>
@@ -257,8 +254,8 @@
                                                     <div>
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="MolthlyContract"
-                                                                name="rent_offer_contract_status"
-                                                                value="monthly_contract" />
+                                                                name="rent_offer_contract_status" value="monthly_contract"
+                                                                @if ('monthly_contract' == $marketing_edit->rent_offer_contract_status) checked @endif />
                                                             <label for="MolthlyContract">
                                                                 လချုပ်
                                                             </label>
@@ -266,8 +263,8 @@
 
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="YearlyContracy"
-                                                                name="rent_offer_contract_status"
-                                                                value="yearly_contract" />
+                                                                name="rent_offer_contract_status" value="yearly_contract"
+                                                                @if ('yearly_contract' == $marketing_edit->rent_offer_contract_status) checked @endif />
                                                             <label for="YearlyContracy">
                                                                 နှစ်ချုပ်
                                                             </label>
@@ -275,7 +272,8 @@
 
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="Deposit"
-                                                                name="rent_offer_contract_status" value="deposit" />
+                                                                name="rent_offer_contract_status" value="deposit"
+                                                                @if ('deposit' == $marketing_edit->rent_offer_contract_status) checked @endif />
                                                             <label for="Deposit">
                                                                 Deposit
                                                             </label>
@@ -297,7 +295,8 @@
                                                         </span>
                                                         <input type="text"
                                                             class="form-control @error('deposit_amount') is-invalid @enderror"
-                                                            name="deposit_amount" value="0" />
+                                                            name="deposit_amount"
+                                                            value="{{ $marketing_edit->deposit_amount ?? 0 }}" />
                                                         @error('deposit_amount')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -324,14 +323,16 @@
                                                     <div class="input-group">
                                                         <span class="input-group-addon">W</span>
                                                         <input type="text" class="form-control" name="area_width"
-                                                            id="AreaWidth" oninput="setAreaCalc()" />
+                                                            id="AreaWidth" oninput="setAreaCalc()"
+                                                            value="{{ $marketing_edit->area_width }}" />
                                                         @error('area_width')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
 
                                                         <span class="input-group-addon">H</span>
                                                         <input type="text" class="form-control" name="area_height"
-                                                            id="AreaHeight" oninput="setAreaCalc()" />
+                                                            id="AreaHeight" oninput="setAreaCalc()"
+                                                            value="{{ $marketing_edit->area_height }}" />
                                                         @error('area_height')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -340,7 +341,8 @@
 
                                                 <div class="input-daterange" id="Area">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="area" />
+                                                        <input type="text" class="form-control" name="area"
+                                                            value="{{ $marketing_edit->area }}" />
                                                         @error('area_height')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -355,10 +357,12 @@
                                                         <div class="col-md-12">
                                                             <select class="form-control" name="area_type"
                                                                 style="width: 100%">
-                                                                <option value="Sqft">
+                                                                <option value="Sqft"
+                                                                    @if ('Sqft' == $marketing_edit->area_type) selected @endif>
                                                                     Sqft
                                                                 </option>
-                                                                <option value="Acre">
+                                                                <option value="Acre"
+                                                                    @if ('Acre' == $marketing_edit->area_type) selected @endif>
                                                                     Acre
                                                                 </option>
                                                             </select>
@@ -374,7 +378,8 @@
                                                 <div class="input-daterange">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control" id="SqftResult"
-                                                            readonly />
+                                                            readonly
+                                                            value="{{ $marketing_edit->area_width * $marketing_edit->area_height }}" />
                                                         <span class="input-group-addon">
                                                             Sqft
                                                         </span>
@@ -404,7 +409,8 @@
                                                     <div>
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="BCCTrue" name="bcc_status"
-                                                                value="true" />
+                                                                value="true"
+                                                                @if ('true' == $marketing_edit->bcc_status) checked @endif />
                                                             <label for="BCCTrue">
                                                                 BCC ကျပြီး
                                                             </label>
@@ -412,7 +418,8 @@
 
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="BCCFalse" name="bcc_status"
-                                                                value="false" />
+                                                                value="false"
+                                                                @if ('false' == $marketing_edit->bcc_status) checked @endif />
                                                             <label for="BCCFalse">
                                                                 BCC မကျပြီး
                                                             </label>
@@ -432,7 +439,8 @@
                                                     <div>
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="OwnLand" name="owner_status"
-                                                                value="မြေရှင်" />
+                                                                value="မြေရှင်"
+                                                                @if ('မြေရှင်' == $marketing_edit->owner_status) checked @endif />
                                                             <label for="OwnLand">
                                                                 မြေရှင်
                                                             </label>
@@ -440,7 +448,8 @@
 
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="OwnApartent" name="owner_status"
-                                                                value="တိုက်ခန်း" />
+                                                                value="တိုက်ခန်း"
+                                                                @if ('တိုက်ခန်း' == $marketing_edit->owner_status) checked @endif />
                                                             <label for="OwnApartent">
                                                                 တိုက်ခန်း
                                                             </label>
@@ -462,7 +471,8 @@
                                                     <div>
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="ListTrue" name="lift_status"
-                                                                value="Yes" />
+                                                                value="Yes"
+                                                                @if ('Yes' == $marketing_edit->lift_status) checked @endif />
                                                             <label for="ListTrue">
                                                                 ပါ
                                                             </label>
@@ -470,7 +480,8 @@
 
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="ListFalse" name="lift_status"
-                                                                value="No" />
+                                                                value="No"
+                                                                @if ('No' == $marketing_edit->lift_status) checked @endif />
                                                             <label for="ListFalse">
                                                                 မပါ
                                                             </label>
@@ -478,7 +489,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
 
                                             <div class="col-md-4">
                                                 <div class="form-group form-material">
@@ -488,7 +498,8 @@
                                                     <div>
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="Hall" name="property_status"
-                                                                value="Hall" />
+                                                                value="Hall"
+                                                                @if ('Hall' == $marketing_edit->property_status) checked @endif />
                                                             <label for="Hall">
                                                                 Hall
                                                             </label>
@@ -496,7 +507,8 @@
 
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="Bedroom" name="property_status"
-                                                                value="Bedroom" />
+                                                                value="Bedroom"
+                                                                @if ('Bedroom' == $marketing_edit->property_status) checked @endif />
                                                             <label for="Bedroom">
                                                                 အိပ်ခန်း
                                                             </label>
@@ -514,7 +526,8 @@
                                                     <div>
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="ExtraChargeTrue"
-                                                                name="extra_charge" value="Yes" />
+                                                                name="extra_charge" value="Yes"
+                                                                @if ('Yes' == $marketing_edit->extra_charge) checked @endif />
                                                             <label for="ExtraChargeTrue">
                                                                 ပါ
                                                             </label>
@@ -522,7 +535,8 @@
 
                                                         <div class="radio-custom radio-default radio-inline">
                                                             <input type="radio" id="ExtraChargeFalse"
-                                                                name="extra_charge" value="No" />
+                                                                name="extra_charge" value="No"
+                                                                @if ('No' == $marketing_edit->extra_charge) checked @endif />
                                                             <label for="ExtraChargeFalse">
                                                                 မပါ
                                                             </label>
@@ -551,7 +565,7 @@
                                                         <span class="input-group-addon">Rooms</span>
                                                         <input class="form-control @error('rooms') is-invalid @enderror"
                                                             type="text" name="rooms"
-                                                            value="{{ old('rooms') }}" />
+                                                            value="{{ $marketing_edit->rooms }}" />
                                                         @error('rooms')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -565,7 +579,7 @@
                                                         <span class="input-group-addon">Shrine</span>
                                                         <input class="form-control @error('shrine') is-invalid @enderror"
                                                             type="text" name="shrine"
-                                                            value="{{ old('shrine') }}" />
+                                                            value="{{ $marketing_edit->shrine }}" />
                                                         @error('shrine')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -580,7 +594,7 @@
                                                         <input
                                                             class="form-control @error('bathrooms') is-invalid @enderror"
                                                             type="text" name="bathrooms"
-                                                            value="{{ old('bathrooms') }}" />
+                                                            value="{{ $marketing_edit->bathrooms }}" />
                                                         @error('bathrooms')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -594,7 +608,7 @@
                                                         <span class="input-group-addon">Dining</span>
                                                         <input class="form-control @error('dining') is-invalid @enderror"
                                                             type="text" name="dining"
-                                                            value="{{ old('dining') }}" />
+                                                            value="{{ $marketing_edit->dining }}" />
                                                         @error('dining')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -608,7 +622,7 @@
                                                         <span class="input-group-addon">Living</span>
                                                         <input class="form-control @error('living') is-invalid @enderror"
                                                             type="text" name="living"
-                                                            value="{{ old('living') }}" />
+                                                            value="{{ $marketing_edit->living }}" />
                                                         @error('living')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -623,7 +637,7 @@
                                                         <input
                                                             class="form-control @error('bedrooms') is-invalid @enderror"
                                                             type="text" name="bedrooms"
-                                                            value="{{ old('bedrooms') }}" />
+                                                            value="{{ $marketing_edit->bedrooms }}" />
                                                         @error('bedrooms')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -639,7 +653,7 @@
                                                         <input
                                                             class="form-control @error('master_bedrooms') is-invalid @enderror"
                                                             type="text" name="master_bedrooms"
-                                                            value="{{ old('master_bedrooms') }}" />
+                                                            value="{{ $marketing_edit->master_bedrooms }}" />
                                                         @error('master_bedrooms')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -654,7 +668,7 @@
                                                         <input
                                                             class="form-control @error('other_rooms') is-invalid @enderror"
                                                             type="text" name="other_rooms"
-                                                            value="{{ old('other_rooms') }}" />
+                                                            value="{{ $marketing_edit->other_rooms }}" />
                                                         @error('other_rooms')
                                                             <div class="invalid-feedback"> {{ $message }} </div>
                                                         @enderror
@@ -684,13 +698,14 @@
                                             <option value="">
                                                 -- Select Premission --
                                             </option>
-                                            <option value="grant">
+                                            <option value="grant" @if ('grant' == $marketing_edit->permission_type) selected @endif>
                                                 ဂရံ
                                             </option>
-                                            <option value="permit">
+                                            <option value="permit" @if ('permit' == $marketing_edit->permission_type) selected @endif>
                                                 Permit
                                             </option>
-                                            <option value="ancestral_land">
+                                            <option value="ancestral_land"
+                                                @if ('ancestral_land' == $marketing_edit->permission_type) selected @endif>
                                                 ဘိုးဘွားပိုင်မြေ
                                             </option>
                                         </select>
@@ -706,13 +721,16 @@
                                                     <select class="select-control" data-plugin="select2"
                                                         name="grant_type" style="width: 100%">
                                                         <option value="">-- Select --</option>
-                                                        <option value="အမည်ပေါက်">
+                                                        <option value="အမည်ပေါက်"
+                                                            @if ('အမည်ပေါက်' == $marketing_edit->grant_type) selected @endif>
                                                             အမည်ပေါက်
                                                         </option>
-                                                        <option value="SP">
+                                                        <option value="SP"
+                                                            @if ('SP' == $marketing_edit->grant_type) selected @endif>
                                                             SP
                                                         </option>
-                                                        <option value="GP">
+                                                        <option value="GP"
+                                                            @if ('GP' == $marketing_edit->grant_type) selected @endif>
                                                             GP
                                                         </option>
                                                     </select>
@@ -730,7 +748,8 @@
                                             <div>
                                                 <div class="radio-custom radio-default radio-inline">
                                                     <input type="radio" id="Orginal" name="orginal_or_copy"
-                                                        value="Orginal" />
+                                                        value="Orginal"
+                                                        @if ('Orginal' == $marketing_edit->orginal_or_copy) checked @endif />
                                                     <label for="Orginal">
                                                         မူရင်း
                                                     </label>
@@ -738,7 +757,8 @@
 
                                                 <div class="radio-custom radio-default radio-inline">
                                                     <input type="radio" id="Copy" name="orginal_or_copy"
-                                                        value="Copy" />
+                                                        value="Copy"
+                                                        @if ('Copy' == $marketing_edit->orginal_or_copy) checked @endif />
                                                     <label for="Copy">
                                                         မိတ္တူ
                                                     </label>
@@ -769,7 +789,8 @@
                                             <div>
                                                 <div class="radio-custom radio-default radio-inline">
                                                     <input type="radio" id="Owner" name="owner_agent"
-                                                        value="Owner" checked />
+                                                        value="Owner"
+                                                        @if ('Owner' == $marketing_edit->owner_agent) checked @endif />
                                                     <label for="Owner">
                                                         Owner
                                                     </label>
@@ -777,7 +798,8 @@
 
                                                 <div class="radio-custom radio-default radio-inline">
                                                     <input type="radio" id="Agent" name="owner_agent"
-                                                        value="Agent" />
+                                                        value="Agent"
+                                                        @if ('Agent' == $marketing_edit->owner_agent) checked @endif />
                                                     <label for="Agent">
                                                         Agent
                                                     </label>
@@ -796,7 +818,8 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control @error('name') is-invalid @enderror"
-                                                    type="text" name="name" value="{{ old('name') }}" />
+                                                    type="text" name="name"
+                                                    value="{{ $marketing_edit->name }}" />
                                                 @error('name')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -809,7 +832,7 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control @error('phone') is-invalid @enderror"
-                                                    type="text" name="phone" value="{{ old('phone') }}"
+                                                    type="text" name="phone" value="{{ $marketing_edit->phone }}"
                                                     data-plugin="tokenfield" />
                                                 @error('phone')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
@@ -823,7 +846,8 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control @error('email') is-invalid @enderror"
-                                                    type="text" name="email" value="{{ old('email') }}" />
+                                                    type="text" name="email"
+                                                    value="{{ $marketing_edit->email }}" />
                                                 @error('email')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -836,7 +860,8 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control @error('address') is-invalid @enderror"
-                                                    type="text" name="address" value="{{ old('address') }}" />
+                                                    type="text" name="address"
+                                                    value="{{ $marketing_edit->address }}" />
                                                 @error('address')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror
@@ -849,7 +874,8 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control @error('remark') is-invalid @enderror"
-                                                    type="text" name="remark" value="{{ old('remark') }}" />
+                                                    type="text" name="remark"
+                                                    value="{{ $marketing_edit->remark }}" />
                                                 @error('remark')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                 @enderror

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Marketing;
 
+use App\Exports\MarketingTeamDetailsExport;
 use App\Exports\MarketingTeamExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMarketingTeam;
+use App\Http\Requests\UpdateMarketingTeam;
 use App\Imports\MarketingTeamImport;
 use App\Models\Appointment;
 use App\Models\FollowUp;
@@ -12,6 +14,7 @@ use App\Models\InterestRate;
 use App\Models\MarketingTeam;
 use App\Models\Models\MarketingFile;
 use App\Models\Models\MarketingTeamCount;
+use App\Models\Models\Visitor;
 use App\Models\PropertyType;
 use App\Models\Region;
 use App\Models\Township;
@@ -63,8 +66,6 @@ class MarketingTeamController extends Controller
 
 
 
-
-
         // Search by User 
         if (request('user_id')) {
             $user_id = request('user_id');
@@ -89,10 +90,9 @@ class MarketingTeamController extends Controller
      */
     public function create()
     {
-        $interest_rates = InterestRate::all();
         $property_types = PropertyType::all();
         $regions = Region::all();
-        return view('marketing.marketing_team.create', compact('interest_rates', 'property_types', 'regions'));
+        return view('marketing.marketing_team.create', compact('property_types', 'regions'));
     }
 
     /**
@@ -104,7 +104,6 @@ class MarketingTeamController extends Controller
     public function store(StoreMarketingTeam $request)
     {
         $user_id = auth()->user()->id;
-
         // Generate Code
         $marketing_team_data_count = MarketingTeamCount::all();
         $code_count = count($marketing_team_data_count);
@@ -115,7 +114,6 @@ class MarketingTeamController extends Controller
         $marketing_team_data_count->code = $increment ?? '';
         $marketing_team_data_count->marketing_date = $request->marketing_date ?? '';
         $marketing_team_data_count->save();
-
 
         $marketing = new MarketingTeam();
         $marketing->offer_status = $request->offer_status ?? '';
@@ -158,7 +156,6 @@ class MarketingTeamController extends Controller
         $marketing->address = $request->address ?? '';
         $marketing->remark = $request->remark ?? '';
         $marketing->photo_status = 'no' ?? '';
-        $marketing->user_id = $request->address ?? '';
         $marketing->reject_status = NULL;
         $marketing->user_id = $user_id ?? 0;
         $marketing->save();
@@ -227,7 +224,10 @@ class MarketingTeamController extends Controller
      */
     public function show($id)
     {
-        //
+        $marketing_edit = MarketingTeam::findOrFail($id);
+        $marketing_files = MarketingFile::where(['marketing_team_id' => $id])->get();
+        $visitors = Visitor::where(['marketing_team_id' => $id])->get();
+        return view('marketing.marketing_team.show', compact('marketing_edit', 'marketing_files', 'visitors'));
     }
 
     /**
@@ -238,7 +238,10 @@ class MarketingTeamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $property_types = PropertyType::all();
+        $regions = Region::all();
+        $marketing_edit = MarketingTeam::findOrFail($id);
+        return view('marketing.marketing_team.edit', compact('marketing_edit', 'property_types', 'regions'));
     }
 
     /**
@@ -248,9 +251,53 @@ class MarketingTeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateMarketingTeam $request, $id)
     {
-        //
+        $user_id = auth()->user()->id;
+        $marketing = MarketingTeam::findOrFail($id);
+        $marketing->offer_status = $request->offer_status ?? '';
+        $marketing->marketing_date = $request->marketing_date ?? '';
+        $marketing->no = $request->no ?? '';
+        $marketing->road = $request->road ?? '';
+        $marketing->township_id = $request->township_id ?? '';
+        $marketing->ward = $request->ward ?? '';
+        $marketing->property_type_id = $request->property_type_id ?? '';
+        $marketing->floor = $request->floor ?? '';
+        $marketing->house_style = $request->house_style ?? '';
+        $marketing->price = $request->price ?? '';
+        $marketing->rent_offer_contract_status = $request->rent_offer_contract_status ?? '';
+        $marketing->deposit_amount = $request->deposit_amount ?? '';
+        $marketing->area_width = $request->area_width ?? '';
+        $marketing->area_height = $request->area_height ?? '';
+        $marketing->area = $request->area ?? '';
+        $marketing->area_type = $request->area_type ?? '';
+        $marketing->bcc_status = $request->bcc_status ?? '';
+        $marketing->owner_status = $request->owner_status ?? '';
+        $marketing->lift_status = $request->lift_status ?? '';
+        $marketing->property_status = $request->property_status ?? '';
+        $marketing->extra_charge = $request->extra_charge ?? '';
+        $marketing->rooms = $request->rooms ?? '';
+        $marketing->shrine = $request->shrine ?? '';
+        $marketing->bathrooms = $request->bathrooms ?? '';
+        $marketing->dining = $request->dining ?? '';
+        $marketing->living = $request->living ?? '';
+        $marketing->bedrooms = $request->bedrooms ?? '';
+        $marketing->master_bedrooms = $request->master_bedrooms ?? '';
+        $marketing->other_rooms = $request->other_rooms ?? '';
+        $marketing->permission_type = $request->permission_type ?? '';
+        $marketing->grant_type = $request->grant_type ?? '';
+        $marketing->orginal_or_copy = $request->orginal_or_copy ?? '';
+        $marketing->owner_agent = $request->owner_agent ?? '';
+        $marketing->name = $request->name ?? '';
+        $marketing->phone = $request->phone ?? '';
+        $marketing->email = $request->email ?? '';
+        $marketing->address = $request->address ?? '';
+        $marketing->remark = $request->remark ?? '';
+        $marketing->photo_status = 'no' ?? '';
+        $marketing->reject_status = NULL;
+        $marketing->user_id = $user_id ?? 0;
+        $marketing->save();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
     /**
@@ -261,7 +308,9 @@ class MarketingTeamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $marketing = MarketingTeam::findOrFail($id);
+        $marketing->delete();
+        return redirect()->back()->with('success', 'Your processing has been completed.');
     }
 
 
@@ -305,7 +354,6 @@ class MarketingTeamController extends Controller
     }
 
 
-
     /**
      * @return \Illuminate\Support\Collection
      */
@@ -313,5 +361,15 @@ class MarketingTeamController extends Controller
     {
         $marketing_teams = MarketingTeam::where('reject_status', NULL)->get();
         return Excel::download(new MarketingTeamExport($marketing_teams), 'marketing_team_' . date("Y-m-d H:i:s") . '.xlsx');
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function marketing_team_details_export($id)
+    {
+        $marketing_edit = MarketingTeam::findOrFail($id);
+        // $marketing_files = MarketingFile::where(['marketing_team_id' => $id])->get();
+        return Excel::download(new MarketingTeamDetailsExport($marketing_edit), 'property_details_' . date("Y-m-d H:i:s") . '.xlsx');
     }
 }
