@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>Dashboard</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ asset('global/css/bootstrap.minfd53.css?v4.0.1') }}">
@@ -55,6 +56,27 @@
 
     <script src="{{ asset('install/range_slider/css/ion.rangeSlider.min.css') }}"></script>
 
+    <link rel="stylesheet" href="{{ asset('global/vendor/bootstrap-select/bootstrap-select.minfd53.css?v4.0.1') }}">
+
+    {{-- Datatable --}}
+    <link rel="stylesheet"
+        href="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4.minfd53.css?v4.0.1') }}">
+
+    {{-- <link rel="stylesheet"
+        href="{{ asset('global/vendor/datatables.net-fixedheader-bs4/dataTables.fixedheader.bootstrap4.minfd53.css?v4.0.1') }}">
+    <link rel="stylesheet"
+        href="{{ asset('global/vendor/datatables.net-fixedcolumns-bs4/dataTables.fixedcolumns.bootstrap4.minfd53.css?v4.0.1') }}">
+    <link rel="stylesheet"
+        href="{{ asset('global/vendor/datatables.net-rowgroup-bs4/dataTables.rowgroup.bootstrap4.minfd53.css?v4.0.1') }}">
+    <link rel="stylesheet"
+        href="{{ asset('global/vendor/datatables.net-scroller-bs4/dataTables.scroller.bootstrap4.minfd53.css?v4.0.1') }}">
+    <link rel="stylesheet"
+        href="{{ asset('global/vendor/datatables.net-select-bs4/dataTables.select.bootstrap4.minfd53.css?v4.0.1') }}">
+    <link rel="stylesheet"
+        href="{{ asset('global/vendor/datatables.net-responsive-bs4/dataTables.responsive.bootstrap4.minfd53.css?v4.0.1') }}">
+    <link rel="stylesheet"
+        href="{{ asset('global/vendor/datatables.net-buttons-bs4/dataTables.buttons.bootstrap4.minfd53.css?v4.0.1') }}"> --}}
+
     <script>
         Breakpoints();
     </script>
@@ -66,7 +88,12 @@
             border: 1px solid black;
             border-collapse: collapse;
         }
+
+        tfoot {
+            display: table-header-group;
+        }
     </style>
+
 </head>
 
 <body class="animsition site-navbar-small dashboard">

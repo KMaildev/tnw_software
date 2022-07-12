@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
+use App\Models\MarketingTeam;
 use Illuminate\Http\Request;
 
 class MarketingDashboard extends Controller
@@ -14,7 +15,10 @@ class MarketingDashboard extends Controller
      */
     public function index()
     {
-        return view('marketing.dashboard.index');
+        $sale_offer_total = MarketingTeam::where('offer_status', 'sale_offer')->count();
+        $rent_offer_total = MarketingTeam::where('offer_status', 'rent_offer')->count();
+
+        return view('marketing.dashboard.index', compact('sale_offer_total', 'rent_offer_total'));
     }
 
     /**

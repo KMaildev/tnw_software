@@ -1,7 +1,7 @@
 <table class="table" style="width: 100%">
     <tbody>
         <tr>
-            <th class="data-property" style="width: 10%;">
+            <th class="data-property" style="width: 5%;">
                 Name
             </th>
             <th class="data-property" style="width: 10%;">
@@ -14,6 +14,9 @@
                 Address
             </th>
             <th class="data-property" style="width: 10%;">
+                Remark
+            </th>
+            <th class="data-property" style="width: 5%;">
                 Marketing
             </th>
             <th class="data-property" style="width: 10%;">
@@ -37,6 +40,9 @@
                 </td>
                 <td class="data-value">
                     {{ $visitor->address ?? '' }}
+                </td>
+                <td class="data-value">
+                    {{ $visitor->remark ?? '' }}
                 </td>
                 <td class="data-value">
                     {{ $visitor->users_table->name ?? '' }}

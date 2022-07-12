@@ -26,49 +26,57 @@
                         <div class="col-lg-12">
                             <div class="example-wrap">
                                 <h4 class="example-title">Employees</h4>
-                                <div class="example table-responsive">
-                                    <table class="table table-bordered">
+                                <div class="example table-responsive rowheaders" aria-labelledby="HeadersCol"
+                                    tabindex="0">
+                                    <table class="table table-bordered table-hover dataTable table-striped w-full"
+                                        id="table" data-plugin="dataTable">
                                         <thead class="tbbg">
                                             <tr>
-                                                <th style="color: white; text-align: center; width: 1%;">#</th>
-                                                <th style="color: white; text-align: center;">Photo</th>
-                                                <th style="color: white; text-align: center;">ID</th>
-                                                <th style="color: white; text-align: center;">Name</th>
-                                                <th style="color: white; text-align: center;">Email</th>
-                                                <th style="color: white; text-align: center;">Phone</th>
-                                                <th style="color: white; text-align: center;">NRC Number</th>
-                                                <th style="color: white; text-align: center;">Join Date</th>
-                                                <th style="color: white; text-align: center;">Emergency</th>
-                                                <th style="color: white; text-align: center;">Department</th>
-                                                <th style="color: white; text-align: center;">Role</th>
-                                                <th style="color: white; text-align: center;">Actions</th>
+                                                <td style="color: white; text-align: center; width: 1%;">#</td>
+                                                <td style="color: white; text-align: center;">Photo</td>
+                                                <td style="color: white; text-align: center;">ID</td>
+                                                <td style="color: white; text-align: center;">Name</td>
+                                                <td style="color: white; text-align: center;">Email</td>
+                                                <td style="color: white; text-align: center;">Phone</td>
+                                                <td style="color: white; text-align: center;">NRC Number</td>
+                                                <td style="color: white; text-align: center;">Join Date</td>
+                                                <td style="color: white; text-align: center;">Department</td>
+                                                <td style="color: white; text-align: center;">Role</td>
+                                                <td style="color: white; text-align: center;">Actions</td>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="row_position" id="tablecontents">
                                             @foreach ($employees as $key => $value)
-                                                <tr>
+                                                <tr class="row1" data-id="{{ $value->id }}">
+
                                                     <td style="text-align: center;">
-                                                        {{ $key + 1 }}
+                                                        <i class="fa fa-sort"></i>
                                                     </td>
+
                                                     <td style="text-align: justify">
                                                         @if ($value->employee_photo)
                                                             <img src="{{ Storage::url($value->employee_photo) }}"
                                                                 alt=""
-                                                                style="width: 50px; height: 50px; background-position: center; background-size: contain, cover;">
+                                                                style="width: 50px; height: 50px; background-position: center; background-size: contain; object-fit: cover;">
                                                         @endif
                                                     </td>
+
                                                     <td style="text-align: center;">
                                                         {{ $value->employee_id }}
                                                     </td>
+
                                                     <td style="text-align: center;">
                                                         {{ $value->name }}
                                                     </td>
+
                                                     <td style="text-align: center;">
                                                         {{ $value->email }}
                                                     </td>
+
                                                     <td style="text-align: center;">
                                                         {{ $value->phone }}
                                                     </td>
+
                                                     <td style="text-align: center;">
                                                         {{ $value->nrc_number }}
                                                     </td>
@@ -77,11 +85,6 @@
                                                         {{ $value->join_date }}
                                                     </td>
 
-                                                    <td style="text-align: center;">
-                                                        {{ $value->contact_person }}
-                                                        @
-                                                        {{ $value->emergency_contact }}
-                                                    </td>
 
                                                     <td style="text-align: center;">
                                                         {{ $value->department->title ?? '' }}
@@ -92,6 +95,7 @@
                                                             <span class="badge bg-primary">{{ $role->name }}</span>
                                                         @endforeach
                                                     </td>
+
                                                     <td style="text-align: center;">
                                                         <div class="btn-group">
                                                             <button type="button"
@@ -130,4 +134,50 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        $(function() {
+            $("#tablecontents").sortable({
+                items: "tr",
+                cursor: 'move',
+                opacity: 0.6,
+                update: function() {
+                    sendOrderToServer();
+                }
+            });
+
+            function sendOrderToServer() {
+                var order = [];
+                var token = $('meta[name="csrf-token"]').attr('content');
+                $('tr.row1').each(function(index, element) {
+                    order.push({
+                        id: $(this).attr('data-id'),
+                        position: index + 1,
+                    });
+                });
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    // url: "{{ url('employeesortable') }}",
+                    url: "/employeesortable",
+                    data: {
+                        order: order,
+                        _token: token
+                    },
+                    success: function(response) {
+                        if (response.status == "success") {
+                            console.log(response);
+                            alert(response);
+                        } else {
+                            console.log(response);
+                            alert(response);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 @endsection

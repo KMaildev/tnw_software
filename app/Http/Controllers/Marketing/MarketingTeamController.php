@@ -8,20 +8,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMarketingTeam;
 use App\Http\Requests\UpdateMarketingTeam;
 use App\Imports\MarketingTeamImport;
-use App\Models\Appointment;
-use App\Models\FollowUp;
-use App\Models\InterestRate;
 use App\Models\MarketingTeam;
 use App\Models\Models\MarketingFile;
 use App\Models\Models\MarketingTeamCount;
 use App\Models\Models\Visitor;
 use App\Models\PropertyType;
 use App\Models\Region;
-use App\Models\Township;
 use App\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\Calculation\TextData\Search;
+use Yajra\Datatables\Datatables;
 
 class MarketingTeamController extends Controller
 {
@@ -50,7 +46,6 @@ class MarketingTeamController extends Controller
         if (request('search')) {
             $search = request('search');
             $marketing_teams = MarketingTeam::where('code', 'LIKE', '%' . $search . '%')
-                ->orWhere('code', 'LIKE', '%' . $search . '%')
                 ->orWhere('marketing_date', 'LIKE', '%' . $search . '%')
                 ->orWhere('house_style', 'LIKE', '%' . $search . '%')
                 ->orWhere('price', 'LIKE', '%' . $search . '%')
@@ -63,16 +58,199 @@ class MarketingTeamController extends Controller
                 ->get()->where('request_status', NULL);
         }
 
-
-
-
         // Search by User 
         if (request('user_id')) {
             $user_id = request('user_id');
             $marketing_teams = MarketingTeam::where('user_id', $user_id)->get()->where('request_status', NULL);
         }
+
+        // Search by User 
+        if (request('search_township_id')) {
+            $search_township_id = request('search_township_id');
+            $marketing_teams = MarketingTeam::where('township_id', $search_township_id)->get()->where('request_status', NULL);
+        }
+
+        // Generan Search 
+        if (request('search_type')) {
+            $minPrice = request('price_form');
+            $maxPrice = request('price_to');
+            $offer_status = request('offer_status');
+            $property_type_id = request('property_type_id');
+            $township_id = request('township_id');
+            $ward = request('ward');
+            $bedrooms = request('bedrooms');
+            $bathrooms = request('bathrooms');
+            $living = request('living');
+
+            if ($minPrice || $maxPrice) {
+                $marketing_teams = MarketingTeam::whereBetween('price', [$minPrice, $maxPrice])->get()->where('request_status', NULL);
+            }
+
+            if ($offer_status) {
+                $marketing_teams = MarketingTeam::where('offer_status', $offer_status)->get()->where('request_status', NULL);
+            }
+
+            if ($property_type_id != '') {
+                $marketing_teams = MarketingTeam::where('property_type_id', $property_type_id)->get()->where('request_status', NULL);
+            }
+
+            if ($township_id != '') {
+                $marketing_teams = MarketingTeam::where('township_id', $township_id)->get()->where('request_status', NULL);
+            }
+
+            if ($ward != '') {
+                $marketing_teams = MarketingTeam::where('ward', $ward)->get()->where('request_status', NULL);
+            }
+
+            if ($bedrooms != '') {
+                $marketing_teams = MarketingTeam::where('bedrooms', $bedrooms)->get()->where('request_status', NULL);
+            }
+
+            if ($bathrooms != '') {
+                $marketing_teams = MarketingTeam::where('bathrooms', $bathrooms)->get()->where('request_status', NULL);
+            }
+
+            if ($living != '') {
+                $marketing_teams = MarketingTeam::where('living', $living)->get()->where('request_status', NULL);
+            }
+        }
+
         return view('marketing.marketing_team.index', compact('marketing_teams', 'users', 'regions', 'property_types', 'userid'));
     }
+
+
+    public function datatable_view()
+    {
+        $users = User::all();
+        return view('marketing.marketing_team.index_datatable', compact('users'));
+    }
+
+
+    public function ajax_index(Request $request)
+    {
+        // $data = MarketingTeam::query();
+        $data = MarketingTeam::whereHas('users_table', function ($q) use ($request) {
+            $q->orWhere('name', 'LIKE', '%' . $request . '%');
+        })->get();
+
+
+        return Datatables::of($data)
+            ->addIndexColumn()
+
+            ->editColumn('marketing_name', function ($each) {
+                return $each->users_table ? $each->users_table->name : '-';
+            })
+
+            ->addColumn('township_name', function ($each) {
+                return $each->township_table ? $each->township_table->township : '-';
+            })
+
+            ->addColumn('property_type', function ($each) {
+                return $each->property_type_table ? $each->property_type_table->property_type : '-';
+            })
+
+            ->addColumn('sqft', function ($each) {
+                return $each->area_width * $each->area_height;
+            })
+
+            ->addColumn('permission_type', function ($each) {
+                if ($each->permission_type == 'grant') {
+                    return 'ဂရံ';
+                } elseif ($each->permission_type == 'permit') {
+                    return 'Permit';
+                } elseif ($each->permission_type == 'ancestral_land') {
+                    return 'ဘိုးဘွားပိုင်မြေ';
+                } else {
+                    return '';
+                }
+            })
+
+            ->addColumn('orginal_or_copy', function ($each) {
+                if ($each->orginal_or_copy == 'Orginal') {
+                    return 'မူရင်း';
+                } elseif ($each->orginal_or_copy == 'Copy') {
+                    return 'မိတ္တူ';
+                } else {
+                    return '';
+                }
+            })
+
+            ->addColumn('photo_status', function ($each) {
+
+                $photo_status = ($each->photo_status == 'no') ? ('No') : ('Yes');
+                $bg_status = ($each->photo_status == 'no') ? ('bg-danger') : ('bg-success');
+
+                $html =
+                    '<div class="d-flex flex-column w-100">
+                        <div class="d-flex justify-content-between">
+                            <span>
+                            ' . $photo_status . '
+                            </span>
+                        </div>
+                        <div class="progress" style="height:3px; margin-bottom: 0">
+                            <div class="progress-bar ' . $bg_status . '"
+                                style="width: 100%" role="progressbar">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="' . route('marketing_file_create.create', ['id' => $each->id]) . '"
+                                style="font-size: 12px;">
+                                Upload
+                            </a>
+                            <a href="' . route('marketing_file_create.create', ['id' => $each->id]) . '" style="font-size: 12px;">
+                                View
+                            </a>
+                        </div>
+                    </div>';
+                return $html;
+            })
+
+            ->addColumn('action', function ($each) {
+                $actions =
+                    '<div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle btn-xs"
+                        id="exampleSizingDropdown3" data-toggle="dropdown"
+                        aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="exampleSizingDropdown3"
+                        role="menu">
+
+                        <a class="dropdown-item"
+                            href="' . route('marketing_team.show', $each->id) . '"
+                            role="menuitem">
+                            <i class="icon md-eye" aria-hidden="true"></i>
+                            View Detail
+                        </a>
+
+                        <a class="dropdown-item" href="#" role="menuitem">
+                            <i class="icon md-edit" aria-hidden="true"></i>
+                            Reject
+                        </a>
+
+                        <a class="dropdown-item"
+                            href="' . route('marketing_team.edit', $each->id) . '"
+                            role="menuitem">
+                            <i class="icon md-edit" aria-hidden="true"></i>
+                            Edit
+                        </a>
+
+                        <a class="dropdown-item del_confirm"
+                            href="#"
+                            role="menuitem" 
+                            data-id="' . $each->id . '">
+                            <i class="icon md-delete" aria-hidden="true"></i>
+                            Delete
+                        </a>
+                    </div>
+                </div>';
+                return $actions;
+            })
+            ->rawColumns(['action', 'photo_status'])
+            ->make(true);
+    }
+
 
 
     public function ssd()

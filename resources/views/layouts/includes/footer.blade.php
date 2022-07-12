@@ -59,6 +59,15 @@
 <script src="{{ asset('global/vendor/magnific-popup/jquery.magnific-popup.minfd53.js?v4.0.1') }}"></script>
 
 
+{{-- Datatable --}}
+<script src="{{ asset('global/vendor/datatables.net/jquery.dataTablesfd53.js?v4.0.1') }}"></script>
+<script src="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4fd53.js?v4.0.1') }}"></script>
+
+
+<script src="{{ asset('global/js/Plugin/datatables.minfd53.js?v4.0.1') }}"></script>
+<script src="{{ asset('assets/examples/js/tables/datatable.minfd53.js?v4.0.1') }}"></script>
+
+
 {{-- My Script --}}
 <script src="{{ asset('vendor/larapass/js/larapass.js') }}"></script>
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
@@ -69,7 +78,10 @@
 <script src="{{ asset('global/vendor/tablesaw/tablesaw.jqueryfd53.js?v4.0.1') }}"></script>
 
 <script src="{{ asset('install/range_slider/js/ion.rangeSlider.min.js') }}"></script>
+<script src="{{ asset('global/vendor/bootstrap-select/bootstrap-select.minfd53.js?v4.0.1') }}"></script>
+<script src="{{ asset('global/js/Plugin/bootstrap-select.minfd53.js?v4.0.1') }}"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
 @yield('script')
 <script type="text/javascript">
@@ -241,7 +253,13 @@
             error: function(data) {}
         });
     }
+
+    // Live Searc
+    $(function() {
+        $('.selectpicker').selectpicker();
+    });
 </script>
+
 </body>
 
 </html>

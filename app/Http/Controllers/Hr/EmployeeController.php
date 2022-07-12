@@ -20,7 +20,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = User::all();
+        $employees = User::orderBy('sort_id', 'ASC')->get();
         return view('hr.employee.index', compact('employees'));
     }
 
@@ -139,5 +139,20 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function employeeSortable(Request $request)
+    {
+        $users = User::all();
+
+        foreach ($users as $user) {
+            foreach ($request->order as $order) {
+                if ($order['id'] == $user->id) {
+                    $user->sort_id = $order['position'];
+                    $user->update();
+                }
+            }
+        }
+        return response('Update Successfully.', 200);
     }
 }

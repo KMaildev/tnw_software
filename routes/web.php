@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('hr_dahsboard', 'Hr\HrDashboardController');
 
     Route::resource('employee', 'Hr\EmployeeController');
+    Route::post('employeesortable', 'Hr\EmployeeController@employeeSortable');
+
     Route::resource('department', 'Hr\DepartmentController');
     Route::resource('role', 'Hr\RoleController');
     Route::resource('permission', 'Hr\PermissionController');
@@ -38,6 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('marketing_dahsboard', 'Marketing\MarketingDashboard');
     Route::resource('marketing_team', 'Marketing\MarketingTeamController');
     Route::get('marketing_team_ssd', 'Marketing\MarketingTeamController@ssd');
+    Route::get('marketing_team_ajax', 'Marketing\MarketingTeamController@ajax_index');
+    Route::get('marketing_datatable_view', 'Marketing\MarketingTeamController@datatable_view');
 
     Route::get('already_live_filter_search', 'Marketing\MarketingTeamController@already_live_filter_search');
     Route::post('marketing_team_import', 'Marketing\MarketingTeamController@marketing_team_import')->name('marketing_team_import');

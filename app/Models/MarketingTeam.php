@@ -124,9 +124,6 @@ class MarketingTeam extends Model
 
 
 
-
-
-
     public function marketing_files_table()
     {
         return $this->hasMany(MarketingFile::class);
