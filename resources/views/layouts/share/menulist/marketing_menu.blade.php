@@ -16,7 +16,7 @@
 
 
                     <li class="dropdown site-menu-item has-sub">
-                        <a data-toggle="dropdown" href="{{ route('marketing_team.index') }}"
+                        <a data-toggle="dropdown" href="{{ route('marketing_datatable_view') }}"
                             data-dropdown-toggle="false">
                             <span class="site-menu-title">
                                 Makerting Team

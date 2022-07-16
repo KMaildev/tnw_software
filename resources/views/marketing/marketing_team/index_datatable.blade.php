@@ -29,308 +29,349 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-12">
                     <div class="panel">
-                        <div class="panel-body table-responsive text-nowrap" style="overflow-x:auto;">
-                            <table class="table dataTable" id="datatable">
-                                <thead class="tbbg">
-                                    <tr>
-                                        <th rowspan="2" style="width: 1%;">
-                                            #
-                                        </th>
+                        <div class="row">
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Marketing Name
-                                        </th>
+                            <div class="panel-body table-responsive text-nowrap" style="overflow-x:auto;">
+                                <div class="col-lg-6 form-group">
+                                    <div class="example">
+                                        <form class="form-inline">
+                                            <div class="input-group">
+                                                <div class="form-group">
+                                                    <span class="input-group-addon">Price From</span>
+                                                    <input type="text" class="form-control" autocomplete="off"
+                                                        id="start" />
+                                                </div>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Type
-                                        </th>
+                                                <div class="form-group">
+                                                    <span class="input-group-addon">To</span>
+                                                    <input type="text" class="form-control" autocomplete="off"
+                                                        id="to" />
+                                                </div>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Date & Time
-                                        </th>
+                                                <div class="form-group">
+                                                    <button id="dateSearch" type="button"
+                                                        class="btn btn-primary">Search</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Code
-                                        </th>
+                                <table class="table dataTable" id="datatable">
+                                    <thead class="tbbg">
+                                        <tr>
+                                            <th rowspan="2" style="width: 1%; color: white;">
+                                                #
+                                            </th>
 
-                                        <th rowspan="2" style="width: 2%; text-align: center; color: white;">
-                                            No/အိမ်အမှတ်
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Marketing Name
+                                            </th>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Road/လမ်း
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Type
+                                            </th>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Ward/ရပ်ကွက်
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Date & Time
+                                            </th>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Tsp/မြို့နယ်
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Code
+                                            </th>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Property Type
-                                        </th>
+                                            <th rowspan="2" style="width: 2%; text-align: center; color: white;">
+                                                No/အိမ်အမှတ်
+                                            </th>
 
-                                        <th colspan="2"
-                                            style="color: white; background-color: #3f51b5; text-align: center; width: 10%">
-                                            Property Style
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Road/လမ်း
+                                            </th>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Price (Lakhs)
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Ward/ရပ်ကွက်
+                                            </th>
 
-                                        <th colspan="2"
-                                            style="width: 10% text-align: center; background-color: green; color: white;">
-                                            Wide
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Tsp/မြို့နယ်
+                                            </th>
 
-                                        <th colspan="2"
-                                            style="width: 10%; text-align: center; background-color: #c01faa; color: white;">
-                                            Permission
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Property Type
+                                            </th>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Owner/Agent
-                                        </th>
+                                            <th colspan="2"
+                                                style="color: white; background-color: #3f51b5; text-align: center; width: 10%">
+                                                Property Style
+                                            </th>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Name
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Price (Lakhs)
+                                            </th>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Phone
-                                        </th>
+                                            <th colspan="2"
+                                                style="width: 10% text-align: center; background-color: green; color: white;">
+                                                Wide
+                                            </th>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Photo
-                                        </th>
+                                            <th colspan="2"
+                                                style="width: 10%; text-align: center; background-color: #c01faa; color: white;">
+                                                Permission
+                                            </th>
 
-                                        <th rowspan="2" style="width: 10%; text-align: center; color: white;">
-                                            Actions
-                                        </th>
-                                    </tr>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Owner/Agent
+                                            </th>
 
-                                    <tr>
-                                        <th style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
-                                            Floor
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Name
+                                            </th>
 
-                                        <th style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
-                                            House Style
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Phone
+                                            </th>
 
-                                        <th style="color: white; background-color: green; text-align: center; widht: 100px">
-                                            Sqft
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Photo
+                                            </th>
 
-                                        <th style="color: white; background-color: green; text-align: center; widht: 10%">
-                                            Acre
-                                        </th>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Actions
+                                            </th>
+                                        </tr>
 
-                                        <th style="color: white; background-color: #c01faa; text-align: center; widht: 10%">
-                                            Premission
-                                        </th>
+                                        <tr>
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Floor
+                                            </th>
 
-                                        <th style="color: white; background-color: #c01faa; text-align: center; widht: 10%">
-                                            မူရင်း/မိတ္တူ
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>
-                                            <input type="text" data-colum="0" placeholder="Search" hidden>
-                                        </th>
-                                        <th>
-                                            {{-- <input type="text" data-colum="1" placeholder="Search"> --}}
-                                            marketing_name
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="2" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="3" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="4" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="5" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="6" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="7" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="8" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="9" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="10" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="11" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="12" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="13" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="14" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="15" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="16" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="17" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="18" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="19" placeholder="Search">
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="20" placeholder="Search" hidden>
-                                        </th>
-                                        <th>
-                                            <input type="text" data-colum="21" placeholder="Search" hidden>
-                                        </th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                House Style
+                                            </th>
+
+                                            <th
+                                                style="color: white; background-color: green; text-align: center; widht: 100px">
+                                                Sqft
+                                            </th>
+
+                                            <th
+                                                style="color: white; background-color: green; text-align: center; widht: 10%">
+                                                Acre
+                                            </th>
+
+                                            <th
+                                                style="color: white; background-color: #c01faa; text-align: center; widht: 10%">
+                                                Premission
+                                            </th>
+
+                                            <th
+                                                style="color: white; background-color: #c01faa; text-align: center; widht: 10%">
+                                                မူရင်း/မိတ္တူ
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>
+                                                <input type="text" data-colum="0" placeholder="Search" hidden>
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="1" placeholder="Search">
+                                                {{-- marketing_name --}}
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="2" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="3" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="4" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="5" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="6" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="7" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="8" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="9" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="10" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="11" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="12" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="13" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="14" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="15" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="16" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="17" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="18" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="19" placeholder="Search">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="20" placeholder="Search" hidden>
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="21" placeholder="Search" hidden>
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 @endsection
 @section('script')
     <script>
-        $(function() {
-            $('.dataTable tfoot th').each(function(i) {
-                var title = $('#example thead th').eq($(this).index()).text();
-                $(this).html('<input type="text" placeholder="' + title + '" data-index="' + i + '" />');
-            });
+        var table = $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ordering: false,
+            ajax: {
+                url: "{{ route('marketing_team_ajax') }}",
+                data: function(d) {
+                    d.from = $('#start').val();
+                    d.to = $('#to').val();
+                }
+            },
 
-            var table = $('.dataTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ordering: false,
-                ajax: "{{ url('marketing_team_ajax') }}",
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'marketing_name',
-                        name: 'marketing_name'
-                    },
-                    {
-                        data: 'offer_status',
-                        name: 'offer_status'
-                    },
-                    {
-                        data: 'marketing_date',
-                        name: 'marketing_date'
-                    },
-                    {
-                        data: 'code',
-                        name: 'code'
-                    },
-                    {
-                        data: 'no',
-                        name: 'no'
-                    },
-                    {
-                        data: 'road',
-                        name: 'road'
-                    },
-                    {
-                        data: 'ward',
-                        name: 'ward'
-                    },
-                    {
-                        data: 'township_name',
-                        name: 'township_name'
-                    },
-                    {
-                        data: 'property_type',
-                        name: 'property_type'
-                    },
-                    {
-                        data: 'floor',
-                        name: 'floor'
-                    },
-                    {
-                        data: 'house_style',
-                        name: 'house_style'
-                    },
-                    {
-                        data: 'price',
-                        name: 'price'
-                    },
-                    {
-                        data: 'sqft',
-                        name: 'sqft'
-                    },
-                    {
-                        data: 'area',
-                        name: 'area'
-                    },
-                    {
-                        data: 'permission_type',
-                        name: 'permission_type'
-                    },
-                    {
-                        data: 'orginal_or_copy',
-                        name: 'orginal_or_copy'
-                    },
-                    {
-                        data: 'owner_agent',
-                        name: 'owner_agent'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'phone',
-                        name: 'phone'
-                    },
-                    {
-                        data: 'photo_status',
-                        name: 'photo_status',
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: true,
-                        searchable: true
-                    },
-                ],
-            });
+            lengthMenu: [70, 150, 250, 350, 450, 550, 650, 750, 850, 950, 1100, 1200, 1300],
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'marketing_name',
+                    name: 'marketing_name'
+                },
+                {
+                    data: 'offer_status',
+                    name: 'offer_status'
+                },
+                {
+                    data: 'marketing_date',
+                    name: 'marketing_date'
+                },
+                {
+                    data: 'code',
+                    name: 'code'
+                },
+                {
+                    data: 'no',
+                    name: 'no'
+                },
+                {
+                    data: 'road',
+                    name: 'road'
+                },
+                {
+                    data: 'ward',
+                    name: 'ward'
+                },
+                {
+                    data: 'township_name',
+                    name: 'township_name'
+                },
+                {
+                    data: 'property_type',
+                    name: 'property_type'
+                },
+                {
+                    data: 'floor',
+                    name: 'floor'
+                },
+                {
+                    data: 'house_style',
+                    name: 'house_style'
+                },
+                {
+                    data: 'price',
+                    name: 'price'
+                },
+                {
+                    data: 'sqft',
+                    name: 'sqft'
+                },
+                {
+                    data: 'area',
+                    name: 'area'
+                },
+                {
+                    data: 'permission_type',
+                    name: 'permission_type'
+                },
+                {
+                    data: 'orginal_or_copy',
+                    name: 'orginal_or_copy'
+                },
+                {
+                    data: 'owner_agent',
+                    name: 'owner_agent'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'phone',
+                    name: 'phone'
+                },
+                {
+                    data: 'photo_status',
+                    name: 'photo_status',
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: true,
+                    searchable: true
+                },
+            ],
         });
+
+
+        $('#dateSearch').on('click', function() {
+            table.draw();
+        });
+
 
         $(document).ready(function() {
             $('#datatable tfoot th').each(function() {
                 var title = $('#datatable thead th').eq($(this).index()).text();
-                // $(this).html('<input type="text" placeholder="Search ' + title + '" />');
             });
             var table = $('#datatable').DataTable();
 

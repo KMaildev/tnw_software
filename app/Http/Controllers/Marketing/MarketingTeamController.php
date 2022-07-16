@@ -15,8 +15,10 @@ use App\Models\Models\Visitor;
 use App\Models\PropertyType;
 use App\Models\Region;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\Console\Input\Input;
 use Yajra\Datatables\Datatables;
 
 class MarketingTeamController extends Controller
@@ -118,7 +120,6 @@ class MarketingTeamController extends Controller
         return view('marketing.marketing_team.index', compact('marketing_teams', 'users', 'regions', 'property_types', 'userid'));
     }
 
-
     public function datatable_view()
     {
         $users = User::all();
@@ -129,10 +130,16 @@ class MarketingTeamController extends Controller
     public function ajax_index(Request $request)
     {
         // $data = MarketingTeam::query();
-        $data = MarketingTeam::whereHas('users_table', function ($q) use ($request) {
-            $q->orWhere('name', 'LIKE', '%' . $request . '%');
-        })->get();
-
+        $start = $request->get('from');
+        $to = $request->get('to');
+        if ($start && $to) {
+            $data = MarketingTeam::whereBetween('price', [$start, $to])
+                ->get();
+        } else {
+            $data = MarketingTeam::whereHas('users_table', function ($q) use ($request) {
+                $q->orWhere('name', 'LIKE', '%' . $request . '%');
+            })->get();
+        }
 
         return Datatables::of($data)
             ->addIndexColumn()
@@ -141,19 +148,24 @@ class MarketingTeamController extends Controller
                 return $each->users_table ? $each->users_table->name : '-';
             })
 
-            ->addColumn('township_name', function ($each) {
+            ->editColumn('offer_status', function ($each) {
+                $str = str_replace('_', ' ', $each->offer_status);
+                return ucwords($str);
+            })
+
+            ->editColumn('township_name', function ($each) {
                 return $each->township_table ? $each->township_table->township : '-';
             })
 
-            ->addColumn('property_type', function ($each) {
+            ->editColumn('property_type', function ($each) {
                 return $each->property_type_table ? $each->property_type_table->property_type : '-';
             })
 
-            ->addColumn('sqft', function ($each) {
-                return $each->area_width * $each->area_height;
+            ->editColumn('sqft', function ($each) {
+                return $each->area_width . ' * ' . $each->area_height . ' = ' . $each->area_width * $each->area_height;
             })
 
-            ->addColumn('permission_type', function ($each) {
+            ->editColumn('permission_type', function ($each) {
                 if ($each->permission_type == 'grant') {
                     return 'ဂရံ';
                 } elseif ($each->permission_type == 'permit') {
@@ -165,7 +177,7 @@ class MarketingTeamController extends Controller
                 }
             })
 
-            ->addColumn('orginal_or_copy', function ($each) {
+            ->editColumn('orginal_or_copy', function ($each) {
                 if ($each->orginal_or_copy == 'Orginal') {
                     return 'မူရင်း';
                 } elseif ($each->orginal_or_copy == 'Copy') {
@@ -247,10 +259,10 @@ class MarketingTeamController extends Controller
                 </div>';
                 return $actions;
             })
+
             ->rawColumns(['action', 'photo_status'])
             ->make(true);
     }
-
 
 
     public function ssd()
