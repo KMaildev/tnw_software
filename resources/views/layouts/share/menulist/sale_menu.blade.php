@@ -35,26 +35,26 @@
                                     <div>
                                         <ul class="site-menu-sub site-menu-normal-list">
                                             <li class="site-menu-item">
-                                                <a href="{{ route('department.index') }}">
+                                                <a href="#">
                                                     <span class="site-menu-title">Sales</span>
                                                 </a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="{{ route('role.index') }}">
+                                                <a href="#">
                                                     <span class="site-menu-title">
                                                         Sale Contract
                                                     </span>
                                                 </a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="{{ route('role.index') }}">
+                                                <a href="#">
                                                     <span class="site-menu-title">
                                                         Sales Close / Sold Out
                                                     </span>
                                                 </a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="{{ route('permission.index') }}">
+                                                <a href="#">
                                                     <span class="site-menu-title">Sales Reject</span>
                                                 </a>
                                             </li>
@@ -76,26 +76,26 @@
                                     <div>
                                         <ul class="site-menu-sub site-menu-normal-list">
                                             <li class="site-menu-item">
-                                                <a href="{{ route('department.index') }}">
+                                                <a href="#">
                                                     <span class="site-menu-title">Rent</span>
                                                 </a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="{{ route('role.index') }}">
+                                                <a href="#">
                                                     <span class="site-menu-title">
                                                         Rent Contract
                                                     </span>
                                                 </a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="{{ route('role.index') }}">
+                                                <a href="#">
                                                     <span class="site-menu-title">
                                                         Rent Close / Sold Out
                                                     </span>
                                                 </a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="{{ route('permission.index') }}">
+                                                <a href="#">
                                                     <span class="site-menu-title">Rent Reject</span>
                                                 </a>
                                             </li>
