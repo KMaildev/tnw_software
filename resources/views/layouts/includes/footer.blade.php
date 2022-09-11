@@ -88,7 +88,6 @@
 <script src="{{ asset('global/vendor/toastr/toastr.minfd53.js?v4.0.1') }}"></script>
 <script src="{{ asset('global/js/Plugin/toastr.minfd53.js?v4.0.1') }}"></script>
 
-
 @yield('script')
 
 <script type="text/javascript">
@@ -175,6 +174,14 @@
         }
     };
 </script>
+
+
+
 </body>
+<style>
+    .ui-tooltip {
+        display: none;
+    }
+</style>
 
 </html>

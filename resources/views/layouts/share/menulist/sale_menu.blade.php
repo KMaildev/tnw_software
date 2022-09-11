@@ -35,7 +35,7 @@
                                     <div>
                                         <ul class="site-menu-sub site-menu-normal-list">
                                             <li class="site-menu-item">
-                                                <a href="#">
+                                                <a href="{{ route('sale_lists.index') }}">
                                                     <span class="site-menu-title">Sales</span>
                                                 </a>
                                             </li>

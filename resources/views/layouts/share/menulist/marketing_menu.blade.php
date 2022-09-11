@@ -26,6 +26,15 @@
 
 
                     <li class="dropdown site-menu-item has-sub">
+                        <a data-toggle="dropdown" href="{{ route('want_to_buy.index') }}" data-dropdown-toggle="false">
+                            <span class="site-menu-title">
+                                Want To Buy
+                            </span>
+                        </a>
+                    </li>
+
+
+                    <li class="dropdown site-menu-item has-sub">
                         <a href="{{ route('follow_up.index') }}">
                             Follow Up
                             <span class="badge badge_noti_count" hidden>

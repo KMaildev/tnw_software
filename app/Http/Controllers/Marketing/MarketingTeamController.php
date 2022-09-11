@@ -46,8 +46,6 @@ class MarketingTeamController extends Controller
                 $q->orWhere('name', 'LIKE', '%' . $request . '%');
             })->get();
         }
-        
-
 
         return Datatables::of($data)
             ->addIndexColumn()

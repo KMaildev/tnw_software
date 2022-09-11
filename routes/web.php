@@ -110,13 +110,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('visitor', 'Marketing\VisitorController');
 
 
-
-
     // Property Management
     Route::resource('lawyer', 'LawyerController');
 
 
-    // Sales 
+    // Sales  Team
     Route::resource('sale_dashboard', 'Sale\SaleDashboardController');
     Route::resource('sale_appointment', 'Sale\SaleAppointmentController');
     Route::get('sale_appointment_ajax', [
@@ -128,9 +126,18 @@ Route::middleware('auth')->group(function () {
         'uses' => 'Sale\SaleAppointmentController@SaleRentAppointmentDelete'
     ]);
 
+
     Route::resource('rent_appointment', 'Sale\RentAppointmentController');
     Route::get('rent_appointment_ajax', [
         'as' => 'rent_appointment_ajax',
         'uses' => 'Sale\RentAppointmentController@AjaxRentAppointment'
+    ]);
+
+
+    Route::resource('sale_lists', 'Sale\SaleListsController');
+    Route::resource('want_to_buy', 'Marketing\WantToBuyController');
+    Route::get('get_want_to_buy_ajax', [
+        'as' => 'get_want_to_buy_ajax',
+        'uses' => 'Marketing\WantToBuyController@AjaxWantToBuy'
     ]);
 });
