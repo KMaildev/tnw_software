@@ -68,15 +68,15 @@ class MarketingTeamController extends Controller
             })
 
             ->editColumn('sqft', function ($each) {
-                if($each->area_width == NULL || $each->area_width == ''){
+                if ($each->area_width == NULL || $each->area_width == '') {
                     $area_width = 0;
-                }else{
+                } else {
                     $area_width = $each->area_width ?? 0;
                 }
-                
-                if($each->area_height == NULL || $each->area_height == ''){
+
+                if ($each->area_height == NULL || $each->area_height == '') {
                     $area_height = 0;
-                }else{
+                } else {
                     $area_height = $each->area_height ?? 0;
                 }
 
@@ -182,6 +182,116 @@ class MarketingTeamController extends Controller
             })
 
             ->rawColumns(['action', 'photo_status', 'phone'])
+            ->make(true);
+    }
+
+
+
+    public function create_viewed_property_ajax(Request $request)
+    {
+        $start = $request->get('from');
+        $to = $request->get('to');
+        if ($start && $to) {
+            $data = MarketingTeam::where('reject_status', NULL)->whereBetween('price', [$start, $to])
+                ->get();
+        } else {
+            $data = MarketingTeam::where('reject_status', NULL)->whereHas('users_table', function ($q) use ($request) {
+                $q->orWhere('name', 'LIKE', '%' . $request . '%');
+            })->get();
+        }
+
+        return Datatables::of($data)
+            ->addIndexColumn()
+
+            ->editColumn('township_name', function ($each) {
+                return $each->township_table ? $each->township_table->township : '-';
+            })
+
+            ->editColumn('property_type', function ($each) {
+                return $each->property_type_table ? $each->property_type_table->property_type : '-';
+            })
+
+            ->editColumn('sqft', function ($each) {
+                if ($each->area_width == NULL || $each->area_width == '') {
+                    $area_width = 0;
+                } else {
+                    $area_width = $each->area_width ?? 0;
+                }
+
+                if ($each->area_height == NULL || $each->area_height == '') {
+                    $area_height = 0;
+                } else {
+                    $area_height = $each->area_height ?? 0;
+                }
+
+                return $area_width . '*' . $area_height . ' = ' . $area_width * $area_height;
+            })
+
+            ->editColumn('permission_type', function ($each) {
+                if ($each->permission_type == 'grant') {
+                    return 'ဂရံ';
+                } elseif ($each->permission_type == 'permit') {
+                    return 'Permit';
+                } elseif ($each->permission_type == 'ancestral_land') {
+                    return 'ဘိုးဘွားပိုင်မြေ';
+                } else {
+                    return '';
+                }
+            })
+
+            ->editColumn('orginal_or_copy', function ($each) {
+                if ($each->orginal_or_copy == 'Orginal') {
+                    return 'မူရင်း';
+                } elseif ($each->orginal_or_copy == 'Copy') {
+                    return 'မိတ္တူ';
+                } else {
+                    return '';
+                }
+            })
+
+            ->addColumn('photo_status', function ($each) {
+                $photo_status = ($each->photo_status == 'no') ? ('No') : ('Yes');
+                $bg_status = ($each->photo_status == 'no') ? ('bg-danger') : ('bg-success');
+
+                $html =
+                    '<div class="d-flex flex-column w-100">
+                        <div class="d-flex justify-content-between">
+                            <span>
+                            ' . $photo_status . '
+                            </span>
+                        </div>
+                        <div class="progress" style="height:3px; margin-bottom: 0">
+                            <div class="progress-bar ' . $bg_status . '"
+                                style="width: 100%" role="progressbar">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="' . route('marketing_file_create.create', ['id' => $each->id]) . '"
+                                style="font-size: 12px;" target="_blank">
+                                Upload
+                            </a>
+                            <a href="' . route('marketing_file_create.create', ['id' => $each->id]) . '" style="font-size: 12px;" target="_blank">
+                                View
+                            </a>
+                        </div>
+                    </div>';
+                return $html;
+            })
+
+            ->addColumn('action', function ($each) {
+                $actions =
+                    '<center>
+                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-classic" id="SaveViewedProperty" data-id="' . $each->id . '">
+                            <i class="icon md-plus" aria-hidden="true"></i> 
+                            Add
+                        </button>
+                    </center>
+                    ';
+                return $actions;
+            })
+
+            ->rawColumns(['action', 'photo_status'])
             ->make(true);
     }
 

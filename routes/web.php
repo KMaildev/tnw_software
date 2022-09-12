@@ -48,6 +48,11 @@ Route::middleware('auth')->group(function () {
         'uses' => 'Marketing\MarketingTeamController@ajax_index'
     ]);
 
+    Route::get('create_viewed_property_ajax', [
+        'as' => 'create_viewed_property_ajax',
+        'uses' => 'Marketing\MarketingTeamController@create_viewed_property_ajax'
+    ]);
+
     Route::get('already_live_filter_search', 'Marketing\MarketingTeamController@already_live_filter_search');
     Route::post('marketing_team_import', 'Marketing\MarketingTeamController@marketing_team_import')->name('marketing_team_import');
     Route::get('marketing_team_export', 'Marketing\MarketingTeamController@marketing_team_export')->name('marketing_team_export');
@@ -139,5 +144,15 @@ Route::middleware('auth')->group(function () {
     Route::get('get_want_to_buy_ajax', [
         'as' => 'get_want_to_buy_ajax',
         'uses' => 'Marketing\WantToBuyController@AjaxWantToBuy'
+    ]);
+
+    Route::resource('viewed_property', 'Marketing\ViewedPropertyController');
+    Route::get('create_viewed_property/{id}', [
+        'as' => 'create_viewed_property',
+        'uses' => 'Marketing\ViewedPropertyController@CreateViewedProperty'
+    ]);
+    Route::post('save_viewed_property', [
+        'as' => 'save_viewed_property',
+        'uses' => 'Marketing\ViewedPropertyController@SaveViewedProperty'
     ]);
 });

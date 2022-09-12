@@ -52,7 +52,7 @@
                                                 Viewed
                                             </th>
 
-                                            <th rowspan="2" style="width: 7%; text-align: center; color: white;">
+                                            <th rowspan="2" style="width: 2%; text-align: center; color: white;">
                                                 Actions
                                             </th>
                                         </tr>
@@ -193,8 +193,8 @@
                 },
 
                 {
-                    data: 'id',
-                    name: 'id',
+                    data: 'viewed_status',
+                    name: 'viewed_status',
                 },
 
                 {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWantToBuy;
+use App\Models\Models\ViewedProperty;
 use App\Models\Models\WantToBuy;
 use App\Models\PropertyType;
 use App\Models\Region;
@@ -53,29 +54,68 @@ class WantToBuyController extends Controller
                 return $each->township_table ? $each->township_table->township : '-';
             })
 
+            ->addColumn('viewed_status', function ($each) {
+                $html =
+                    '<center>
+                        <div class="d-flex flex-column w-100">
+                            <div class="d-flex justify-content-between">
+                                <span>
+                                    Viewed Property 
+                                </span>
+                            </div>
+                            <div class="progress" style="height:3px; margin-bottom: 0">
+                                <div class="progress-bar"
+                                    style="width: 100%" role="progressbar">
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <a href="' . route('create_viewed_property', ['id' => $each->id]) . '"
+                                    style="font-size: 12px;">
+                                    Add
+                                </a>
+                                <a href="' . route('want_to_buy.show', $each->id) . '" style="font-size: 12px;">
+                                    Details
+                                </a>
+                            </div>
+                        </div>
+                    </center>
+                    ';
+                return $html;
+            })
+
             ->addColumn('action', function ($each) {
                 $actions =
-                    '<div class="btn-group">
-                    <button type="button" class="btn btn-info dropdown-toggle btn-xs"
-                        id="exampleSizingDropdown3" data-toggle="dropdown"
-                        aria-expanded="false">
-                        Action
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="exampleSizingDropdown3"
-                        role="menu">
+                    '<center> 
+                        <div class="btn-group">
+                        <button type="button" class="btn btn-info dropdown-toggle btn-xs"
+                            id="exampleSizingDropdown3" data-toggle="dropdown"
+                            aria-expanded="false">
+                            Action
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="exampleSizingDropdown3"
+                            role="menu">
 
-                        <a class="dropdown-item"
-                            href="' . route('want_to_buy.edit', $each->id) . '"
-                            role="menuitem">
-                            <i class="icon md-edit" aria-hidden="true"></i>
-                            Edit Data
-                        </a>
-                        
+                            <a class="dropdown-item"
+                                href="' . route('want_to_buy.edit', $each->id) . '"
+                                role="menuitem">
+                                <i class="icon md-edit" aria-hidden="true"></i>
+                                Edit Data
+                            </a>
+
+                            <a class="dropdown-item"
+                                href="' . route('want_to_buy.show', $each->id) . '"
+                                role="menuitem">
+                                <i class="icon md-edit" aria-hidden="true"></i>
+                                View Detail
+                            </a>
+                            
+                        </div>
                     </div>
-                </div>';
+                </center>';
                 return $actions;
             })
-            ->rawColumns(['action', 'property_type', 'sqft', 'township_name'])
+            ->rawColumns(['action', 'viewed_status', 'property_type', 'sqft', 'township_name'])
             ->make(true);
     }
 
@@ -126,7 +166,9 @@ class WantToBuyController extends Controller
      */
     public function show($id)
     {
-        //
+        $want_to_buy = WantToBuy::findOrFail($id);
+        $viewed_properties = ViewedProperty::where(['want_to_buy_id' => $id])->get();
+        return view('marketing.want_to_buy.show', compact('want_to_buy', 'viewed_properties'));
     }
 
     /**
