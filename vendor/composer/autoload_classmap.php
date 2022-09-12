@@ -108,6 +108,7 @@ return array(
     'App\\Http\\Requests\\StoreRole' => $baseDir . '/app/Http/Requests/StoreRole.php',
     'App\\Http\\Requests\\StoreSaleRentAppointment' => $baseDir . '/app/Http/Requests/StoreSaleRentAppointment.php',
     'App\\Http\\Requests\\StoreUsers' => $baseDir . '/app/Http/Requests/StoreUsers.php',
+    'App\\Http\\Requests\\StoreViewedProperty' => $baseDir . '/app/Http/Requests/StoreViewedProperty.php',
     'App\\Http\\Requests\\StoreVisitors' => $baseDir . '/app/Http/Requests/StoreVisitors.php',
     'App\\Http\\Requests\\StoreWantToBuy' => $baseDir . '/app/Http/Requests/StoreWantToBuy.php',
     'App\\Http\\Requests\\StoreWard' => $baseDir . '/app/Http/Requests/StoreWard.php',

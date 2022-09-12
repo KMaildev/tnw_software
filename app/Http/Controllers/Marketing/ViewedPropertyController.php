@@ -100,7 +100,7 @@ class ViewedPropertyController extends Controller
         $viewed->marketing_team_id = $request->marketing_team_id;
         $viewed->want_to_buy_id = $request->want_to_buy_id;
         $viewed->user_id = auth()->user()->id ?? 0;
-        $viewed->viewed_date = date("Y-m-d H:i:s");
+        $viewed->viewed_date = date('Y/m/d h:i:sa');
         $viewed->save();
         return json_encode(array(
             "statusCode" => 200

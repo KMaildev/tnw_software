@@ -2,29 +2,13 @@
 @section('content')
     <div class="page">
         <div class="page-header">
-            <h1 class="page-title">Want To Buy</h1>
+            <h1 class="page-title">Oncall Report List</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('marketing_dahsboard.index') }}">Dashboard</a>
                 </li>
-                <li class="breadcrumb-item active">Want To Buy</li>
+                <li class="breadcrumb-item active">Oncall Report List</li>
             </ol>
-            <div class="page-header-actions">
-
-                <a href="{{ route('marketing_team_export') }}" class="btn btn-sm btn-success">
-                    <i class="icon md-file" aria-hidden="true"></i>
-                    <span class="hidden-sm-down">
-                        Export to Excel
-                    </span>
-                </a>
-
-                <a class="btn btn-sm btn-primary" href="{{ route('want_to_buy.create') }}">
-                    <i class="icon md-plus" aria-hidden="true"></i>
-                    <span class="hidden-sm-down">
-                        Create
-                    </span>
-                </a>
-            </div>
         </div>
 
         <div class="page-content container-fluid">
@@ -40,111 +24,96 @@
                                                 #
                                             </th>
 
-                                            <th rowspan="2" style="width: 6%; text-align: center; color: white;">
-                                                Marketing Name
+                                            <th rowspan="2" style="width: 5%; text-align: center; color: white;">
+                                                Call User <br>
+                                                (ဖုန်းခေါ်ဆိုသူ)
                                             </th>
 
-                                            <th rowspan="2" style="width: 6%; text-align: center; color: white;">
-                                                Date
+                                            <th rowspan="2" style="width: 5%; text-align: center; color: white;">
+                                                Call Date <br> (ခေါ်ဆိုသည့်ရက်)
                                             </th>
 
-                                            <th colspan="2" style="width: 20%; text-align: center; color: white;">
-                                                Customer Information
+                                            <th colspan="7" style="width: 80%; text-align: center; color: white;">
+                                                Property Information
                                             </th>
-
-                                            <th colspan="6" style="width: 60%; text-align: center; color: white;">
-                                                Wanted information
-                                            </th>
-
-                                            <th rowspan="2" style="width: 7%; text-align: center; color: white;">
-                                                Viewed
-                                            </th>
-
-                                            <th rowspan="2" style="width: 2%; text-align: center; color: white;">
-                                                Actions
-                                            </th>
+                                            
                                         </tr>
                                         <tr>
                                             <th
-                                                style="color: white; background-color: green; text-align: center; widht: 10%">
-                                                Name
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Code
                                             </th>
                                             <th
-                                                style="color: white; background-color: green; text-align: center; widht: 10%">
-                                                Phone
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Type
+                                            </th>
+
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                No/အိမ်အမှတ်
+                                            </th>
+
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Road/လမ်း
+                                            </th>
+
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Ward/ရပ်ကွက်
+                                            </th>
+
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Tsp/မြို့နယ်
                                             </th>
 
                                             <th
                                                 style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
                                                 Property Type
                                             </th>
-
-                                            <th
-                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
-                                                Area
-                                            </th>
-
-                                            <th
-                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
-                                                Price Form
-                                            </th>
-
-                                            <th
-                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
-                                                Price To
-                                            </th>
-
-                                            <th
-                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
-                                                Township
-                                            </th>
-
-                                            <th
-                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
-                                                Remark
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>
-                                                <input type="text" data-colum="0" style="width: 100%;" hidden>
+                                                <input type="text" data-colum="0" placeholder="Search" hidden>
                                             </th>
                                             <th>
-                                                <input type="text" data-colum="1" style="width: 100%;">
+                                                <input type="text" data-colum="1" placeholder="Search"
+                                                    style="width: 100%;">
                                             </th>
                                             <th>
-                                                <input type="text" data-colum="2" style="width: 100%;">
+                                                <input type="text" data-colum="2" placeholder="Search"
+                                                    style="width: 100%;">
                                             </th>
                                             <th>
-                                                <input type="text" data-colum="3" style="width: 100%;">
+                                                <input type="text" data-colum="3" placeholder="Search"
+                                                    style="width: 100%;">
                                             </th>
                                             <th>
-                                                <input type="text" data-colum="4" style="width: 100%;">
+                                                <input type="text" data-colum="4" placeholder="Search"
+                                                    style="width: 100%;">
                                             </th>
                                             <th>
-                                                <input type="text" data-colum="5" style="width: 100%;">
+                                                <input type="text" data-colum="5" placeholder="Search"
+                                                    style="width: 100%;">
                                             </th>
                                             <th>
-                                                <input type="text" data-colum="6" style="width: 100%;">
+                                                <input type="text" data-colum="6" placeholder="Search"
+                                                    style="width: 100%;">
                                             </th>
                                             <th>
-                                                <input type="text" data-colum="7" style="width: 100%;">
+                                                <input type="text" data-colum="7" placeholder="Search"
+                                                    style="width: 100%;">
                                             </th>
                                             <th>
-                                                <input type="text" data-colum="8" style="width: 100%;">
+                                                <input type="text" data-colum="8" placeholder="Search"
+                                                    style="width: 100%;">
                                             </th>
                                             <th>
-                                                <input type="text" data-colum="9" style="width: 100%;">
-                                            </th>
-                                            <th>
-                                                <input type="text" data-colum="10" style="width: 100%;">
-                                            </th>
-                                            <th>
-                                                <input type="text" data-colum="9" style="width: 100%;" hidden>
-                                            </th>
-                                            <th>
-                                                <input type="text" data-colum="10" style="width: 100%;" hidden>
+                                                <input type="text" data-colum="9" placeholder="Search"
+                                                    style="width: 100%;">
                                             </th>
                                         </tr>
                                     </tfoot>
@@ -164,78 +133,68 @@
             serverSide: true,
             ordering: false,
             ajax: {
-                url: "{{ route('get_want_to_buy_ajax') }}",
+                url: "{{ route('on_call_report_list_ajax') }}",
+                data: function(d) {
+                    d.from = $('#start').val();
+                    d.to = $('#to').val();
+                }
             },
-
             lengthMenu: [70, 100, 250, 350, 450, 550, 650, 750, 850, 950, 1100, 1200, 1300],
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'marketing_name',
-                    name: 'marketing_name',
+                    data: 'follow_up_user',
+                    name: 'follow_up_user'
                 },
                 {
-                    data: 'create_date',
-                    name: 'create_date',
+                    data: 'date_time',
+                    name: 'date_time'
                 },
                 {
-                    data: 'customer_name',
-                    name: 'customer_name'
+                    data: 'code',
+                    name: 'code'
                 },
                 {
-                    data: 'phone_number',
-                    name: 'phone_number'
+                    data: 'offer_status',
+                    data: 'offer_status'
                 },
                 {
-                    data: 'property_type',
-                    name: 'property_type',
+                    data: 'house_no',
+                    data: 'house_no'
                 },
                 {
-                    data: 'sqft',
-                    name: 'sqft',
+                    data: 'road',
+                    data: 'road'
                 },
                 {
-                    data: 'price_from',
-                    name: 'price_from',
-                },
-                {
-                    data: 'price_to',
-                    name: 'price_to',
+                    data: 'ward',
+                    data: 'ward'
                 },
                 {
                     data: 'township_name',
-                    name: 'township_name',
+                    data: 'township_name'
                 },
                 {
-                    data: 'remark',
-                    name: 'remark',
-                },
-
-                {
-                    data: 'viewed_status',
-                    name: 'viewed_status',
-                },
-
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: true,
-                    searchable: true
+                    data: 'property_type',
+                    data: 'property_type'
                 },
             ],
         });
 
+
         $('#dateSearch').on('click', function() {
             table.draw();
         });
+
 
         $(document).ready(function() {
             $('#datatable tfoot th').each(function() {
                 var title = $('#datatable thead th').eq($(this).index()).text();
             });
             var table = $('#datatable').DataTable();
+
             table.columns().eq(0).each(function(colIdx) {
                 $('input', table.column(colIdx).footer()).on('keyup change', function() {
                     table

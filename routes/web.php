@@ -155,4 +155,10 @@ Route::middleware('auth')->group(function () {
         'as' => 'save_viewed_property',
         'uses' => 'Marketing\ViewedPropertyController@SaveViewedProperty'
     ]);
+
+    Route::resource('on_call_report_list', 'Marketing\OncallReportListController');
+    Route::get('on_call_report_list_ajax', [
+        'as' => 'on_call_report_list_ajax',
+        'uses' => 'Marketing\OncallReportListController@on_call_report_list_ajax'
+    ]);
 });

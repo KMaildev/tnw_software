@@ -68,6 +68,14 @@
                                                     </span>
                                                 </a>
                                             </li>
+
+                                            <li class="site-menu-item">
+                                                <a href="{{ route('on_call_report_list.index') }}">
+                                                    <span class="site-menu-title">
+                                                        Oncall Report List
+                                                    </span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -137,7 +145,6 @@
                             </div>
                         </div>
                     </li>
-
 
                 </ul>
             </div>

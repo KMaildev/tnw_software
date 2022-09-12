@@ -30,6 +30,10 @@ class WantToBuyController extends Controller
         return Datatables::of($data)
             ->addIndexColumn()
 
+            ->editColumn('marketing_name', function ($each) {
+                return $each->users_table ? $each->users_table->name : '-';
+            })
+
             ->editColumn('property_type', function ($each) {
                 return $each->property_type_table ? $each->property_type_table->property_type : '-';
             })
@@ -115,7 +119,7 @@ class WantToBuyController extends Controller
                 </center>';
                 return $actions;
             })
-            ->rawColumns(['action', 'viewed_status', 'property_type', 'sqft', 'township_name'])
+            ->rawColumns(['action', 'viewed_status', 'property_type', 'sqft', 'township_name', 'marketing_name'])
             ->make(true);
     }
 
@@ -154,6 +158,7 @@ class WantToBuyController extends Controller
         $want_to_buy->area_type = $request->area_type;
         $want_to_buy->remark = $request->remark;
         $want_to_buy->user_id = auth()->user()->id ?? 0;
+        $want_to_buy->create_date = date('Y/m/d h:i:sa');
         $want_to_buy->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }

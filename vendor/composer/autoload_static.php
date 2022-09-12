@@ -867,6 +867,7 @@ class ComposerStaticInit9cf3b271828301e56d43f9d71bfb6157
         'App\\Http\\Requests\\StoreRole' => __DIR__ . '/../..' . '/app/Http/Requests/StoreRole.php',
         'App\\Http\\Requests\\StoreSaleRentAppointment' => __DIR__ . '/../..' . '/app/Http/Requests/StoreSaleRentAppointment.php',
         'App\\Http\\Requests\\StoreUsers' => __DIR__ . '/../..' . '/app/Http/Requests/StoreUsers.php',
+        'App\\Http\\Requests\\StoreViewedProperty' => __DIR__ . '/../..' . '/app/Http/Requests/StoreViewedProperty.php',
         'App\\Http\\Requests\\StoreVisitors' => __DIR__ . '/../..' . '/app/Http/Requests/StoreVisitors.php',
         'App\\Http\\Requests\\StoreWantToBuy' => __DIR__ . '/../..' . '/app/Http/Requests/StoreWantToBuy.php',
         'App\\Http\\Requests\\StoreWard' => __DIR__ . '/../..' . '/app/Http/Requests/StoreWard.php',
